@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "[latex]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "James-Yu.latex-workshop"
+  }
+}
