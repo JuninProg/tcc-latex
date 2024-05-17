@@ -7,7 +7,7 @@
 3. Create a new project from zipped file
 4. Compile "abntex2-modelo-ifrs-osorio-ads-tcc.text" to generate PDF
 
-## :gear: Setup usign VsCode
+## :gear: Setup using VsCode
 
 1. Install extension LaTeX Workshop
 2. Install tex live https://www.tug.org/texlive/
