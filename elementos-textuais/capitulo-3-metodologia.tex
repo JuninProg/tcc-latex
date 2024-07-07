@@ -1,1 +1,28 @@
 \chapter{Metodologia}
+
+Para a reconstrução da aplicação \emph{web} e \emph{API} do Painel Pró-Mamá foi adotada a metodologia incremental. De acordo com \citeonline{metodologiaincremental} essa abordagem permite desenvolver sistemas em pequenas partes funcionais, entregando incrementos contínuos que podem ser validados e ajustados conforme necessário. Cada incremento é uma versão operacional do sistema, possibilitando a entrega de valor progressiva e a incorporação de \emph{feedback} ao longo do processo.
+
+\section{Desenvolvimento Incremental}
+
+O desenvolvimento foi dividido em incrementos, cada um contemplando uma funcionalidade específica. A cada ciclo de desenvolvimento foram seguidas as etapas de: planejamento, implementação, testes e implantação.
+
+\begin{itemize}
+  \item \textbf{Planejamento do Incremento:} Definição das funcionalidades e tarefas.
+  \item \textbf{Desenvolvimento:} Implementação do código e testes unitários.
+  \item \textbf{Validação:} Revisão do código e testes integrados.
+  \item \textbf{Implantação:} Testes locais e, após validação, \emph{deploy} em produção.
+\end{itemize}
+
+Os incrementos foram priorizados conforme a criticidade e impacto:
+
+\begin{enumerate}
+  \item Gestão de usuários e autenticação.
+  \item Gerenciamento de conteúdos.
+  \item Envio de notificações e e-mails.
+  \item Gestão de dúvidas e respostas.
+  \item Exportação de dados e relatórios.
+\end{enumerate}
+
+\section{Conclusão}
+
+Apesar de uma das críticas dessa metodologia ser o fato de ser difícil aplicar uma gestão de mudança que não desvie o foco da ideia principal, seu uso se fez válido dado o contexto de haver uma versão inicial das aplicações no ar. Assim, pode-se promover uma restruturação fluída que seguisse os moldes planejados anteriormente e que se moldasse a partir de cada entrega e avaliação dos \emph{stakeholders}.

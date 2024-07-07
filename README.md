@@ -5,7 +5,7 @@
 1. Zip all files, skipping ".gitattributes", ".gitignore" and "README.md"
 2. Access https://www.papeeria.com/ or https://www.overleaf.com
 3. Create a new project from zipped file
-4. Compile "abntex2-modelo-ifrs-osorio-ads-tcc.text" to generate PDF
+4. Compile "abntex2-modelo-ifrs-osorio-ads-tcc.tex" to generate PDF
 
 ## :gear: Setup using VsCode
 
