@@ -1,0 +1,110 @@
+* estrutura e pontos principais
+
+** resumo
+
+"amamentação exclusiva até o sexto mês e aleitamento materno com alimentos complementares
+até dois anos ou mais de idade"
+    -- tem que falar sobre amamentação exclusiva
+
+"conscientizar a comunidade osoriense."
+    -- região especificada
+
+** abstract
+** lista de ilustrações
+** lista de tabelas
+** lista de abreviaturas e siglas
+** sumário
+
+** introdução
+
+inicia citando  amamentação exclusiva
+
+"O Programa Municipal de Aleitamento Materno da cidade de Osório (Pró-Mamá) é um
+programa de iniciativa do Núcleo de Apoio à Saúde da Família – NASF e da Secretaria de Saúde
+do município. Trata-se de um trabalho multidisciplinar que conta com psicóloga, nutricionista
+e fonoaudiólogas e tem como objetivo acompanhar mães e bebês nas questões do aleitamento
+materno e desenvolvimento infantil. Uma das prioridades do Pró-Mamá é estar mais perto destas
+mães, e isso ocorre através dos proﬁssionais de referência em amamentação que atuam em todas
+as Unidades de Saúde - Estratégia de Saúde da Família/ESF. Estes proﬁssionais atuam através de
+atendimentos, encaminhamentos, acompanhamento, grupos de orientação, visitas domiciliares,
+entre outros (OSORIO.RS.GOV.BR, 2017)."
+    -- o link da ref n funciona
+    -- referenciar canal no youtube https://youtu.be/PyhrO-KCqyk talvez
+
+fala sobre acesso a informação para comunidade de osório, explicando brevemente a integração entre app, painel, api, usuários e agentes
+
+** objetivos
+
+Objetivos especíﬁcos
+• Analisar os requisitos para desenvolvimento do Painel Administrativo;
+• Projetar o Banco de Dados;
+• Projetar a arquitetura de software do Painel Administrativo;
+• Desenvolvimento do Painel Administrativo;
+• Desenvolvimento da API;
+• Manutenção do Sistema;
+
+** justificativa
+
+três parágrafos
+
+"O próprio Ministério da Saúde recomenda que os meios de comunicação apoiem à
+amamentação seja através da divulgação da importância do aleitamento materno, das experiências
+positivas sobre o aleitamento materno ou da estimulação e promoção de campanhas sobre
+aleitamento materno (PORTALMS.SAUDE.GOV.BR, 2018)."
+    -- link quebrado http://portalms.saude.gov.br/saude-para-voce/saude-da-crianca/aleitamento-materno/apoio-a-amamentacao
+
+** referencial teórico
+
+-- todo tópico é explicado com uma justificativa no fim de onde as aplicações se encaixam
+
+aleitamento materno
+    -- explica e introduz o contexto de promoção da amamentação, disseminação de informação, etc. e por fim fala sobre como o app, painel, auxiliam na disseminação do conhecimento
+
+aplicação web
+    -- explica como funciona uma aplicação web do lado do cliente e servidor e por fim com um gráfico de popularidade corrobora a escolha de php pra desenvolver a api e painel, também fala sobre porque desenvolver um sistema web era inevitável já que se encaixa em qualquer tela e diferentes recursos
+
+cms
+    -- explica sobre CMS e WCMS, como funciona a dinamicidade dos dados e até mesmo layouts, por fim contextualiza que as aplicações web em sua estrutura utilizam desses conceitos
+
+mvc
+    -- explica sobre a arquitetura, a escolha do Laravel para padrão de projeto do monolíto painel/api
+
+frameworks
+    -- explica o que é framework e seu uso no desenvolvimento de aplicações, usa gráfico de popularidade do laravel, gráfico de interesse ao longo do tempo entre os frameworks do php, gráfico de tempo de execução de operações crud, teste de carga com symfony e laravel, com tudo isso justifica por fim a escolha pra ser a principal ferramenta do projeto painel/api
+
+laravel
+    -- breve explicação do framework sem nenhuma justificativa sobre o contexto do trabalho
+
+api
+    -- explica o conceito e porque essa comunicação de dados é usada para o app e painel
+
+** trabalhos relacionados
+
+"Ao desenvolver este trabalho foram feitas pesquisas para investigar a existência de sis-
+temas que se aproximassem ao funcionamento do Painel Pró-Mamá."
+" WordPress, Drupal, Joomla,
+Moodle e OuvidorSUS. Todos estes são CMS (Content Management System)"
+
+-- monólogo chato de o que é cada sistema com um comparativo com o pró-mamá, desnecessário
+
+
+"Segundo uma análise de (BUILTWITH.COM, 2018), os três CMS mais utilizados atu-
+almente são WordPress, Drupal e Joomla!. A ﬁgura 8 demonstra o gráﬁco da distribuição para
+sites usando tecnologias CMS. O WordPress lidera com 51% de uso seguido do Drupal com 5%
+e o Joomla! aparece com 3% em terceiro lugar. O Moodle, que não aparece no gráﬁco possui um
+total de 0,56% de uso, ﬁcando em 12º lugar."
+    -- traz a popularidade do wordpress e justifica a escolha de php e mysql porque o cms mais popular utiliza
+
+-- Explica os fins do CMS e usa de uma conjectura em volta do aplicativo do wordpress vs as necesidades do aplicativo pró-mama, ruim porque esses CMS possuem APIs que o app poderia consumir...
+-- O viés de especificar que as necessidades do aplicativo pró-mamá e porque apesar de haver sistemas CMS similares, dada as características do projeto se faz mais necessário que seja feito as aplicações do zero
+
+** metodologia
+
+-- levantamento de requisitos a partir de análise quantitativa envonveldos os profissionais do programa
+-- metodologia incremental, entregas e validações
+-- usuário final do painel não é da área da informática, dado utilizado para traçar complexidade do sistema
+-- mapa de rotas API para acordo de contratos entre desenvolvedores
+-- feedback contínuo, manutenção do sistema, ciclo de vida do software
+
+** desenvolvimento
+
