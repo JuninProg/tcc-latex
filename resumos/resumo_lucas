@@ -108,3 +108,199 @@ total de 0,56% de uso, ﬁcando em 12º lugar."
 
 ** desenvolvimento
 
+-- introduz os sistemas contextualizando-os e faz um breve resumo do que será abordado no capítulo.
+
+cenário preexistente
+
+-- Profissionais da saúde são capacitados constantemente pela equipe Pró-Mamá através de encontros e literatura  a fim de formar referências.
+-- O acompanhamento da díade mãe-bebê se dá em seu território adscrito através de visita domiciliar e
+atendimentos na Unidade de Saúde.
+-- Grupos, orientação, sala de espera, visitas domiciliares, inter-consultas e discussão de casos no intuito de que a introdução
+de fórmulas infantis ou leite de vaca seja a última opção.
+-- Atendimento presencial, somente uma parcela de Osório é beneficiada. Limitação quanto à propagação das informações a nível do município.
+
+cenário atual
+
+-- Cenário atual é uma soma ao Programa já existente. O trabalho em conjunto do aplicativo
+do Pró-Mamá com o Painel Pró-Mamá é ferramenta auxiliadora na divulgação e promoção do
+aleitamento materno no município de Osório, atingindo uma maior parcela de pessoas.
+-- Todo o município pode ter acesso às
+notícias e conhecimentos sobre o aleitamento.
+
+funcionamento do sistema
+
+-- dá uma breve explicação de como o app consome os dados via JSON através de requisições HTTP
+-- explica também como o painel é acessado e serve os dados
+--  A API foi utilizada com os princípios da arquitetura REST, o banco
+de dados usado foi o MySQL e por último o Painel Administrativo, que é uma aplicação Laravel,
+na linguagem PHP.
+
+análise dos requisitos do painel administrativo
+
+requisitos funcionais
+
+| Requisito                     | Descrição                           | Tipo      |
+|-------------------------------|-------------------------------------|-----------|
+| Cadastrar Bairro               | Cadastrar um bairro                 | Essencial |
+| Cadastrar Posto de Saúde       | Cadastrar posto com dados básicos   | Essencial |
+| Cadastrar Informação           | Cadastrar título, corpo e idade     | Essencial |
+| Cadastrar Notificação          | Cadastrar título e texto da notificação | Essencial |
+| Cadastrar Dúvida Frequente     | Cadastrar título e texto de dúvida  | Essencial |
+| Cadastrar Termos de Uso        | Cadastrar título e texto de termos  | Essencial |
+| Responder dúvida do usuário    | Responder dúvida de um usuário      | Essencial |
+| Alterar Senha                  | Trocar senha da conta               | Essencial |
+| Envio de e-mail Fale Conosco   | Enviar e-mail ao interagir no Fale Conosco | Desejável |
+| Pré-Visualizar Informação      | Ver prévia da informação no celular | Desejável |
+
+requisitos não funcionais
+
+RNF01 O sistema deve ser desenvolvido na plataforma Web.
+RNF02 O sistema precisa de internet para ser acessado.
+RNF03 O sistema deve fornecer uma API para consumo das informações.
+RNF04 O sistema deve utilizar o banco MySQL.
+RNF05 O sistema deve estar sempre disponível (alta disponibilidade) para as requisições.
+
+arquitetura de software
+
+-- o autor fala que existem dois clientes: navegador web e app. na arquitetura prevê que o painel web acesse o banco de dados enquanto o app vai através da api para acessar o banco de dados. há um acoplamento no servidor rest com o painel causando alguns problema como escalabilidade se quisermos adicionar mais APIs, ou de responsabilidade porque o painel web não pode acessar o banco de dados, etc...
+
+-- a justificativa é o kit do laravel permitir suporte fácil pra api e web
+
+banco de dados
+
+-- apesar do tópico ser banco de dados, fala também da estruturação do repositório
+-- modelo lógico e seu diagrama do brmodelo, diagrama de classes e relações com MVC e triggers
+-- Na camada de Controle encontram-se as classes que tratam as requisições vinda do cliente
+(navegador Web ou aplicativo Pró-Mamá) e que retornam algum tipo de informação para ele.
+Essa informação pode ser uma View (HTML, CSS) ou um JSON (API).
+-- model informação, controller e views
+-- trigger pra apagar a senha reserva em caso de recuperação de conta, somente pra atualizar um atributo na mesma tabela que vai ser atualizada a nova senha, parece desnecessário
+-- a tabela sincronização possui trigger para incrementar o contador para cada alteração feita nas outras tabelas para que o app offline possa se atualizar quando voltar a ter acesso a internet, na nova versão o app faz isso sem a necessidade da tabela
+
+configuração do ambiente
+
+-- ambiente de desenvolvimento local, windows 7 e XAMPP
+-- instalação laravel, comandos para criar repo e credenciais banco/email
+
+controle de versão
+
+-- breve explicação de como o autor usou git na sua máquina
+
+ambiente de testes
+
+-- postman para testar as APIs
+-- mail trap pra testar e-mail
+
+painel administrativo
+
+-- introdução como implementou cada arquivo controller, modelo e views, padrões de nomenclatura
+-- uso do bootstrap a partir de um template de Dashboard
+-- adaptação da página de login pré-pronta
+-- explicação da navbar a esquerda na vertical e navbar do top como layout fixo e a dinamicidade do layout que dispõe das operações CRUD
+-- cita cada item do menu e finaliza mencionando que os próximos conteúdos é cada item do menu.
+
+informação
+
+-- principal e mais importante função, informações que serão exibidas no aplicativo, alcançando determinadas idades.
+-- explicada cada campo de cadastro
+-- Links externos e internos
+-- Pré-Visualizar foi uma funcionalidade que surgiu como ideia do próprio autor
+para o contexto do cadastro da Informação. Justifica experiência de usuário
+
+-- não fala sobre o envio da foto da informação, será que era pré-definida?
+
+fale conosco
+
+-- proﬁssional capacitado da área da saúde, a responder uma dúvida de um
+usuário
+-- opção “Responder Dúvida Para Todos”, que faz com que a pergunta
+se torne pública, ou seja, todas as pessoas com o aplicativo podem ver aquela dúvida.
+
+notificação
+
+-- utilizadores do Painel podem cadastrar notiﬁcações que irão aparecer no aplicativo do Pró-Mamá (Push Notification)
+--  “Notiﬁcar o quanto antes” é uma opção disponibilizada para que quando o utilizador cadastre a notiﬁcação, esta apareça o quanto antes no aplicativo
+-- Para personalizar as notiﬁcações, pode-se usar as palavras coringa %ARTIGO%, %NOMEDACRIANCA% e %NOMEDOUSUARIO% no título e no texto da notiﬁcação
+
+-- não era funcional
+
+página inicial
+
+-- cartões informativos
+-- O primeiro é o de dúvidas ainda não lidas, que serve como lembrete para responder as dúvidas.
+-- O segundo é o de quantas pessoas se cadastraram no aplicativo, ao todo. 
+-- E o terceiro e último é um card que possui uma tabela das últimas cinco informações postadas.
+
+envio de e-mail
+
+-- três possibilidades de envio: cadastro de dúvida, resposta de dúvida e recuperação de senha do aplicativo, o tópico abrange a explicação dessas funcionalidades também
+-- o sistema dispara um e-mail para o endereço eletrônico “master”, que é de posse do Pró-Mamá
+    -- hj nós enviamos para todos os e-mails cadastrados de usuários "admin"
+-- resposta de dúvida envia e-mail
+    -- hj enviamos push notification, talvez faça sentido enviar e-mail também
+-- esqueci a senha do aplicativo, usa uma senha provisória e quando loga no app altera
+    -- hj enviamos um token que expira em uma hora que o usuário deve preencher no ato pra alterar sua senha
+
+alterar senha (conta)
+
+--  A funcionalidade consiste basicamente em poder alterar a atual senha de acesso ao Painel. Os dados requiridos para alteração são Senha Atual, Nova Senha e Conﬁrmar Nova Senha.
+
+API
+
+-- fala sobre o que é e como se relaciona com o painel e app
+-- padrões REST post,get,put e delete
+-- token de acesso
+
+requisições e respostas
+
+-- http://servidor.com/api/user?api_token=abcdefg123456 
+-- Para autenticar a troca de informações, um campo api_token vai na URL contendo uma String identiﬁcadora daquele usuário. 
+-- formato JSON
+-- tabela respostas padrões
+
+rotas da api
+
+-- o objetivo é visualizar as rotas de API, agrupadas por entidades, e buscar ver as relações dos métodos de HTTP com a ﬁnalidade daquela rota. 
+-- tabela de rotas, com descrição, método, campos e respostas
+    -- oq hj substituimos com o swagger dinâmico
+
+Implantação (DEPLOY)
+
+-- servidor da Secretaria Municipal da Saúde de Osório-RS.
+-- Ubuntu / Linux
+-- HTTP
+    -- ponto de falha que derrubou o sistema, LGPD
+-- processo pra clonar o repo e subir os serviços
+
+** manutenção do sistema
+
+"Após o Lançamento do Painel Administrativo o foco deste trabalho visa manter as
+funcionalidades, corrigir os erros, procurar falhas, bugs e receber o feedback da equipe do
+Pró-Mamá. São processos como este que garantem a qualidade do software.
+Devido a existência da documentação do seguinte trabalho quanto às tecnologias empre-
+gadas, o processo de manutenção se torna menos custoso e complexo. A documentação forma os
+alicerces para um desenvolvimento bem-sucedido e fornece um guia para a tarefa de manutenção
+do software (PRESSMAN, 1995)."
+
+** conclusão
+
+"Como visto, o objetivo deste trabalho foi desenvolver um sistema informatizado, espe-
+ciﬁcamente um sistema de gerenciamento de conteúdo Web, na qual permitisse à equipe de
+proﬁssionais do Pró-Mamá produzir e gerenciar informações em saúde com foco no aleitamento
+materno."
+
+"O objetivo do trabalho foi atingido, uma vez que o Painel Administrativo e a API
+encontram-se em funcionamento, hospedados no servidor da secretaria da saúde de Osório.
+O lançamento do Aplicativo juntamente com o Painel Administrativo e a API ocorreram no dia 7
+de Agosto de 2018, no II Seminário Municipal da Amamentação em Osório-RS."
+
+
+** trabalhos futuros
+
+• Estudar maneiras de criar relatórios que permitam a visualização do desenvolvimento das
+crianças da região, seus históricos de alimentações etc;
+• Investigar novas formas de implementar funcionalidades dentro do sistema, buscando
+atingir melhores desempenhos;
+• Manter o sistema e dar suporte a equipe do Pró-Mamá quanto às suas dúvidas;
+• Criação de projetos e trabalhos de pesquisas como esse, aliando a tecnologia às causas
+sociais;
