@@ -1,0 +1,104 @@
+Pró-Mamá: Aplicativo Móvel Multiplataforma de
+Apoio ao Programa de Aleitamento Materno do
+Município de Osório - Rio Grande do Sul
+
+
+** agradecimentos
+** resumo
+** abstract
+** lista de ilustrações
+** lista de tabelas
+** lista de abreviaturas e siglas
+** sumário
+
+** introdução
+
+4 parágrafos sucintos, começa citando o programa do Pró-Mamá, após seus meios de comunicação,
+a importância do aleitamento materno exclusivo e fala que o aplicativo é um rápido
+acesso ao programa através de dispositivos móveis.
+
+** objetivo
+
+objetivo geral
+
+auxiliar as atividades realizadas pelos proﬁssionais de
+saúde do programa Pró-Mamá através do desenvolvimento de um aplicativo móvel multiplata-
+forma.
+
+informações de acordo com a idade da criança
+
+acompanhamento e interação direta com a população osoriense participante deste programa social
+
+objetivos específicos
+
+• Analisar os requisitos para desenvolvimento da aplicação;
+• Desenvolvimento da aplicação;
+• Demonstrar os resultados.
+
+** justificativa
+
+três parágrafos, "IBGE (2018), no ﬁm de 2016 mais de 60% dos brasileiros acessaram a internet
+através de um telefone celular", mercado de aplicativos para dispositivos móveis, categoria "medicina", fazendo do aplicativo uma ferramenta à disposição dos proﬁssionais
+do programa para exercerem suas tarefas, "O Ministério da Saúde também apoia o uso de meios de comunicação para divulgar a
+importância do aleitamento materno".
+
+** referencial teórico
+
+cita cada tópico com no fim uma relação com o programa ou aplicativo dizendo que serão abordados
+mais detalhes nos próximos capítulos
+
+aleitamento materno
+
+Segundo o Ministério da Saúde, os meios de comunicação podem apoiar o aleitamento
+materno das seguintes formas:
+• Cumprindo a NBCAL e a Lei 11.265, que regulamentam a publicidade de alimentos e
+produtos que concorrem com a amamentação.
+• Divulgando a importância do aleitamento materno.
+• Divulgando experiências positivas sobre o aleitamento materno.
+• Estimulando e promovendo campanhas sobre aleitamento materno.
+
+usa do bom dado acima para falar sobre o programa e como o aplicativo pode ser um 
+meio de comunicação que apoia o aleitamento materno
+
+programa pró-mamá
+
+"Com o objetivo de aumentar os índices de aleitamento materno e qualiﬁcar a atenção no
+município de Osório do estado do Rio Grande do Sul, foi formado pela secretaria de saúde do
+município o Programa de Aleitamento Materno intitulado Pró-Mamá."
+
+APLICATIVO MÓVEL MULTIPLATAFORMA
+
+aplicativo móvel multiplataforma refere-se a um software que pode ser executado em
+mais de um sistema operacional para dispositivos móveis Android e iOS
+
+explica o porque codar nativo faz com que haja duas bases de código fonte e diversas ides, porém
+que apps híbridos tem menos perfomance quando comparado, apesar de facilitar na
+manutenção do código
+
+o trabalho foi feito de forma nativa com o kit de desenvolvimento do xamarin
+
+C#, .NET E XAMARIN
+
+com uma base de código C# compartilhada, pode-se
+utilizar o Xamarin como kit de desenvolvimento para desenvolver aplicações para Android, iOS
+e Windows com suas interfaces de usuário nativas através dessas plataformas
+
+implica em separar o programa em código especíﬁco de cada plataforma (geralmente o acesso ao ambiente nativo,
+como o sistema de arquivos, ou APIs da plataforma como câmera, GPS e assim por diante) e
+código compartilhado que geralmente requer somente a base do kit de desenvolvimento .NET
+    
+1,4 milhões de desenvolvedores estavam utilizando a plataforma Xamarin ao
+redor do mundo em abril de 2017.
+
+** trabalhos relacionados
+
+neste capítulo é feito um monólogo chato de cada trabalho relacionado escolhido com uma breve explicação de suas funcionalidades.
+
+após são feitas comparações utilizando de algumas características do app pró-mamá que se destacam frente aos outros, como: comunicação com equipe especializada que somente o pago oferece e as funcionalidades que são comuns aos outros.
+
+** metodologia de desenvolvimento
+
+metodologia incremental, reuniões periódicas, feedback e manutenção
+análise de qualidade e testes de rotinas desempenhada manualmente por estudante
+
+
