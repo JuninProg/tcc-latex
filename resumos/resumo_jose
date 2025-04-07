@@ -101,4 +101,271 @@ após são feitas comparações utilizando de algumas características do app pr
 metodologia incremental, reuniões periódicas, feedback e manutenção
 análise de qualidade e testes de rotinas desempenhada manualmente por estudante
 
+análise de requisitos
 
+cita que desde o início ficou claro a necessidade de um painel pra que os profissionais pudesseem alimentar o aplicativo com informações, dando origem ao trabalho do painel e api.
+
+requisitos funcionais
+
+RF01 Cadastrar usuário Essencial
+RF02 Login de usuário Essencial 
+RF03 Restaurar senha Essencial
+RF04 Acesso à informações Essencial
+RF05 Cadastrar criança Essencial
+RF06 Editar perﬁl de usuário Essencial
+RF07 Trocar senha Essencial
+RF08 Editar o perﬁl da criança Essencial
+RF09 Armazenar fotos Essencial 
+RF10 Editar foto Essencial
+RF11 Excluir foto Desejável 
+RF12 Adicionar medição Essencial
+RF13 Excluir medição Desejável
+RF14 Registrar marcos de desenvolvimento Essencial 
+RF15 Editar marco de desenvolvimento Desejável
+RF16 Enviar dúvidas para a equipe Pró-Mamá Essencial
+RF17 Visualizar dúvidas de outros usuários Essencial
+RF18 Acesso à dúvidas frequentes Essencial
+RF19 Acesso à informações sobre postos de saúde Essencial
+RF20 Acesso à atalhos para as redes sociais Essencial
+RF21 Acesso à informações sobre o programa Pró-Mamá Essencial
+RF22 Trocar e-mail Essencial 
+
+requisitos não funcionais
+
+RNF01 A aplicação deve ser desenvolvida para ser implementada nos sistemas operacionais
+móveis Android e iOS.
+RNF02 O desenvolvimento da aplicação deve ser conduzido de forma nativa.
+RNF03 A aplicação requer acesso a uma API REST para requisitar de dados.
+RNF04 A aplicação precisa de acesso esporádico à internet para proporcionar acesso a
+algumas funcionalidades e para que o conteúdo seja atualizado através de requisições
+à API REST.
+RNF05 A aplicação deve ser utilizável mesmo sem acesso à internet.
+
+prototipação
+
+1 parágrafo, utilizou o aplicativo just in mind e algumas fotos das telas.
+
+desenvolvimento
+
+inicia citando os requisitos n funcionais rnf01 e rnf02, android e ios nativo
+opção bastante cotada foi o react native, porém em 2018 estava em uma versão muito inicial
+escolheu-se então pelo Xamarin visto que possuía maior comunidade e avanço no framework
+curva de aprendizado alta pois teve q aprender C#, MVVM e o próprio Xamarin
+
+** solução
+
+Nesse capítulo são dispostos o cenário preexistente, o cenário ideal e a solução proposta
+para que o cenário ideal seja alcançado.
+
+CENÁRIO PREEXISTENTE
+
+pró-mamá promove formação de um profissional de referência em cada equipe de Estratégia de Saúde da Família - ESF
+capacitação inicial, encontros bimestrais, atendimentos a domicílio e na Unidade de Saúde
+casos mais complexos são discutidos e encaminhados para a equipe multiproﬁssional
+do Pró-Mamá que é composta por fonoaudiólogo, nutricionista e psicólogo.
+maneira presencial. Exige um encontro, uma reunião ou
+uma visita domiciliar para sanarem-se as dúvidas e obter esclarecimentos ou conhecimentos.
+limitação quanto à propagação das informações a nível do município de Osório
+
+CENÁRIO IDEAL
+
+aplicativo referente ao presente trabalho auxiliando o trabalho já realizado pelo programa Pró-Mamá, de forma que o trabalho em conjunto do aplicativo
+do Pró-Mamá com a aplicação web será ferramenta auxiliadora na divulgação e promoção do
+aleitamento materno no município de Osório, atingindo uma maior parcela da população osoriense
+do que o cenário preexistente.
+
+SOLUÇÃO
+
+utilizando o kit de ferramentas Xamarin (discutido na seção 2.4), desenvolver um aplicativo móvel multiplataforma que auxilie
+a propagação e aumente o alcance das informações que o programa Pró-Mamá disponibiliza para
+a comunidade atualmente.
+
+** desenvolvimento
+
+Neste capítulo serão mostradas as partes da aplicação referente à este trabalho, o banco
+de dados empregado e as classes da aplicação com uma breve explicação sobre o papel de cada
+uma.
+
+banco de dados
+
+dados necessários para o pleno funcionamento a aplicação é o MarcelloDB um banco de dados NoSQL (banco de dados não
+relacional) orientado a objetos desenvolvido em C# empregando o uso de BSO
+banco de dados orientado a objetos (cada informação é armazenada na forma de objeto instanciado), os
+diagramas de classes que serão mostrados a partir da próxima seção representam exatamente
+como os objetos referentes a aquela classe são dispostos no banco de dados.
+
+aplicação
+
+diagrama de classes da aplicação, com as classes que foram desenvolvidas para o aplicativo
+
+introdução
+
+usuário inicia o aplicativo pela primeira vez, é mostrado ao usuário uma tela com um carousel de 
+cinco imagens (conforme mostrado nas Figuras 13a e 13b), e acima de cada imagem uma pequena dica sobre o 
+funcionamento do aplicativo.
+há um botão "Vamos lá!" que leva o usuário para a tela de login
+
+login e cadastro
+
+Login e Cadastro compartilham de uma tela com abas, então o usuário pode 
+trocar de tela rapidamente para acessar aquilo que é importante para si
+login é feito através do e-mail e senha, o usuário pode clicar no botão "Esqueci minha senha" que leva o usuário para a tela de recuperação de senha
+cadastro no aplicativo, deve preencher um formulário com e-mail, senha, conﬁrmação de senha
+e escolher dentro de uma lista em qual bairro do município de Osório o mesmo mora (caso o
+usuário não more em Osório, há uma opção para este caso especíﬁco)
+
+"ApiToken" é um string caracteres aleatórios gerada pelo servidor web quando
+o usuário se cadastra. Essa string serve como identiﬁcador e é obrigatória em quase todas
+as requisições para a API REST e o atributo "SenhaReserva" é onde a senha temporária de
+recuperação enviada pela API REST é mantida para posterior veriﬁcação. (brecha de segurança, 
+tanto com o token se for fixo e não expirar como jwt e também se a senha reserva não for um hash, pois o usuário
+pode recuperar esses dados? fica no banco de dados na nuvem, como o aplicativo se autentica nesse banco? salva as credenciais
+no celular?)
+
+adicionar criança
+
+A tela "Adicionar Criança" é acessada após o usuário efetuar o cadastro (e após efetuar
+login, caso o usuário não tenha nenhuma criança registrada até o momento do login), e é nesta
+tela que o usuário pode registrar novas crianças, adicionando-as ao seu perﬁl. Para acessar as
+principais funcionalidades do aplicativo, é necessário que o usuário tenha adicionado pelo menos
+uma criança.
+
+"Início" do aplicativo (tela principal)
+
+tela principal do aplicativo e que detém a principal função do aplicativo - permitir o acesso a informações disponibilizadas 
+pela equipe do programa Pró-Mamá
+a partir desse ponto o usuário tem acesso ao menu de opções da aplicação
+timeline interativa que mostra os estágios
+do desenvolvimento da criança abrangidos pelo aplicativo referente ao presente trabalho - "recém-
+nascido", "1 semana", "2 semanas", "3 semanas", "1 mês", "2 meses", ..., "1 ano e 11 meses", "2
+anos" - através da qual o usuário só pode acessar os estágios de idades já alcançados pela criança
+selecionada atualmente, não tendo a possibilidade de acessar estágios de idades superiores à
+idade atual da criança.
+Através da tela principal da aplicação, que é descrita nesta subseção, o requisito funcional
+referente à Tabela 8 - "Acesso à informações" - é cumprido de forma plena.
+
+perfil da criança
+
+layout da tela onde todos os dados que o usuário pode inserir na aplicação à respeito da criança são mostrados
+A imagem mostrada no topo do layout é a foto mais recente da criança (adicionada pelo usuário através da tela "Galeria", a qual
+será explanada na subseção 6.2.7)
+
+Os dados inseríveis/alteráveis através desta tela são: primeiro nome, sobrenome, sexo,
+peso ao nascer em gramas, altura ao nascer em centímetros, tipo de parto (normal ou cesáreo),
+idade gestacional no momento do parto (entre 20 e 42 semanas) e outras informações (campo
+livre para o usuário escrever o que desejar à respeito da criança).
+
+perfil da mãe
+
+tela onde todos os dados que o usuário pode inserir a respeito de si mesmo são mostradas
+pode trocar foto, o e-mail da sua conta na aplicação (botão "Trocar e-mail") e trocar a senha da sua conta na
+aplicação (botão "Trocar senha").
+
+galeria
+
+fotos de uma criança. Uma criança pode ter até 25 fotos registradas, uma para cada estágio de idade ("recém-nascido", "1 mês", "2 meses",
+..., "1 ano e 11 meses", "2 anos").
+Se, por exemplo, a criança selecionada atualmente no aplicativo atingiu apenas os estágios
+de idade "recém-nascido" e "1 mês" , haverá apenas dois espaços de foto disponíveis para serem
+registrados. Espaços subsequentes de fotos serão desbloqueados quando a idade atual da criança
+em questão for igual ou superior aos próximos estágios de idade.
+
+acompanhamento da criança
+
+tela onde o usuário pode registrar e visualizar as medições de peso, altura da criança e opcionalmente os detalhes da alimentação
+da criança
+
+marcos de desenvolvimento
+
+um panorama de pontos importantes do desenvolvimento (ou crescimento) a serem alcançados pela criança.
+10 marcos de desenvolvimento disponíveis para registro em cada criança: "Pri-
+meiro sorriso", "Virou-se sozinho(a)", "Primeiro dentinho", "Sentou-se sozinho(a)", "Parou o
+aleitamento materno", "Comeu a primeira fruta", "Comeu a primeira papa salgada", "Engati-
+nhou", "Primeira palavra" e "Primeiros passos".
+cada marco possui uma tela personalizada e algumas informações que variam, como por exemplo em "Primeira palavra" o usuário
+além de registrar a data em que a criança disse a primeira palavra, pode registrar qual foi a palavra
+
+fale conosco
+
+permite ao usuário habitante do município de Osório-RS entrar em contato diretamente com a equipe do Pró-Mamá através de uma mensagem de texto no formato
+de uma pergunta e posteriormente receber uma resposta.
+pelo botão "Ver outras conversas" o usuário pode acessar as perguntas que já foram feitas por outros usuários e as respostas dadas pela equipe do Pró-Mamá.
+
+dúvidas frequentes
+
+usuário tem acesso ao material produzido pela equipe Pró-Mamá respondendo dúvidas relacionadas à maternidade 
+em geral de outros usuários.
+
+postos de saúde
+
+acesso à informações concernentes às unidades de saúde do município de Osório-RS.
+para cada item há um botão para visualizar a localização no mapa e o número de telefone
+
+redes sociais
+
+tela com layout estático com links para a página do Facebook e para o canal no YouTube do programa Pró-Mamá.
+
+sobre
+
+tela com layout estático com
+um texto pré-deﬁnido à respeito da criação do programa Pró-Mamá e as pessoas envolvidas no
+programa e no desenvolvimento do aplicativo.
+
+selecionar criança
+
+o usuário tem a possibilidade de trocar a criança
+selecionada atualmente no aplicativo e também adicionar outra criança
+
+sair
+
+A última opção do menu do aplicativo, que é mostrado na Figura 18b (subseção 6.2.4),
+é a opção "Sair". 
+
+Notiﬁcações
+
+Uma das funcionalidades mais importantes do aplicativo referente ao presente trabalho
+é a apresentação de notiﬁcações para o usuário, para que o mesmo mantenha-se engajado em
+utilizar o aplicativo. As notiﬁcações são agendadas pela aplicação através da rotina executada em
+thread a ser explicada na próxima subseção.
+    -- atualmente quem lida com as notificações é o painel e api, onde um job roda diariamente para ver quais crianças
+    devem ser notificados e os dados da mensagem
+
+Sincronização autônoma com servidor remoto
+
+rotina em segundo plano, que é executada em thread, que tem como função sincronizar a base de dados e o upload de arquivos
+é por aqui que o app se atualiza quando offline ou se novas informações são adicionadas pelo painel
+também por essa thread é feito o agendamento de notificações
+
+cumprimento de requisitos não funcionais
+
+aplicação deve ser multiplataforma => pouco código específico gerado, tudo lidado pelo Xamarin
+aplicação deve ser desenvolvida de forma nativa => todo o código desenvolvido atráves do Xamarin é transformado em nativo
+aplicação requer acesso a uma API REST => API REST que foi desenvolvida pelo acadêmico Lucas
+aplicação deve ser utilizável mesmo sem acesso à internet => o aplicativo pode ser utilizado offline, com algumas limitações
+
+** conclusão
+
+presente trabalho foi desenvolver um aplicativo móvel multiplataforma
+para que a população pudesse ter acesso a informações conﬁáveis a respeito do aleitamento
+materno - informações redigidas por proﬁssionais experientes na área - com respaldo do programa
+Pró-Mamá do município de Osório - Rio Grande do Sul.
+em conjunto com o trabalho já desempenhado pelos profissionais do programa, o aplicativo proporciona que
+um público ainda maior seja atingido
+Os resultados deste trabalho são vistos através do número de cadastros no aplicativo desde
+seu lançamento - são cerca de 250 usuários em 4 meses
+
+** trabalhos futuros
+
+Resolver problemas relacionados ao agendamento de notiﬁcações para dispositivos iOS
+Manter o sistema e dar suporte a equipe do Pró-Mamá quanto às suas dúvidas
+Aprimorar o desempenho do aplicativo na parte de apresentação dos Postos de Saúde
+Requisitar acesso à localização do usuário durante o ﬂuxo de execução e utilizar a sua
+localização para mostrar ao usuário os postos de saúde mais próximos e a sua distância
+destes
+Implementar forma de sincronização plena de contas, permitindo que o usuário mantenha
+mais de um dispositivo conectado com a mesma conta sem diferenças de execução
+Emitir notiﬁcações para lembrar ao usuário de certas funcionalidades caso o mesmo não
+as esteja utilizando, como "Galeria", "Marcos do Desenvolvimento" e "Acompanhamento
+da Criança", assim como preencher o "Perﬁl da Mãe" e o "Perﬁl do Bebê".
+Aplicar princípios de escalabilidade no software - de maneira que o mesmo seja escalável -
+assim sendo possível implantá-lo facilmente em outra região geográﬁca.
