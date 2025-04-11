@@ -1,0 +1,56 @@
+# Estrutura texto TCC
+
+## Brainstorm de assuntos
+
+### Assuntos que são o cerne da pesquisa e não devo esquecer de mencionar
+
+* Reconstrução do painel e API conforme requisitos funcionais e não funcionais anteriormente levantados, com algumas mudanças pontuais em quesitos como estilização (cor vermelha sendo principal como é no app), segurança/infraestrutura onde é obrigatoriadade a comunicação em rede por protocolo HTTPS com certificado SSL, ao invés de como estava antes somente HTTP sem as informações sendo criptografadas, infrigindo as políticas das lojas dos dispositivos móveis (ponto que removeu o aplicativo antigo da loja).
+* Essa migração tecnológica do painel e API envolveu a escolha de uma nova linguagem e frameworks, tanto para o backend, quanto para o frontend, tendo em vista a manutenabilidade do projeto ao longo dos anos. Dado que o sistema anterior foi escrito em PHP com Laravel, sendo um monolito responsável tanto pelos endpoints, quanto telas dinâmicas, ao passar do tempo sua manutenção se tornou onerosa pois a maioria dos estudantes do IFRS Campus Osório (responsável pela tecnologia do projeto) não conseguiam avançar na resolução dos problemas, porque em sua base curricular outras ferramentas são ensinadas, tendo que aprender e lidar sozinho (além do professor orientador) com um projeto com grande número de código-fonte.
+* A escolha do novo principal framework de desenvolvimento se baseou não só pelo fato dos estudantes aprenderem NodeJS em seu dia a dia escolar, mas também pelo avanço de popularidade de mercado do uso da ferramenta frente o PHP, proporcionando com que os alunos possam atestar experiência posterior em busca de uma vaga na área de desenvolvimento. Pensar também em argumentos de desempenho, curva de aprendizado, etc.
+* Com a migração também pensou-se em uma das projeções futuras do aluno José (TCC do app) que seria escalar o sistema de modo que poderíamos aplicar em diferentes regiões geográficas. Pensando também na definição do sistema Pró-Mamá como gerenciador de conteúdo e tomando como base grandes do mercado, como WordPress, a principal funcionalidade é a portabilidade, ou seja, que novos agentes possam instalar e utilizar da ferramenta. Assim, além de separar a API e painel em dois repositórios diferentes para desacoplar frontend e backend, criou-se imagens Docker para cada sistema e um arquivo Docker Compose para além de criar os container das aplicações, sobe o banco de dados postgresql, redis e nginx para servir como load balancer. Tudo isso é possível através de apenas um comando de compose, além da configuração inicial. Para a configuração inicial espera-se que o usuário tenha um domínio e servidor, a partir disso configura-se o certificado (documentar depois as duas formas com cloudflare e certbot) e clona o repositório de infra do Pró-Mamá, basta instalar docker na máquina, preencher as variáveis de ambiente e rodar o sistema. Hoje o aplicativo que temos na loja somente aponta para o sistema da prefeitura de Osório, mas podemos fazer com que o aplicativo seja multitenant e o usuário no cadastro escolhe a prefeitura que deseja reportar. Assim novas prefeituras podem se adequar ao programa facilmente.
+* Em Osório o Pró-Mamá surgiu de uma iniciativa da NASF (Núcleo de Saúde da Família do Brasil), existe uma lei que outorga uma verba para que a prefeitura contrate uma equipe multiprofissional para atuar diretamente nas unidades de saúde do município. Essa equipe pode ser composta de: médico, médico-veterinário, psicólogo, nutricionista e fonoaudiólogo. A equipe de Osório criou o programa de aleitamento materno e começou a promever informações sobre o tema com treinamentos para outros colegas da saúde do serviço público, encontros semestrais, eventos, etc. Com isso o IFRS Campus Osório ofereceu uma parceria e foi desenvolvido em 2018 os sistemas para auxiliar na promoção das informações na cidade. Pesquisar mais sobre a lei para criar um paralelo em como o sistema Pró-Mamá pode fazer com que novas prefeituras consigam esse apoio do governo, entender os requisitos.
+* Para arquitetura de desenvolvimento ao invés de MVC, escolheu-se o DDD com princípios SOLID. A principal diferença é que ao desacoplar o frontend do backend, não fazia sentido manter camadas de visualização (view) no backend e nem controllers para as telas do painel. Na construção da API os diretórios e arquivos foram separados conforme a arquitetura hexagonal, com camada de domínio com as regras de negócio, interface de comunicação para as rotas, camada de infraestrutura para estruturas externas e camada da aplicação para o fluxo de cada rotina. No painel foi utilizada a mesma abordagem com adaptações onde mantêm-se camadas de domínio e aplicação para cada caso de uso usados nas telas. As telas estão na camada de interface mas com uma forma de factories para construir as dependências. Para carregamento das páginas utilizou um roteamento com lazy loading para que só seja carregado os scripts, html, css do endereço digitado, ao mudar de tela o carregamento dos novos arquivos é feito fazendo com que o desempenho do sistema seja fluído, rápido e leve.
+
+## Ordem dos tópicos e assuntos que devem ser abordados
+
+### Introdução
+
+* Amamentação exclusiva e promoção do aleitamento materno, pilares da OMS
+* Como surgiu o Pró-Mamá Osório, profissionais, NASF lei de incentivo municipal
+* Parceira com IFRS Campus Osório e criação do aplicativo/painel em 2018
+* Incoformidade com a LGPD e requisitos de segurança do sistema ocasionaram a remoção do aplicativo das lojas
+* Com caráter de continuação o presente trabalho tem como foco reestabelecer o painel e API do sistema Pró-Mamá, o aplicativo ficou de responsabilidade do outro aluno do projeto. Haverá uma migração tecnológica para atender aos requisitos de segurança e manutenabilidade, além de introduzir novas funcionalidades a partir das projeções futuras dos estudantes fundadores do projeto tecnológico e sugestões dos profissionais ao longo do uso da plataforma
+
+### Objetivos
+
+#### Objetivo geral
+
+Migração tecnológica do Painel e API do Pró-Mamá para que os sistemas estejam de acordo com os requisitos de segurança e sejam reestabelecidos para uso dos profissionais de saúde, além dos usuários pelo aplicativo.
+
+#### Objetivos específicos
+
+* A partir dos requisitos funcionais e não-funcionais pré-estabelecidos pelo estudante fundador, realizar revisões e apontamento de mudanças, além de criar novos se necessário
+* Planejar a migração tecnológica com a escolha das novas linguagens e frameworks
+* Desenhar a arquitetura do Painel e API
+* Estruturar banco de dados e operação para migração dos dados retroativos
+* Estruturar armazenamento de arquivos e migração das fotos retroativas
+* Desenvolver API e Painel
+* Adicionar protocolo HTTPS com certificado SSL e criptografia, além de rotinas específicas para a LGPD a fim de estar em conformidade com os requisitos de segurança das lojas
+* Consildar princípios de integração contínua e testes automatizados para a manutenção durante o ciclo de vida do software
+* Adicionar portabilidade no sistema para que seja um CMS instalável, assim outros municípios podem aderir ao programa
+
+### Justificativa
+
+* Meta-análise, uso de modelos de inter-
+venção pela Internet podem melhorar o nível de conhecimento sobre o aleitamento materno e
+que o seu domínio está intimamente relacionado ao efeito da amamentação. Ou seja, quanto mais a mãe sabe sobre amamentação melhor sua adesão as boas práticas para contribuir para o desenvolvimento pleno de seu bebê e da saúde de ambos
+* O serviço público de saúde deve promover iniciativas de promoção ao aleitamento materno, Pró-Mamá é um exemplo e o aplicativo corrobora com as premissas da OMS
+* Desde 2018 10.864 acessos, 1.348 cadastros realizados e mais de 188
+dúvidas respondidas Autor (2024).
+
+Criar uma justificativa que tenha esses três pilares: meta-análise e conhecimento x efeito da amamentação, OMS e como as instituições devem ter iniciativas de promoção e explorar os resultados do aplicativo para finalizar o argumento afirmando que se faz necessário com que ele seja posto de volta no ar dado sua contribuição para a sociedade.
+
+### Referencial Teórico
+
+
+
