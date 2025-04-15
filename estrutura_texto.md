@@ -11,7 +11,7 @@
 * Em Osório o Pró-Mamá surgiu de uma iniciativa da NASF (Núcleo de Saúde da Família do Brasil), existe uma lei que outorga uma verba para que a prefeitura contrate uma equipe multiprofissional para atuar diretamente nas unidades de saúde do município. Essa equipe pode ser composta de: médico, médico-veterinário, psicólogo, nutricionista e fonoaudiólogo. A equipe de Osório criou o programa de aleitamento materno e começou a promever informações sobre o tema com treinamentos para outros colegas da saúde do serviço público, encontros semestrais, eventos, etc. Com isso o IFRS Campus Osório ofereceu uma parceria e foi desenvolvido em 2018 os sistemas para auxiliar na promoção das informações na cidade. Pesquisar mais sobre a lei para criar um paralelo em como o sistema Pró-Mamá pode fazer com que novas prefeituras consigam esse apoio do governo, entender os requisitos.
 * Para arquitetura de desenvolvimento ao invés de MVC, escolheu-se o DDD com princípios SOLID. A principal diferença é que ao desacoplar o frontend do backend, não fazia sentido manter camadas de visualização (view) no backend e nem controllers para as telas do painel. Na construção da API os diretórios e arquivos foram separados conforme a arquitetura hexagonal, com camada de domínio com as regras de negócio, interface de comunicação para as rotas, camada de infraestrutura para estruturas externas e camada da aplicação para o fluxo de cada rotina. No painel foi utilizada a mesma abordagem com adaptações onde mantêm-se camadas de domínio e aplicação para cada caso de uso usados nas telas. As telas estão na camada de interface mas com uma forma de factories para construir as dependências. Para carregamento das páginas utilizou um roteamento com lazy loading para que só seja carregado os scripts, html, css do endereço digitado, ao mudar de tela o carregamento dos novos arquivos é feito fazendo com que o desempenho do sistema seja fluído, rápido e leve.
 
-## Ordem dos tópicos e assuntos que devem ser abordados
+## Ordem dos tópicos e assuntos que devem ser abordados no TCC
 
 ### Introdução
 
@@ -56,7 +56,7 @@ O que não pode faltar
 
 * Aleitamento materno
 * LGPD
-* NodeJS / ReactJs
+* NodeJs / ReactJs
 * Docker e Docker Compose
 * HTTP x HTTPS
 * API REST
@@ -74,7 +74,7 @@ O que não pode faltar
 #### O que eu já escrevi
 
 * Pesquisa de mercado utilizando a W3Techs para elencar os principais sistemas gerenciadores de conteúdo, não introduzi muito bem porque fiz essa pesquisa, relacionar melhor com o trabalho feito que é o painel e api.
-* Listei WordPress, Wix e Shopify, detalhando cada um e por fim coloquei comparações com o Pró-Mamá
+* Listei WordPress, Wix e Shopify, detalhando cada um e por fim coloquei comparações com o Pró-Mamá, ficou um monólogo chato
 
 Ficou sem contexto e coloca o painel pró-mamá numa categoria que não faz sentido, não é objetivo do presente trabalho ser generalista e atender quaisquer demandas como os CMS do mercado.
 
@@ -86,7 +86,7 @@ Ficou sem contexto e coloca o painel pró-mamá numa categoria que não faz sent
 #### Ideias do que escrever
 
 * Introduzir melhor a pesquisa de trabalhos relacionados, citar que foi feita a pesquisa por e-mail sem sucesso
-* Após isso, dizer que o painel e API se enquadram em um sistema gerenciador de conteúdo, mas o foco do Pró-Mamá não é ser generalista, mas sim com o objetivo de promover o aleitamento materno, assim como o WordPress não é generalista, mas sim um CMS que pode ser utilizado para qualquer tipo de site, mas com foco em blogs e portfólios
+* Após isso, dizer que o painel e API se enquadram em um sistema gerenciador de conteúdo, mas o foco do Pró-Mamá é ser específico para a promoção do aleitamento materno, não como o WordPress que é generalista um CMS que pode ser utilizado para qualquer tipo de site, mas com foco em blogs e portfólios
 * O uso de sistemas referência no mercado foi para entender como tornar o Pró-Mamá um sistema portável que tenha as principais características de um CMS
 * Não fazer um monólogo descrevendo cada sistema como WordPress, Wix, Shopify, mas um texto corrido e coeso que tenha início, meio e fim citando cada trabalho relacionado, a forma de pesquisa, comparações e o que é diferente no sistema do presente trabalho
 
@@ -95,7 +95,7 @@ Ficou sem contexto e coloca o painel pró-mamá numa categoria que não faz sent
 * Levantamento documental
 * Metodologia de desenvolvimento
   a. Para a fase de reconstrução do painel e API foi utilizado o modelo incremental
-  b. Para a fase de sustentação do sistema foi utilizado o modelo de Kanban com princípios Agile
+  b. Para a fase de sustentação e evolução do sistema foi utilizado o modelo de Kanban com princípios Agile
 * Análise de requisitos
   a. Utilizar como referência o trabalho do Lucas e citar os requisitos que foram alterados, tanto funcionais quanto não funcionais 
   b. Citar os requisitos que foram adicionados
@@ -125,6 +125,7 @@ Ficou sem contexto e coloca o painel pró-mamá numa categoria que não faz sent
     - Uso da elastick stack com Kibana e alertas (n foi feito mas com o que tem é muito fácil, problema é consumo de memória)
   t. Documentação 
     - Citar o uso do Swagger para documentar a API com OpenAPI 3.0
+    - Repositório de infraestrutura contém arquivos e desenhos dos fluxos do Pró-Mamá e processos de desenvolvimento
 * Portabilidade
   a. Falar sobre construação da infraestrutura como código para que seja possível reproduzir o sistema completo do Pró-Mamá: API, painel, banco de dados, redis e nginx com apenas um comando de compose
   b. Falar sobre a construção do sistema ser multitenant, onde o usuário pode escolher a prefeitura que deseja reportar
@@ -148,7 +149,7 @@ Talvez seguir pela ordem cronológica e separar o painel e API
       - Sistema de notificações (push notification)
     e. O que não era seguro no painel e API
       - Todas as rotas eram inseguras, não tinha HTTPS
-      - Havia um sistema de autenticação e hasheamento de senhas
+      - Havia um sistema de autenticação JWT e hasheamento de senhas
     f. O que não era escalável no painel e API
       - Sistema monolítico, não tinha separação de frontend e backend
     g. Resultados
@@ -187,7 +188,7 @@ Talvez seguir pela ordem cronológica e separar o painel e API
     a. Configuração do ambiente
         - Ambiente de desenvolvimento local
         - Ambiente de produção
-        - Ambiente de testes
+        - Ambiente de testes (poderia ter mas é o local)
         - Controle de versão
         - Uso de Docker e Docker Compose
         - Uso de Typescript, ESLint e Prettier

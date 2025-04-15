@@ -8,32 +8,43 @@ A amamentação é a primeira e mais importante contribuição que toda mãe pod
 
 Segundo a OMS \citeonline{oms9241561300}, as autoridades competentes devem implementar medidas sociais para dar suporte e proteção às gestantes e mães. Isso implica em manter as mulheres adequadamente informadas sobre assuntos relacionados à alimentação infantil, que recebam suporte apropriado da família e comunidade a fim de facilitar e encorajar a amamentação, inibindo quaisquer influências contrárias.
 
-Neste contexto, a partir da parceria entre o programa municipal de aleitamento materno da secretaria de saúde de Osório e o IFRS Campus Osório, foi criado o aplicativo Pró-Mamá e seu respectivo painel administrativo para controle dos servidores públicos.O \emph{app} foi lançado em agosto de 2018 e na época estava disponível para \emph{download} na \emph{play store} e \emph{app store}, qualquer usuário, mas principalmente as mães podiam acessar e obter informações sobre o aleitamento materno, registrar dúvidas e acompanhar os marcos do desenvolvimento de seu bebê.
+Em 2016, o município de Osório criou o Programa Pró-Mamá, coordenado pelo Núcleo de Apoio à Saúde da Família (NASF), com o objetivo de padronizar a assistência ao recém-nascido e orientar nutrizes no manejo do aleitamento materno. O programa visa aumentar os índices de amamentação, reduzir o desmame precoce e a morbimortalidade neonatal, contando com uma equipe multiprofissional composta por fonoaudióloga, nutricionista, psicóloga e profissionais de referência em cada equipe de Saúde da Família \citeonline{planomunicipaloso}.
 
-Apesar do seu sucesso, de acordo com o \citeonline{promamapremiacao} o aplicativo conquistou o 1º lugar na categoria “Atenção Básica” no 31º Congresso do Conselho das Secretarias Municipais de Saúde do Rio Grande do Sul (Cosems/RS), atualmente encontra-se em estado defasado e em inconformidade com a Lei Geral de Proteção de Dados (LGPD), o que ocasionou na remoção do aplicativo nas lojas dos dispositivos móveis.
+A partir da proposta dos profissionais do NASF, o programa Pró-Mamá buscou desenvolver um aplicativo para facilitar o acesso à informação sobre aleitamento materno e promover a interação entre as mães e os profissionais de saúde. O aplicativo foi desenvolvido em parceria com o Instituto Federal do Rio Grande do Sul (IFRS) - Campus Osório, com o objetivo de criar uma plataforma que pudesse ser utilizada pelas mães para registrar dúvidas, acompanhar o desenvolvimento de seus bebês e acessar informações relevantes sobre amamentação.
 
-O presente trabalho tem como objetivo reestruturar o Painel Pró-Mamá para atender as necessidades das leis de privacidade de dados dos usuários e suas restrições de segurança, além de implantar novas tecnologias para facilitar o suporte de forma eficiente e segura no futuro. Dessa forma, não só contribuindo para manter as funcionalidades já estabelecidas, mas também agregar com novas soluções propostas pelos próprios servidores ao longo da observação do uso do painel desde seu lançamento.
+O aplicativo Pró-Mamá foi lançado em agosto de 2018 e, na época, estava disponível para download na Play Store e App Store. Qualquer usuário, especialmente as mães, podiam acessar e obter informações sobre aleitamento materno, registrar dúvidas e acompanhar os marcos do desenvolvimento de seus bebês.
+
+O aplicativo foi um sucesso, conquistando o 1º lugar na categoria “Atenção Básica” no 31º Congresso do Conselho das Secretarias Municipais de Saúde do Rio Grande do Sul (Cosems/RS) \citeonline{promamapremiacao}. No entanto, com o passar do tempo, o aplicativo se tornou defasado e não estava mais em conformidade com a Lei Geral de Proteção de Dados (LGPD), o que levou à sua remoção das lojas de aplicativos móveis.
+
+O presente trabalho tem como objetivo migrar tecnologicamente o painel administrativo e infraestrutura do aplicativo Pró-Mamá para atender às necessidades das leis de privacidade de dados dos usuários e suas restrições de segurança. Além disso, o projeto visa implantar novas tecnologias para facilitar o suporte de forma eficiente e segura no futuro. O foco principal é não apenas manter as funcionalidades já estabelecidas, mas também agregar novas soluções propostas pelos próprios profissionais ao longo do uso do painel, assim como as sugestões dos alunos fundadores do projeto.
 
 \section{OBJETIVOS}
 
 \subsection{Objetivo geral}
 
-Reconstrução do painel e adição de novas funcionalidades para garantir conformidade com a LGPD e melhorar a experiência do usuário.
+Migrar tecnologicamente o Painel e API do Pró-Mamá para que os sistemas estejam de acordo com os requisitos de segurança e sejam restabelecidos, estabelecer um processo de continuidade no ciclo de desenvolvimento do software e adicionar portabilidade para que a plataforma possa ser utilizada por outros municípios.
 
 \subsection{Objetivos específicos}
 
 \begin{itemize}
-  \item Analisar os requisitos funcionais, não-funcionais e regras de negócio do Painel Pró-Mamá;
-  \item Planejar arquitetura do painel administrativo e API;
+  \item A partir dos requisitos funcionais e não-funcionais pré-estabelecidos pelo estudante fundador (Lucas), realizar revisões e apontamento de mudanças, além de criar novos se necessário;
+  \item Planejar a migração tecnológica com a escolha das novas linguagens e frameworks;
+  \item Desenhar a arquitetura do Painel e API;
   \item Estruturar banco de dados e operação para migração dos dados retroativos;
-  \item Desenvolver painel e API;
-  \item Manutenção e adição de novas funcionalidades para o sistema.
+  \item Estruturar armazenamento de arquivos e migração das fotos retroativas;
+  \item Desenvolver API e Painel;
+  \item Adicionar protocolo HTTPS com certificado SSL e criptografia, além de rotinas específicas para a LGPD a fim de estar em conformidade com os requisitos de segurança das lojas;
+  \item Consolidar princípios de integração contínua e testes automatizados para a manutenção durante o ciclo de vida do software;
+  \item Adicionar portabilidade no sistema para que seja um CMS instalável, assim outros municípios podem aderir ao programa;
+  \item Criar um manual de uso do painel e API, além de um guia de instalação para o CMS;
 \end{itemize}
 
 \section{JUSTIFICATIVA}
 
 De acordo com \citeonline{onlineintervention} a meta-análise mostra que o uso de modelos de intervenção pela Internet podem melhorar o nível de conhecimento sobre o aleitamento materno e que o seu domínio está intimamente relacionado ao efeito da amamentação, sendo uma condição importante para promover o comportamento de amamentação e melhorar a taxa de aleitamento materno. Algumas puérperas, especialmente primíparas, carecem de experiência de amamentação, enquanto o modo de intervenção pela Internet facilita o aprendizado, através de plataformas ou aplicativos de educação sobre amamentação.
 
-Neste contexto, o programa Pró-Mamá e suas tecnologias caracterizam-se por agentes desses modelos interventivos e desde sua implantação em 2019, seus resultados corroboram o estudo citado acima, são mais de 10.864 acessos, 1.348 cadastros realizados e mais de 188 dúvidas respondidas \citeonline{dadospromama}.
+O sistema Pró-Mamá, estabelecido pelas diretrizes do NASF e com o apoio do IFRS, tem como objetivo promover a saúde materno-infantil e fornecer informações relevantes sobre aleitamento materno. Caracterizado como um agente interventivo, o programa tem demonstrado resultados positivos desde sua implantação em 2019 no município de Osório, com mais de 10.864 acessos, 1.348 cadastros realizados e mais de 188 dúvidas respondidas \citeonline{dadospromama}. Esses números evidenciam a importância do aplicativo como uma ferramenta eficaz para disseminar informações e apoiar as mães em sua jornada de amamentação.
 
-Portanto, se faz necessário que sejam feitas as devidas atualizações no Painel Pró-Mamá e seu ecossistema para adequar as medidas de segurança em conformidade com a LGPD e consequentemente desbloqueio nas respectivas lojas dos aplicativos móveis, restabelecendo assim um projeto que se faz tão presente no município de Osório e região.
+Desde sua retirada das lojas de aplicativos móveis em X, o sistema deixou de atender a uma demanda crescente por informações e suporte, impactando negativamente na experiência dos usuários que utilizavam do serviço. Portanto, é fundamental realizar as atualizações necessárias no Painel Pró-Mamá e seu ecossistema para adequar as medidas de segurança em conformidade com a LGPD e restabelecer o acesso ao aplicativo, contribuindo assim para a promoção do aleitamento materno e o bem-estar das mães e bebês.
+
+Além disso, a migração tecnológica do sistema permitirá a portabilidade do Painel e API, possibilitando que outros municípios adotem o programa e beneficiem suas comunidades. Essa expansão é essencial para garantir que mais mães tenham acesso a informações precisas e suporte adequado durante o período de amamentação, promovendo assim a saúde pública e o bem-estar das famílias.
