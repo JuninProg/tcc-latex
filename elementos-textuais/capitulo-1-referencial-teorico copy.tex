@@ -1,0 +1,145 @@
+\chapter{Referencial Teórico}
+
+% ### Referencial Teórico
+
+% O que não pode faltar
+
+% * Aleitamento materno
+% * LGPD
+% * NodeJs / ReactJs
+% * Docker e Docker Compose
+% * HTTP x HTTPS
+% * API REST
+% * Arquitetura hexagonal
+% * DDD
+% * SOLID
+% * Integração contínua
+% * Testes automatizados
+% * CMS
+% * Aplicações multitenant
+% * Segurança da informação
+
+Neste capítulo serão apresentados os conceitos e tecnologias que fundamentam o processo de desenvolvimento do Painel e \emph{API} do Pró-Mamá.
+
+\section{Node.js}
+
+\citeonline{nodejs} é um \emph{software} de código aberto que foi criado em 2009 por Ryan Dahl, multiplataforma, baseado no interpretador V8 do Google e que permite a execução de códigos JavaScript fora de um navegador \emph{web}. A plataforma se destaca pelo seu modelo de E/S não bloqueante e orientado a eventos, o que torna ideal para aplicações em tempo real e de alta concorrência.
+
+Além disso, o Node.js possui um ecossistema vasto e crescente, com milhares de pacotes disponíveis através de seu gerenciador de pacotes, o \emph{NPM} (\emph{Node Package Manager}). Isso facilita a integração de funcionalidades mais complexas e permite a criação de projetos de forma mais eficiente.
+
+\section{React}
+
+\citeonline{react} é uma biblioteca JavaScript de código aberto criada pelo Facebook em 2013. Ela permite o desenvolvimento de componentes reutilizáveis que podem ser combinados para a criação de \emph{interfaces} \emph{web} dinâmicas de forma prática.
+
+O React facilita a produção de aplicações \emph{front-end} de alta perfomance e manuteníveis graças a separação de responsabilidades por componentes. Cada módulo possui seu estado e se renderiza a partir de suas parametrizações e interações com o usuário.
+
+\section{Lei Geral de Proteção de Dados (LGPD)}
+
+A Lei Geral de Proteção de Dados nº \citeonline{lgpd}, sancionada em agosto de 2018, estabelece diretrizes para a coleta, armazenamento, tratamento e compartilhamento de dados pessoais no Brasil.
+
+A LGPD introduz princípios importantes que devem ser seguidos por todas as organizações que lidam com dados pessoais, o presente trabalho se enquadra também por meio de suas tecnologias, por isso é preciso entendê-la para aplicar suas diretrizes de maneira segura e transparente. Entre as obrigações impostas pela lei, destaca-se a necessidade de obter consentimento explícito dos titulares dos dados, a implementação de medidas de segurança adequadas e a notificação de incidentes de segurança.
+
+\section{Docker}
+
+O \emph{\citeonline{docker}} é uma plataforma de código aberto que permite criar, implantar e executar aplicações em contêineres. Os contêineres são unidades leves e portáteis que empacotam uma aplicação e todas as suas dependências, garantindo que ela funcione de maneira consistente em diferentes ambientes.
+
+A principal vantagem do \emph{Docker} é a capacidade de isolar aplicações e suas dependências, o que facilita a portabilidade e escalabilidade. Além disso, o \emph{Docker} permite a criação de ambientes de desenvolvimento consistentes, reduzindo problemas relacionados à configuração e compatibilidade entre diferentes sistemas operacionais.
+
+\section{Docker Compose}
+
+O \emph{\citeonline{dockercompose}} é uma ferramenta que permite definir e executar aplicações compostas por múltiplos contêineres. Com o \emph{Docker Compose}, é possível descrever a configuração de todos os serviços, redes e volumes necessários para a aplicação em um único arquivo YAML, facilitando o gerenciamento e a orquestração dos contêineres.
+
+O \emph{Docker Compose} simplifica o processo de desenvolvimento e implantação, permitindo que os desenvolvedores iniciem rapidamente ambientes complexos com apenas um comando. Isso é especialmente útil em cenários onde múltiplos serviços precisam interagir entre si, como bancos de dados, servidores de aplicação e serviços de cache.
+
+\section{HTTP e HTTPS}
+
+O \emph{Hypertext Transfer Protocol} (HTTP) é um protocolo de comunicação da camada de aplicação que permite a troca de informações entre clientes e servidores no modelo de requisição-resposta. Ele é amplamente utilizado para a navegação na \emph{web} devido à sua simplicidade e eficiência.
+
+No entanto, o HTTP transmite os dados em texto plano, o que o torna vulnerável a interceptações e ataques como \emph{man-in-the-middle}. Essa característica expõe informações sensíveis, como credenciais de login e dados financeiros, a possíveis invasores, comprometendo a segurança e a privacidade dos usuários.
+
+Para resolver esse problema, o \emph{Hypertext Transfer Protocol Secure} (HTTPS) adiciona uma camada de segurança ao HTTP por meio do protocolo SSL/TLS. Essa camada criptografa os dados transmitidos, garantindo a confidencialidade e integridade das informações. Além disso, o HTTPS utiliza certificados digitais para autenticar a identidade do servidor, proporcionando uma comunicação segura e confiável \citeonline{madasu2015web}.
+
+% \section{API REST}
+
+% Uma \emph{API} (Application Programming Interface) é um conjunto de definições e protocolos que permite a comunicação entre diferentes sistemas. As \emph{APIs} são fundamentais para a integração de aplicações, permitindo que diferentes serviços se comuniquem e compartilhem dados de forma eficiente.
+
+% As \emph{APIs} REST (Representational State Transfer) são um estilo arquitetural que utiliza os princípios do protocolo HTTP para a comunicação entre sistemas. Elas são baseadas em recursos, onde cada recurso é identificado por uma URL única. As operações sobre esses recursos são realizadas por meio de métodos HTTP, como GET, POST, PUT e DELETE.
+
+% As \emph{APIs} REST são amplamente utilizadas devido à sua simplicidade, escalabilidade e flexibilidade. Elas permitem a criação de serviços que podem ser facilmente consumidos por diferentes clientes, como aplicações \emph{web}, dispositivos móveis e sistemas de terceiros.
+
+% \section{Arquitetura Hexagonal}
+
+% A Arquitetura Hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, é um padrão arquitetural que visa separar a lógica de negócios de uma aplicação de suas dependências externas, como bancos de dados, interfaces de usuário e serviços externos. Essa abordagem permite que a aplicação seja testada e desenvolvida de forma independente das tecnologias específicas utilizadas.
+
+% A Arquitetura Hexagonal é composta por três camadas principais: o núcleo da aplicação, os adaptadores e as portas. O núcleo contém a lógica de negócios e as regras de domínio, enquanto os adaptadores são responsáveis por interagir com o mundo externo, como bancos de dados e APIs. As portas definem as interfaces que os adaptadores devem implementar para se comunicar com o núcleo da aplicação.
+
+% Essa separação de responsabilidades facilita a manutenção e evolução da aplicação, permitindo que novas tecnologias sejam integradas sem impactar a lógica de negócios. Além disso, a Arquitetura Hexagonal promove testes mais eficazes, pois o núcleo da aplicação pode ser testado isoladamente, sem depender de implementações externas.
+
+% \section{Domain-Driven Design (DDD)}
+
+% O Domain-Driven Design (DDD) é uma abordagem de desenvolvimento de software que enfatiza a colaboração entre especialistas em domínio e desenvolvedores para criar soluções que atendam às necessidades do negócio. O DDD propõe a modelagem do domínio como o foco central do desenvolvimento, permitindo que a lógica de negócios seja expressa de forma clara e compreensível.
+
+% O DDD é composto por conceitos-chave, como \emph{bounded contexts}, entidades, agregados e repositórios. Os \emph{bounded contexts} definem limites claros para o domínio, permitindo que diferentes partes do sistema sejam desenvolvidas de forma independente. As entidades representam objetos do domínio com identidade única, enquanto os agregados são grupos de entidades que devem ser tratados como uma unidade. Os repositórios são responsáveis por persistir e recuperar entidades do banco de dados.
+
+% A aplicação dos princípios do DDD permite criar sistemas mais flexíveis e adaptáveis, facilitando a comunicação entre equipes e promovendo uma melhor compreensão do domínio. Além disso, o DDD incentiva a criação de testes automatizados, garantindo que a lógica de negócios seja validada e mantida ao longo do tempo.
+
+% \section{Princípios SOLID}
+
+% Os princípios SOLID são um conjunto de diretrizes que visam melhorar a qualidade do código e facilitar a manutenção e evolução de sistemas de software. O acrônimo SOLID representa cinco princípios fundamentais:
+% \begin{itemize}
+%   \item \textbf{S} - Single Responsibility Principle (Princípio da Responsabilidade Única): Cada classe deve ter uma única responsabilidade e, portanto, deve haver apenas uma razão para mudar.
+%   \item \textbf{O} - Open/Closed Principle (Princípio Aberto/Fechado): As classes devem ser abertas para extensão, mas fechadas para modificação. Isso significa que novas funcionalidades podem ser adicionadas sem alterar o código existente.
+%   \item \textbf{L} - Liskov Substitution Principle (Princípio da Substituição de Liskov): Objetos de uma classe derivada devem poder substituir objetos da classe base sem alterar o comportamento esperado do sistema.
+%   \item \textbf{I} - Interface Segregation Principle (Princípio da Segregação de Interfaces): As interfaces devem ser específicas e focadas, evitando que classes sejam forçadas a implementar métodos que não utilizam.
+%   \item \textbf{D} - Dependency Inversion Principle (Princípio da Inversão de Dependência): Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem depender de abstrações.
+% \end{itemize}
+
+% Esses princípios promovem a criação de código mais modular, reutilizável e testável, facilitando a manutenção e evolução de sistemas complexos. A aplicação dos princípios SOLID é uma prática recomendada em projetos de software, contribuindo para a qualidade e sustentabilidade do código ao longo do tempo.
+
+% \section{Integração Contínua}
+
+% A Integração Contínua (IC) é uma prática de desenvolvimento de software que visa automatizar o processo de integração de código em um repositório compartilhado. Essa abordagem permite que os desenvolvedores integrem suas alterações de código com frequência, geralmente várias vezes ao dia, reduzindo o risco de conflitos e problemas de integração.
+
+% A IC envolve a automação de tarefas como compilação, execução de testes e verificação de qualidade do código. Quando um desenvolvedor faz uma alteração no código, essa alteração é automaticamente integrada ao repositório, e um conjunto de testes é executado para garantir que a nova versão do software esteja funcionando corretamente.
+
+% A prática de Integração Contínua traz diversos benefícios, como a detecção precoce de erros, a melhoria da qualidade do código e a redução do tempo necessário para liberar novas versões do software. Além disso, a IC promove uma cultura de colaboração entre os membros da equipe, incentivando a comunicação e o compartilhamento de conhecimento.
+
+% \section{Testes Automatizados}
+
+% Os testes automatizados são uma prática essencial no desenvolvimento de software moderno, permitindo validar o comportamento e a funcionalidade de uma aplicação de forma eficiente e confiável. Eles consistem na criação de scripts ou programas que executam testes em um sistema, verificando se ele atende aos requisitos especificados.
+
+% Os testes automatizados podem ser classificados em diferentes tipos, como testes unitários, testes de integração e testes de aceitação. Os testes unitários verificam o funcionamento de unidades individuais de código, como funções ou métodos, enquanto os testes de integração avaliam a interação entre diferentes componentes do sistema. Já os testes de aceitação validam se o sistema atende aos requisitos do usuário final.
+
+% A automação de testes traz diversos benefícios, como a redução do tempo gasto em testes manuais, a detecção precoce de erros e a melhoria da qualidade do software. Além disso, os testes automatizados permitem que as equipes de desenvolvimento realizem alterações no código com mais confiança, sabendo que os testes garantirão que o sistema continue funcionando corretamente.
+
+% \section{CMS (Content Management System)}
+
+% Um \emph{Content Management System} (CMS) é uma plataforma que permite criar, gerenciar e publicar conteúdo digital de forma eficiente. Os CMSs são amplamente utilizados para desenvolver e manter sites, blogs e aplicações \emph{web}, oferecendo uma interface amigável para usuários não técnicos.
+
+% Os CMSs oferecem uma variedade de recursos, como edição de conteúdo, gerenciamento de usuários, controle de versões e integração com outras ferramentas. Eles permitem que equipes de marketing e comunicação publiquem conteúdo sem depender de desenvolvedores, facilitando a atualização e manutenção de sites.
+
+% Além disso, os CMSs geralmente possuem uma arquitetura extensível, permitindo a adição de novos recursos por meio de plugins ou módulos. Isso torna os CMSs altamente personalizáveis e adaptáveis às necessidades específicas de cada projeto.
+
+% \section{Aplicações Multitenant}
+
+% As aplicações multitenant são projetadas para atender a múltiplos clientes (ou \emph{tenants}) em uma única instância de software. Essa abordagem permite que diferentes organizações compartilhem a mesma infraestrutura, reduzindo custos e facilitando a manutenção.
+
+% As aplicações multitenant são amplamente utilizadas em ambientes de computação em nuvem, onde os provedores de serviços oferecem soluções escaláveis e flexíveis. Cada \emph{tenant} tem seu próprio espaço de armazenamento e configuração, garantindo que os dados e as personalizações sejam isolados entre os clientes.
+
+% Essa arquitetura traz diversos benefícios, como a redução de custos operacionais, a facilidade de atualização e manutenção e a escalabilidade. No entanto, também apresenta desafios relacionados à segurança e ao gerenciamento de dados, exigindo que as equipes de desenvolvimento implementem medidas adequadas para proteger as informações dos clientes.
+
+% \section{Segurança da Informação}
+
+% A segurança da informação é um conjunto de práticas e medidas que visam proteger os dados e sistemas de informação contra acessos não autorizados, uso indevido, divulgação, interrupção ou destruição. A segurança da informação é fundamental para garantir a confidencialidade, integridade e disponibilidade dos dados.
+
+% A segurança da informação envolve a implementação de políticas, procedimentos e controles técnicos para proteger os ativos de informação. Isso inclui o uso de criptografia, autenticação, autorização, monitoramento e auditoria de sistemas.
+
+% Além disso, a segurança da informação deve ser considerada em todas as etapas do ciclo de vida do software, desde o planejamento e desenvolvimento até a implantação e manutenção. A conscientização e treinamento dos usuários também são essenciais para garantir que todos os membros da organização compreendam a importância da segurança da informação e adotem práticas seguras no manuseio de dados sensíveis.
+
+% \section{Considerações Finais}
+
+% O referencial teórico apresentado neste capítulo fornece uma base sólida para a compreensão das tecnologias e práticas utilizadas no desenvolvimento da aplicação \emph{web} e \emph{API} do Painel Pró-Mamá. A combinação de Node.js, React, Docker, APIs REST e princípios de design como DDD e SOLID contribui para a criação de um sistema robusto, escalável e seguro.
+
+% Além disso, a adoção de práticas como Integração Contínua e testes automatizados garante a qualidade do código e a confiabilidade do sistema. A implementação de um CMS e a arquitetura multitenant permitem uma gestão eficiente do conteúdo e a personalização para diferentes clientes, atendendo às necessidades específicas de cada um.
+
+% A segurança da informação é um aspecto crítico em qualquer aplicação, especialmente quando se lida com dados sensíveis. A conformidade com a LGPD e a implementação de medidas de segurança adequadas são essenciais para proteger as informações dos usuários e garantir a confiança na plataforma.

@@ -1,19 +1,66 @@
 \chapter{Referencial Teórico}
 
-\section{Node.js}
+% O referencial teórico de um TCC (Trabalho de Conclusão de Curso) é a parte do trabalho que apresenta o resumo das discussões e pesquisas de outros autores sobre o tema do seu estudo. Ele serve como base para embasar sua própria pesquisa, mostrando o que já foi dito e pensado sobre o assunto, e como você se posiciona em relação a essas ideias.
+% Para construir um bom referencial teórico, siga estes passos:
+% 1. Pesquisa e leitura:
+% Faça uma pesquisa aprofundada sobre o tema do seu TCC, lendo livros, artigos científicos, dissertações e teses, bem como outras fontes confiáveis. 
+% 2. Fichamento:
+% Organize as informações relevantes, fazendo um fichamento com as principais ideias e citações dos autores que você pesquisou. 
+% 3. Organização e estrutura:
+% Organize o referencial teórico de forma lógica e coerente, dividindo-o em tópicos e subtópicos que abordem os conceitos-chave do seu tema. 
+% 4. Citação e referência:
+% Utilize as citações diretas e indiretas de acordo com as normas da ABNT, sempre indicando o autor, ano, página e outros detalhes necessários. 
+% 5. Interpretação e análise:
+% Não se limite a apenas apresentar as informações dos autores, mas também faça uma interpretação e análise crítica desses dados, mostrando como eles se relacionam com a sua pesquisa. 
+% O referencial teórico é importante porque:
+% Embasamento:
+% Serve como base para o seu trabalho, mostrando que você pesquisou e se aprofundou no tema. 
+% Contextualização:
+% Permite que o leitor entenda o contexto do seu trabalho, mostrando o que já foi feito e discutido sobre o assunto. 
+% Comparação:
+% Facilita a comparação entre as diferentes abordagens e perspectivas sobre o tema, mostrando como você se diferencia dos outros autores. 
+% Crítica:
+% Possibilita a crítica aos autores e às suas ideias, mostrando a sua opinião e posicionamento sobre o tema. 
 
-\citeonline{nodejs} é um \emph{software} de código aberto que foi criado em 2009 por Ryan Dahl, multiplataforma, baseado no interpretador V8 do Google e que permite a execução de códigos JavaScript fora de um navegador \emph{web}. A plataforma se destaca pelo seu modelo de E/S não bloqueante e orientado a eventos, o que torna ideal para aplicações em tempo real e de alta concorrência.
+% Tópicos que desejo abordar:
 
-Além disso, o Node.js possui um ecossistema vasto e crescente, com milhares de pacotes disponíveis através de seu gerenciador de pacotes, o npm (\emph{Node Package Manager}). Isso facilita a integração de funcionalidades mais complexas e permite a criação de projetos de forma mais eficiente.
+% * Aleitamento materno
+% * LGPD
+% * HTTP x HTTPS
+% * Aplicação Web
+%   a. Desacoplamento do front-end e back-end
+%   b. API Rest
+%   c. ReactJs x PHP Laravel
+%   d. NodeJs e Express x PHP Laravel
+%   e. Aplicações multitenant
+% * Integração contínua e deploy contínuo
+%   a. Docker e Docker Compose
+%   b. GitHub Actions
+%   c. Testes automatizados
+% * CMS
 
-\section{React}
+\section{Aleitamento Materno}
 
-\citeonline{react} é uma biblioteca JavaScript de código aberto criada pelo Facebook em 2013. Ela permite o desenvolvimento de componentes reutilizáveis que podem ser combinados para a criação de \emph{interfaces} \emph{web} dinâmicas de forma prática.
+O aleitamento materno é amplamente reconhecido como uma prática essencial para a saúde e o bem-estar de mães e bebês, abrangendo benefícios fisiológicos, psicológicos e sociais. A OMS recomenda a amamentação exclusiva nos primeiros seis meses de vida, complementada por outros alimentos até os dois anos ou mais, devido aos seus impactos positivos na saúde infantil e materna \citeonline{oms9241561300}.
 
-O React facilita a produção de aplicações \emph{front-end} de alta perfomance e manuteníveis graças a separação de responsabilidades por componentes. Cada módulo possui seu estado e se renderiza a partir de suas parametrizações e interações com o usuário.
+Do ponto de vista fisiológico, o leite materno fornece nutrientes essenciais e anticorpos que ajudam a proteger os bebês contra infecções, obesidade e doenças crônicas, como diabetes tipo 1 e leucemia infantil. Além disso, para as mães, a amamentação está associada à redução dos riscos de depressão pós-parto, câncer de mama e ovário, além de contribuir para uma recuperação mais rápida após o parto \citeonline{oliveira2023impacto}. Esses benefícios reforçam a importância de políticas públicas que incentivem e apoiem a prática do aleitamento materno.
 
-\section{Lei Geral de Proteção de Dados (LGPD)}
+Além dos benefícios individuais, o aleitamento materno tem impactos significativos na sociedade. A promoção dessa prática pode reduzir custos relacionados à saúde pública, diminuindo a incidência de doenças e hospitalizações. Ademais, ambientes de trabalho que apoiam a amamentação contribuem para maior produtividade e participação das mães no mercado de trabalho \citeonline{masi2024}.
 
-A Lei Geral de Proteção de Dados nº \citeonline{lgpd}, sancionada em agosto de 2018, estabelece diretrizes para a coleta, armazenamento, tratamento e compartilhamento de dados pessoais no Brasil.
+Apesar de seus benefícios, desafios como normas culturais, pressões no ambiente de trabalho e falta de suporte adequado ainda dificultam a adesão ao aleitamento materno. Superar essas barreiras é essencial para maximizar os benefícios dessa prática, especialmente em iniciativas como o Pró-Mamá, que busca promover a saúde materno-infantil por meio de ferramentas tecnológicas e educativas.
 
-A LGPD introduz princípios importantes que devem ser seguidos por todas as organizações que lidam com dados pessoais, o presente trabalho se enquadra também por meio de suas tecnologias, por isso é preciso entendê-la para aplicar suas diretrizes de maneira segura e transparente. Entre as obrigações impostas pela lei, destaca-se a necessidade de obter consentimento explícito dos titulares dos dados, a implementação de medidas de segurança adequadas e a notificação de incidentes de segurança.
+\section{LGPD (Lei Geral de Proteção de Dados)}
+
+A Lei Geral de Proteção de Dados (LGPD) é uma legislação brasileira que estabelece diretrizes para a coleta, armazenamento, tratamento e compartilhamento de dados pessoais. Sancionada em 2018, visa garantir a privacidade e a proteção dos dados dos cidadãos, promovendo maior transparência e controle sobre as informações pessoais. A LGPD se aplica a qualquer organização que processe dados pessoais, independentemente de seu porte ou localização, e estabelece penalidades para o descumprimento das normas \citeonline{lgpd}.
+
+No processo de desenvolvimento \emph{software}, a LGPD impõe a necessidade de adotar medidas que garantam a segurança e privacidade dos dados. Segundo \citeonline{lgpd2}, a implementação de práticas de segurança, como criptografia, controle de acesso e anonimização de dados, é fundamental para proteger as informações pessoais dos usuários. Além disso, padrões como \emph{Privacy by Default} e \emph{Security by Design} devem ser incorporados desde o início do desenvolvimento, assegurando que a proteção de dados seja uma prioridade em todas as etapas do ciclo de vida do \emph{software}.
+
+No Pró-Mamá, dadas as motivações de reconstrução do sistema, a LGPD foi considerada desde o início do projeto. A equipe de desenvolvimento adotou práticas recomendadas para garantir a conformidade com a legislação, realizaram-se auditorias em conjunto com a \emph{Play Store} e \emph{App Store} para restabelecer o acesso e instarou-se uma cultura organizacional voltada para a segurança da informação.
+
+\section{HTTP (Hypertext Transfer Protocol) e HTTPS (HTTP Secure)}
+
+O \emph{Hypertext Transfer Protocol} (HTTP) é um protocolo de nível de aplicação para sistemas de informação distribuídos, colaborativos e hipermídia. O \emph{HTTP} tem sido utilizado pela iniciativa global de informação World-Wide Web desde 1990. Sua principal função é permitir a comunicação entre clientes e servidores na web, facilitando a troca de informações e recursos \citeonline{rfchttp}.
+
+O \emph{HTTP} não possui mecanismos de segurança embutidos, o que significa que os dados transmitidos podem ser interceptados e lidos por terceiros. Para resolver essa questão, foi desenvolvido o \emph{HTTP Secure} (HTTPS), que combina o \emph{HTTP} com o protocolo de segurança \emph{Transport Layer Security} (TLS). O \emph{HTTPS} criptografa os dados transmitidos entre o cliente e o servidor, garantindo a confidencialidade e a integridade das informações \citeonline{rfchttps}.
+
+Dada a origem do sistema Pró-Mamá ter sido construída em cima do protocolo \emph{HTTP}, urgiu a necessidade de adicionar a camada de segurança do \emph{HTTPS}. Ao analisar as opções de infraestrutura da prefeitura de Osório, verificou-se que o domínio estava cadastrado na \emph{Cloudflare}, um serviço de proteção e aceleração de sites. Para habilitar a comunicação segura foi necessário gerar o certificado digital, configurá-lo no servidor de origem e habilitar o \emph{Secure Sockey Layer (SSL)} na \emph{Cloudflare}. Após a configuração, o sistema passou a operar sob o protocolo \emph{HTTPS}, garantindo a segurança das informações trocadas entre os usuários, \emph{browser} e servidor.

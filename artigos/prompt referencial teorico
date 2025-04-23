@@ -1,0 +1,30 @@
+What are the latest scientific findings on the benefits of breastfeeding for both infants and mothers? Please include studies that explore the physiological, psychological, and societal impacts of breastfeeding, as well as challenges and solutions for promoting breastfeeding in modern healthcare systems.
+
+What are the technical and legal requirements for digital systems to comply with Brazil's LGPD (General Data Protection Law)? Please include research on data encryption, access controls, and privacy-by-design principles.
+
+What are the key differences between HTTP and HTTPS in terms of security, performance, and implementation? Please include research on the role of SSL/TLS certificates, encryption protocols, and their impact on user trust and data protection.
+
+What are the advantages and challenges of decoupling the front-end and back-end in web application development? Please include research on architectural patterns, performance implications, and scalability.
+
+What are the best practices for designing and implementing RESTful APIs? Please include research on authentication, versioning, and performance optimization.
+
+What are the comparative advantages and disadvantages of using ReactJS versus PHP Laravel for web application development? Please include research on performance, scalability, and developer productivity.
+
+What are the key differences between Node.js with Express and PHP Laravel for building web applications? Please include research on performance, scalability, and ecosystem support.
+
+What are the best practices for designing and implementing multitenant applications? Please include research on database architecture, security, and resource isolation.
+
+What are the benefits and challenges of using Docker and Docker Compose for continuous integration and deployment? Please include research on containerization, orchestration, and scalability.
+
+What are the best practices for using GitHub Actions in continuous integration and deployment pipelines? Please include research on workflow automation, security, and performance optimization.
+
+What are the best practices for implementing automated testing in software development? Please include research on unit testing, integration testing, and end-to-end testing.
+
+What are the key factors to consider when choosing a Content Management System (CMS) for web development? Please include research on scalability, customization, and ease of use.
+
+
+Com base no arquivo atual do que um bom referencial teórico deve ter e essa descrição que gerei a partir de uma ai que utiliza artigos acadêmicos em seu modelo para pesquisa, escreve o primeiro tópico de aleitamento materno.
+
+Para isso anexarei também a introdução do texto, a estrutura que pensei e como está meu arquivo tex princiapal. Abaixo está o resumo da ai com cada citação. Considere utilizar uma citação direta ou indireta seguindo as normas abnt, nesse caso é com o \citeonline{identifier} que vou criar a referência no .bib.
+
+Considere que nem todo parágrafo deve ter citação, e que o conteúdo deve se relacionar com o presente trabalho e seu tema. Leve em conta também que sou um estudante e não um escritor, então a escrita deve estar ortograficamente correta porém tente não deixar o texto como se fosse um especialista na escrita. Sintetize as informações e número de citações.
