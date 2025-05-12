@@ -126,7 +126,7 @@ Ficou sem contexto e coloca o painel pró-mamá numa categoria que não faz sent
   t. Documentação 
     - Citar o uso do Swagger para documentar a API com OpenAPI 3.0
     - Repositório de infraestrutura contém arquivos e desenhos dos fluxos do Pró-Mamá e processos de desenvolvimento
-* Portabilidade
+* Escalabilidade
   a. Falar sobre construação da infraestrutura como código para que seja possível reproduzir o sistema completo do Pró-Mamá: API, painel, banco de dados, redis e nginx com apenas um comando de compose
   b. Falar sobre a construção do sistema ser multitenant, onde o usuário pode escolher a prefeitura que deseja reportar
   c. Falar sobre o aplicativo não estar preparado para ser multitenant, mas que o sistema backend já está preparado para isso
@@ -207,6 +207,7 @@ Talvez seguir pela ordem cronológica e separar o painel e API
             - Página de autenticação, recuperação de senha, exclusão do usuário
             - Página inicial, gráficos com dados de uso do sistema
             - Página de informação
+            - Páginas de bairros, postos
             - Página de perguntas frequentes
             - Página de fale conosco
             - Página de notificações
@@ -260,6 +261,6 @@ Talvez seguir pela ordem cronológica e separar o painel e API
 
 ### Projeções futuras
 
-
+ 
 
 
