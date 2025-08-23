@@ -1,44 +1,5 @@
 \chapter{Referencial Teórico}
 
-% O referencial teórico de um TCC (Trabalho de Conclusão de Curso) é a parte do trabalho que apresenta o resumo das discussões e pesquisas de outros autores sobre o tema do seu estudo. Ele serve como base para embasar sua própria pesquisa, mostrando o que já foi dito e pensado sobre o assunto, e como você se posiciona em relação a essas ideias.
-% Para construir um bom referencial teórico, siga estes passos:
-% 1. Pesquisa e leitura:
-% Faça uma pesquisa aprofundada sobre o tema do seu TCC, lendo livros, artigos científicos, dissertações e teses, bem como outras fontes confiáveis. 
-% 2. Fichamento:
-% Organize as informações relevantes, fazendo um fichamento com as principais ideias e citações dos autores que você pesquisou. 
-% 3. Organização e estrutura:
-% Organize o referencial teórico de forma lógica e coerente, dividindo-o em tópicos e subtópicos que abordem os conceitos-chave do seu tema. 
-% 4. Citação e referência:
-% Utilize as citações diretas e indiretas de acordo com as normas da ABNT, sempre indicando o autor, ano, página e outros detalhes necessários. 
-% 5. Interpretação e análise:
-% Não se limite a apenas apresentar as informações dos autores, mas também faça uma interpretação e análise crítica desses dados, mostrando como eles se relacionam com a sua pesquisa. 
-% O referencial teórico é importante porque:
-% Embasamento:
-% Serve como base para o seu trabalho, mostrando que você pesquisou e se aprofundou no tema. 
-% Contextualização:
-% Permite que o leitor entenda o contexto do seu trabalho, mostrando o que já foi feito e discutido sobre o assunto. 
-% Comparação:
-% Facilita a comparação entre as diferentes abordagens e perspectivas sobre o tema, mostrando como você se diferencia dos outros autores. 
-% Crítica:
-% Possibilita a crítica aos autores e às suas ideias, mostrando a sua opinião e posicionamento sobre o tema. 
-
-% Tópicos que desejo abordar:
-
-% * Aleitamento materno
-% * LGPD
-% * HTTP x HTTPS
-% * Aplicação Web
-%   a. Desacoplamento do front-end e back-end
-%   b. API Rest
-%   c. ReactJs x PHP Laravel
-%   d. NodeJs e Express x PHP Laravel
-%   e. Aplicações multitenant
-% * Integração contínua e deploy contínuo
-%   a. Docker e Docker Compose
-%   b. GitHub Actions
-%   c. Testes automatizados
-% * CMS
-
 \section{Aleitamento Materno}
 
 O aleitamento materno é amplamente reconhecido como uma prática essencial para a saúde e o bem-estar de mães e bebês, abrangendo benefícios fisiológicos, psicológicos e sociais. A OMS recomenda a amamentação exclusiva nos primeiros seis meses de vida, complementada por outros alimentos até os dois anos ou mais, devido aos seus impactos positivos na saúde infantil e materna \citeonline{oms9241561300}.
@@ -49,43 +10,73 @@ Além dos benefícios individuais, o aleitamento materno tem impactos significat
 
 Apesar de seus benefícios, desafios como normas culturais, pressões no ambiente de trabalho e falta de suporte adequado ainda dificultam a adesão ao aleitamento materno. Superar essas barreiras é essencial para maximizar os benefícios dessa prática, especialmente em iniciativas como o Pró-Mamá, que busca promover a saúde materno-infantil por meio de ferramentas tecnológicas e educativas.
 
-\section{LGPD (Lei Geral de Proteção de Dados)}
+\section{Segurança na \emph{web}}
 
-A Lei Geral de Proteção de Dados (LGPD) é uma legislação brasileira que estabelece diretrizes para a coleta, armazenamento, tratamento e compartilhamento de dados pessoais. Sancionada em 2018, visa garantir a privacidade e a proteção dos dados dos cidadãos, promovendo maior transparência e controle sobre as informações pessoais. A LGPD se aplica a qualquer organização que processe dados pessoais, independentemente de seu porte ou localização, e estabelece penalidades para o descumprimento das normas \citeonline{lgpd}.
+Com o aumento da digitalização, especialmente no período pós-pandemia de COVID-19, as vulnerabilidades em aplicações \emph{web} cresceram significativamente. De acordo com \citeonline{cybersecuritycovid19}, o setor de cibersegurança foi um dos mais afetados, resultando em "aumento de crimes cibernéticos e o consequente comprometimento de informações corporativas, perda de dados e violações de privacidade em várias indústrias" (p. 2). Assim como a devastação da COVID-19 na economia mundial foi monumental, os custos financeiros e qualitativos no ciberespaço também foram sem precedentes.
 
-No processo de desenvolvimento \emph{software}, a LGPD impõe a necessidade de adotar medidas que garantam a segurança e privacidade dos dados. Segundo \citeonline{lgpd2}, a implementação de práticas de segurança, como criptografia, controle de acesso e anonimização de dados, é fundamental para proteger as informações pessoais dos usuários. Além disso, padrões culturais como \emph{Privacy by Default} e \emph{Security by Design} devem ser incorporados desde o início do desenvolvimento, assegurando que a proteção de dados seja uma prioridade em todas as etapas do ciclo de vida do \emph{software}.
+% TODO: falar sobre as formas de ataque na web, talvez trazer números ou algum gráfico
 
-No Pró-Mamá, dadas as motivações de reconstrução do sistema, a LGPD foi considerada desde o início do projeto. A equipe de desenvolvimento adotou práticas recomendadas para garantir a conformidade com a legislação, realizaram-se auditorias em conjunto com a \emph{Play Store} e \emph{App Store} para restabelecer o acesso e instarou-se uma cultura organizacional voltada para a segurança da informação.
+\subsection{Segurança de dados}
 
-\section{HTTP (Hypertext Transfer Protocol) e HTTPS (HTTP Secure)}
+A discussão global sobre segurança de dados, intensificada por eventos como a pandemia, reflete-se na legislação brasileira. No Brasil, a LGPD impulsionou discussões sobre o tratamento de dados pessoais em aplicações \emph{web}, destacando desafios como o risco de vazamentos e o impacto negativo na privacidade dos usuários \citeonline{moura2024desafios}. A legislação estabelece diretrizes rigorosas para a coleta, armazenamento e compartilhamento de dados pessoais, visando garantir a privacidade e a proteção dos cidadãos \citeonline{lgpd}.
 
-O \emph{Hypertext Transfer Protocol} (HTTP) é um protocolo de nível de aplicação para sistemas de informação distribuídos, colaborativos e hipermídia. O \emph{HTTP} tem sido utilizado pela iniciativa global de informação World-Wide Web desde 1990. Sua principal função é permitir a comunicação entre clientes e servidores na web, facilitando a troca de informações e recursos \citeonline{rfchttp}.
+No âmbito de aplicativos como o Pró-Mamá, essa adequação é vital para proteger dados sensíveis de mães e bebês, dado que a perda ou exposição dessas informações pode causar danos irreparáveis à privacidade e segurança dos usuários. A migração tecnológica, que visa restabelecer o sistema com boas práticas de segurança, deve priorizar a proteção de dados.
 
-O \emph{HTTP} não possui mecanismos de segurança embutidos, o que significa que os dados transmitidos podem ser interceptados e lidos por terceiros. Para resolver essa questão, foi desenvolvido o \emph{HTTP Secure} (HTTPS), que combina o \emph{HTTP} com o protocolo de segurança \emph{Transport Layer Security} (TLS) \citeonline{rfchttps}. O \emph{HTTPS} criptografa os dados transmitidos entre o cliente e o servidor, garantindo a confidencialidade e a integridade das informações.
+Para isso, conceitos como \emph{privacy by design} surgem como estratégias essenciais para integrar a proteção de dados desde o \emph{design} inicial, minimizando coletas excessivas e promovendo transparência nas \emph{interfaces} \citeonline{moura2024desafios}. A partir dessa metodologia, o desenvolvimento deve pensar em práticas de privacidade desde a coleta e armazenamento de dados até a apresentação de informações e funcionalidades ao usuário.
 
-Dada a origem do sistema Pró-Mamá ter sido construída em cima do protocolo \emph{HTTP}, urgiu a necessidade de adicionar a camada de segurança do \emph{HTTPS}. Ao analisar as opções de infraestrutura da prefeitura de Osório, verificou-se que o domínio estava cadastrado na \emph{Cloudflare}, um serviço de proteção e aceleração de sites. Para habilitar a comunicação segura foi necessário gerar o certificado digital, configurá-lo no servidor de origem e habilitar o \emph{Secure Socket Layer (SSL)} na \emph{Cloudflare}. Após a configuração, o sistema passou a operar sob o protocolo \emph{HTTPS}, garantindo a segurança das informações trocadas entre os usuários, \emph{browser} e servidor.
+\subsection{Segurança de rede}
 
-\section{Aplicação Web}
+De acordo com \citeonline{w3techshttpusage}, atualmente, cerca de 31.3\% dos sites utilizam o protocolo \emph{Hyper Text Transfer Protocol (HTTP)}, este embora fundamental para a difusão da \emph{web}, apresenta vulnerabilidades significativas. Como exemplo, uma das formas mais comuns de ataque é a interceptação de dados durante a transmissão.
 
-% 1. Introduzir com citação indireta sobre o que é aplicação web, como funciona.
-% 2. Explicar porque foi escolhido um painel web (dado a possibilidade de ser accessado por qualquer dispositivo), talvez citar aqui o autor fundador?.
-% 3. Explicar que a primeira linguagem escolhida foi o PHP para o desenvolvimento, tendo em vista a facilidade para gerar código e uma curva de aprendizagem relacionada a experiência própria do aluno, porém apesar de ela ainda ser predominante nos sistemas webs produtivos (usar número do w3techs), foi escolhido o javascript com nodejs por esses principais motivos: continuidade do projeto, haja visto que os estudantes da instituição aprendem javascript como disciplina curricular; a possibilidade dos alunos estarem mais preparados pro mercado de trabalho, dado o crescimento de oportunidades de trabalho para desenvolvedores javascript; vantagens do react frente o php no quesito de desempenho e escalabilidade, haja vista que o react é uma biblioteca javascript para construção de interfaces de usuário, enquanto o php é uma linguagem de programação de propósito geral.
-%     a. Separar o 3 em dois parágrafos ou mais, talvez trazer alguns benchmarks de nodejs express vs php laravel e reactjs vs php laravel
-% 4. Explicar porque descoplar o backend e frontend antes feito tudo junto no php, motivações para isso, como por exemplo: escalabilidade, manutenção, segurança, etc.
+Conhecido como \emph{Man-in-the-Middle (MitM)}, esse tipo de ataque é considerado um dos mais básicos, mas eficazes, para o sequestro de sessões de rede. O agressor se posiciona furtivamente entre o usuário e o servidor, e assim pode ser capaz de obter as credenciais de \emph{login} ou até mesmo roubar informações do cartão da vítima \citeonline{mitm}. 
 
-Uma aplicação web é um \emph{software} que, conforme apontado por \citeonline{webapptrends}, é acessível através de um navegador da \emph{Internet}. Ao contrário dos aplicativos tradicionais, que são instalados localmente, as aplicações web são executadas em um servidor, permitindo o acesso de qualquer dispositivo conectado à rede. Essa característica, confere às aplicações web alta flexibilidade e escalabilidade, tornando-as adequadas para uma ampla gama de necessidades e dispositivos.
+Para mitigar esse tipo de ataque, medidas de segurança devem ser implementadas. Primeiro, a conexão \emph{web} deve ser ativamente redirecionada para ser servida através de um túnel de Segurança da Camada de Transporte (\emph{TLS}). Isso é feito utilizando o esquema \emph{https://} na \emph{URL} do domínio do site. Além disso, deve haver uma configuração no provedor de serviços de \emph{Internet} (\emph{ISP}) para garantir que o tráfego seja criptografado e o acesso via \emph{HTTP} seja redirecionado para \emph{HTTPS}.
 
-Dado a necessidade de um painel administrativo para o sistema Pró-Mamá, os estudantes fundadores optaram por desenvolver uma aplicação \emph{web} para facilitar o acesso e a gestão das informações pelos profissionais de saúde. Para o desenvolvimento o estudante fundador escolheu PHP com base na experiência prévia com a linguagem (citar tcc do lucas) e no fato de que é uma das linguagens mais utilizadas para desenvolvimento de aplicações \emph{web}, com uma participação de mercado de aproximadamente 74,3\% segundo o \citeonline{w3techsserversideusage}.
+A infraestrutura \emph{web} do Pró-Mamá deve seguir essas diretrizes de segurança para garantir a proteção dos dados dos usuários. Isso inclui a implementação de certificados digitais válidos, que garantem a autenticidade do site e a criptografia das informações transmitidas, além de práticas recomendadas de segurança em servidores e bancos de dados.
 
-Contudo, na reconstrução do sistema, a equipe decidiu migrar para o JavaScript com Node.js e Express. Essa mudança foi motivada por diversos fatores, incluindo a continuidade do projeto, uma vez que os estudantes da instituição aprendem JavaScript como parte de sua formação curricular (citar disciplina de web do if). Além disso, o mercado de trabalho tem visto um crescimento significativo na demanda por desenvolvedores JavaScript (citar index tiobe), tornando essa escolha vantajosa para os alunos devido a oportunidades de emprego disponíveis no futuro.
+\section{Desenvolvimento \emph{web}}
 
-Além das escolhas de linguagem, a equipe também considerou o desempenho e a escalabilidade das tecnologias. Para isso, foi tomada a decisão de desacoplar o front-end e o back-end, permitindo que cada parte do sistema fosse desenvolvida e escalada de forma independente. Essa abordagem traz diversas vantagens, como maior flexibilidade na escolha de tecnologias, facilidade de manutenção e segurança aprimorada (citar algum autor sobre esse assunto). 
+Desenvolvimento \emph{web} é o processo de planejamento, construção e manutenção de aplicações e serviços disponíveis na \emph{Internet}. Ao longo da história, essa área tem evoluído consideravelmente, passando de páginas estáticas em \emph{Hypertext Markup Language (HTML)} para aplicações dinâmicas que utilizam uma variedade de tecnologias e \emph{frameworks} \citeonline{webevolution}.
 
-O front-end foi desenvolvido utilizando React.js, uma biblioteca JavaScript amplamente utilizada para a construção de interfaces de usuário, em comparação ao PHP Laravel, que é uma estrutura de desenvolvimento de aplicações \emph{web} em PHP. O React.js oferece uma série de vantagens em termos de desempenho e escalabilidade, permitindo a criação de interfaces mais dinâmicas e responsivas. Além disso, o uso do React.js facilita a integração com outras bibliotecas e ferramentas do ecossistema JavaScript, proporcionando uma experiência de desenvolvimento mais fluida e eficiente.
+Essa transformação foi impulsionada por avanços como a introdução do \emph{JavaScript}, o surgimento do conceito de \emph{Web 2.0} e a utilização de técnicas assíncronas como o \emph{AJAX}. Mais recentemente, a popularização de \emph{frameworks} como \emph{React.Js}, \emph{Angular} e \emph{Vue.Js} consolidou um modelo de desenvolvimento voltado a aplicações mais complexas, interativas e escaláveis \citeonline{webevolution2}.
 
-O back-end foi implementado com Node.js e Express, que são conhecidos por seu desempenho superior em comparação ao PHP Laravel. O Node.js é uma plataforma de execução JavaScript do lado do servidor, que permite a construção de aplicações escaláveis e de alto desempenho. O Express, por sua vez, é um framework minimalista para Node.js que facilita o desenvolvimento de APIs e aplicações \emph{web}. Essa combinação de tecnologias proporciona uma arquitetura mais moderna e eficiente, capaz de lidar com um grande número de requisições simultâneas sem comprometer o desempenho.
+Para o Pró-Mamá, a \emph{web} é a estrutura central do sistema, onde o aplicativo móvel se comunica através de uma arquitetura cliente-servidor para sincronização de dados, autenticação de usuários e entrega de conteúdo. Essa integração é crucial para garantir que as informações sejam atualizadas em tempo real e que os usuários tenham acesso a recursos relevantes.
 
+Devido à constante evolução da tecnologia, é importante que as escolhas das ferramentas para a construção dos sistemas sejam criteriosas e acompanhem as principais tendências do setor. A partir de uma pesquisa realizada no \emph{Stack Overflow Developer Survey 2025}, abaixo seguem dois gráficos que representam as principais linguagens e \emph{frameworks} utilizados:
 
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imagens/stackoverflow-survey-languages.png}
+        \caption{Pesquisa de Desenvolvedores Stack Overflow 2025: Linguagens de Programação, \emph{Script} e Marcação}
+        \label{fig_linguagens}
+        \legend{Fonte: \citeonline{stackoverflowlanguages}}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imagens/stackoverflow-survey-frameworks.png}
+        \caption{Pesquisa de Desenvolvedores Stack Overflow 2025: \emph{Frameworks} e Tecnologias \emph{Web}}
+        \label{fig_frameworks}
+        \legend{Fonte: \citeonline{stackoverflowframeworks}}
+    \end{minipage}
+\end{figure}
 
-% O front-end foi desenvolvido utilizando React.js, uma biblioteca JavaScript amplamente utilizada para a construção de interfaces de usuário, enquanto o back-end foi implementado com Node.js e Express, proporcionando um desempenho superior em comparação ao PHP Laravel (citar benchmark).
+Conforme a figura \ref{fig_frameworks}, o \emph{React.Js} lidera a popularidade quando se trata da escolha de uma ferramenta para o desenvolvimento do \emph{front-end}, isso se dá por conta de sua arquitetura baseada em componentes e do virtual DOM, que otimiza a velocidade de renderização para aplicações como o Painel Administrativo do Pró-Mamá. 
 
+Outro \emph{framework} popular é o \emph{Node.Js}, suas capacidades assíncronas no tratamento de comunicações em tempo real e seu ecossistema rico em bibliotecas o tornam uma escolha frequente para o desenvolvimento do \emph{back-end}. Com a necessidade de uma codificação mais eficiente, muitos desenvolvedores optam por utilizar o \emph{Node.Js} em conjunto com o \emph{Express}, uma biblioteca minimalista que facilita a criação de rotas em servidores \emph{web}.
+
+Podemos ver que ambas as ferramentas usam a linguagem de programação \emph{JavaScript}, que conforme a figura \ref{fig_linguagens} é a mais popular entre os desenvolvedores. É interessante notar que muitos decidem agregar a linguagem, o \emph{TypeScript}, que é um superconjunto do \emph{JavaScript} e oferece tipagem estática, o que pode ajudar a evitar erros comuns durante o desenvolvimento.
+
+\section{Integração e entrega contínua}
+
+% Contextualizar o que são esses conceitos
+% Trazer os benefícios dessas práticas para facilitar a adesão de novos colaboradores
+% Falar sobre a importância de testes automatizados e como eles garantem a qualidade do software
+% Falar sobre a importância do deploy automatizado
+
+\section{Escalabilidade de sistemas}
+
+% Contextualizar a importância da escalabilidade em sistemas web
+% Discutir abordagens para escalar aplicações, como balanceamento de carga e distribuição de serviços conteinerizados
+% Falar sobre a necessidade de monitoramento e otimização de desempenho
