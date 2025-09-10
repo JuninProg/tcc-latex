@@ -2,25 +2,25 @@
 
 \section{Tipo de pesquisa}
 
-O presente estudo caracteriza-se como uma pesquisa aplicada, de natureza tecnológica, com abordagem mista, combinando levantamento documental e estudo de caso único. Os objetos de análise incluem a plataforma Pró-Mamá e seus serviços \emph{web}: \emph{API} e painel administrativo. O aplicativo móvel apesar de correlato e fonte também de pesquisa, não deve ser tratado como tema principal pois se trata do trabalho de outro estudante.
+O presente estudo caracteriza-se como pesquisa aplicada, de natureza tecnológica e abordagem mista. Foram combinadas técnicas qualitativas e quantitativas, como levantamento documental e estudo de caso único, com foco na plataforma Pró-Mamá e seus serviços \emph{web} (\emph{API} e painel administrativo). O aplicativo móvel, embora relacionado, não constitui objeto central por ser resultado de outro trabalho acadêmico.
 
-O delineamento temporal do estudo abrange três fases principais: diagnóstico, reconstrução e validação. Durante a fase de diagnóstico, foram coletados documentos internos e históricos, incluindo código legado, problemas, registros de implantações e requisitos anteriores. Além disso, foi realizado um levantamento de aplicativos de saúde digital, buscando identificar funcionalidades, integrações e políticas de dados relevantes para a conjuntura do Pró-Mamá.
+O delineamento temporal do estudo foi estruturado em três fases: diagnóstico, reconstrução e validação. Na primeira fase, foram coletados documentos internos e registros históricos, incluindo versões de código, relatórios de implantação, problemas e requisitos originais. Também foi realizado levantamento de aplicativos de saúde digital, considerando funcionalidades, integrações e políticas de dados, a fim de estabelecer parâmetros de comparação para a conjuntura do Pró-Mamá.
 
 \section{Levantamento documental}
 
-A etapa do levantamento documental teve caráter exploratório com alguns estágios de aprofundamento. A primeira pesquisa foi realizada em cima dos aplicativos móveis de aleitamento materno disponíveis nas lojas oficiais (\emph{Google Play} e \emph{Apple Store}). O objetivo era mapear como foram elaborados os ecossistemas responsáveis pelos aplicativos, suas decisões técnicas e regras de negócio. A partir de um formulário e envio para mais de 50 \emph{e-mails} das equipes desenvolvedoras responsáveis, buscou-se contato direto porém não houve retorno, o que motivou a ampliação do escopo para outras soluções em saúde digital.
+A etapa de levantamento documental assumiu caráter exploratório, buscando identificar práticas em ecossistemas de saúde digital. Inicialmente, foram analisados aplicativos móveis de aleitamento materno disponíveis nas lojas \emph{Google Play} e na \emph{App Store}. O objetivo foi mapear decisões técnicas e regras de negócio associadas. Foram enviados questionários a cinquenta equipes desenvolvedoras, porém não houve retorno, o que representou uma limitação metodológica e motivou a ampliação do escopo da investigação.
 
-O intuito da ampliação do escopo foi possibilitar a investigação de sistemas que, embora não focados exclusivamente em aleitamento materno, tivessem assuntos relacionados, como gestação e cuidados infantis. Além do assunto, foi primordial a escolha de aplicações que apresentassem documentação disponível ou alguma forma de acesso, pois somente pelo aplicativo não é possível realizar a comparação devida com os objetos de estudo do presente trabalho.
+A ampliação considerou aplicações relacionadas à gestação e ao cuidado infantil, desde que apresentassem documentação acessível ou outras formas de análise além da observação direta no aplicativo. Essa decisão metodológica visou garantir maior comparabilidade entre os sistemas analisados e os objetos de estudo desta pesquisa.
 
-Essa abordagem permitiu uma análise mais abrangente das funcionalidades e integrações disponíveis, além de possibilitar a identificação de tendências e melhores práticas no desenvolvimento de soluções para o público-alvo do Pró-Mamá. Essa discussão será abordada com detalhe na seção de \hyperref[cap_trabalhos_relacionados]{Trabalhos Relacionados}.
+Essa estratégia permitiu uma análise mais abrangente, tornando-se possível observar tendências e práticas consolidadas em soluções digitais de saúde. A análise dos resultados será detalhada no capítulo de \hyperref[cap_trabalhos_relacionados]{Trabalhos Relacionados}.
 
 \section{Metodologia de desenvolvimento}
 
-As metodologias ágeis surgiram como uma resposta às limitações dos modelos tradicionais de desenvolvimento, propondo maior flexibilidade, adaptação às mudanças e foco no valor entregue ao usuário. Segundo \citeonline{NagaiSbragia2023Agil}, essas práticas se consolidaram ao priorizar a colaboração, a comunicação contínua e a entrega incremental de resultados, tornando-se essenciais para projetos que lidam com cenários complexos e em constante transformação.
+As metodologias ágeis surgiram como uma resposta às limitações dos modelos tradicionais de desenvolvimento, propondo maior flexibilidade, adaptação às mudanças e entregas frequentes de valor ao usuário. De acordo com \citeonline{NagaiSbragia2023Agil}, a consolidação dessas práticas está associada à priorização da colaboração, da comunicação contínua e da entrega incremental de resultados, fatores cruciais em ambientes complexos e em constante transformação.
 
-Dentro desse universo, o modelo incremental se apresenta como uma das formas de aplicar a lógica ágil. Como destacam \citeonline{Lima2023IncrementalModel}, “o modelo incremental é uma metodologia ágil e iterativa que possibilita a entrega de resultados em etapas e em um curto espaço de tempo, permitindo que os clientes monitorem atentamente o progresso do projeto e realizem ajustes ou alterações, se necessário”. Tal característica permite maior controle de qualidade e reduz riscos durante o ciclo de desenvolvimento.
+Entre os métodos ágeis, o modelo incremental destaca-se pela entrega em etapas sucessivas. Como destacam \citeonline{Lima2023IncrementalModel}, “o modelo incremental é uma metodologia ágil e iterativa que possibilita a entrega de resultados em etapas e em um curto espaço de tempo, permitindo que os clientes monitorem atentamente o progresso do projeto e realizem ajustes ou alterações, se necessário”. Essa característica favorece maior controle de qualidade e mitigação de riscos.
 
-No caso do Pró-Mamá, a reconstrução da plataforma deveria seguir um modo fluído e adaptativo, considerando pequenas entregas e rápidos \emph{feedbacks} para que os profissionais de saúde pudessem validar as mudanças. Assim, o modelo incremental foi adotado, e seguindo as orientações do método cada funcionalidade, conhecida previamente, foi quebrada em pequenos incrementos para serem implementados, testados e validados.
+No caso do Pró-Mamá, a reconstrução da plataforma foi planejada em pequenos incrementos, permitindo validação contínua pelos profissionais de saúde. Cada funcionalidade previamente definida foi fragmentada em partes menores, implementadas, testadas e revisadas em ciclos curtos. Essa abordagem garantiu maior aderência às necessidades reais dos usuários e possibilitou a incorporação de \emph{feedbacks} ao longo do processo.
 
 \section{Análise e (re)especificação de requisitos}
 
@@ -30,7 +30,7 @@ Segundo \citeonline{sommerville2011engenharia}, “a falha em compreender as rea
 
 Para a correta aplicação dos métodos de engenharia de requisitos, é necessário compreender inicialmente quais aspectos devem ser investigados. Nesse sentido, os requisitos podem ser classificados em duas categorias principais: funcionais e não funcionais. Conforme \citeonline{pressman2016engenharia}, “os requisitos funcionais descrevem o comportamento do sistema ou de suas partes, ou seja, as funções que o \emph{software} deve executar. Já os requisitos não funcionais são restrições globais impostas ao produto ou ao processo de desenvolvimento, como padrões, desempenho ou restrições de \emph{interface}”.
 
-Além da classificação, é preciso considerar as regras de negócio, de acordo com \citeonline{pressman2016engenharia}, “são restrições que aplicam-se ao comportamento do sistema. Algumas regras representam políticas governamentais ou empresariais que devem ser aplicadas ao sistema de software”. Essas regras são essenciais para garantir que o sistema esteja alinhado com os objetivos e diretrizes da organização, influenciando diretamente na definição dos requisitos.
+Além da classificação, é preciso considerar as regras de negócio, de acordo com \citeonline{pressman2016engenharia}, “são restrições que aplicam-se ao comportamento do sistema. Algumas regras representam políticas governamentais ou empresariais que devem ser aplicadas ao sistema de \emph{software}”. Essas regras são essenciais para garantir que o sistema esteja alinhado com os objetivos e diretrizes da organização, influenciando diretamente na definição dos requisitos.
 
 Para o Pró-Mamá, as regras de negócio foram extraídas das entrevistas realizadas com os profissionais de saúde e os alunos do projeto, permitindo uma compreensão mais profunda das necessidades dos usuários e das diretrizes de domínio. Após a concepção da ideia e identificação dos elementos da plataforma: aplicativo móvel, painel administrativo e infraestrutura \emph{web}, foram realizados alinhamentos para definição de tarefas e responsabilidades, sendo assim criada a primeira versão pelos alunos fundadores.
 
@@ -51,7 +51,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \hline
 \textbf{Nome} & Categorização de conteúdo por faixa etária \\
 \hline
-\textbf{Descrição} & Todo conteúdo educativo deve ser categorizado por faixa etária do bebê (ex.: 0-6 meses para amamentação exclusiva), alinhando-se às diretrizes da OMS para promover o desenvolvimento infantil e reduzir desmame precoce. \\
+\textbf{Descrição} & Todo conteúdo educativo deve ser categorizado por faixa etária da criança (ex.: 0-6 meses para amamentação exclusiva), alinhando-se às diretrizes da OMS para promover o desenvolvimento infantil e reduzir desmame precoce. \\
 \hline
 \end{tabular}
 \label{tab:rn01}
@@ -66,7 +66,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \hline
 \textbf{Nome} & Proteção de dados pessoais \\
 \hline
-\textbf{Descrição} & Dados pessoais de usuários (mães e bebês) devem ser processados em estrita conformidade com a LGPD, limitando coletas a essenciais e impondo anonimato em interações públicas para proteger privacidade em contextos de saúde. \\
+\textbf{Descrição} & Dados pessoais de usuários (mães e crianças) devem ser processados em estrita conformidade com a LGPD, limitando coletas a essenciais e impondo anonimato em interações públicas para proteger privacidade em contextos de saúde. \\
 \hline
 \end{tabular}
 \label{tab:rn02}
@@ -126,7 +126,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \hline
 \textbf{Nome} & Notificações personalizadas \\
 \hline
-\textbf{Descrição} & As notificações devem ser personalizadas com base na faixa etária do bebê ou um disparo geral, fomentando o engajamento das mães. \\
+\textbf{Descrição} & As notificações devem ser personalizadas com base na informação que esteja na faixa etária da criança ou um disparo geral para avisos, fomentando o engajamento das mães. \\
 \hline
 \end{tabular}
 \label{tab:rn06}
@@ -139,30 +139,483 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 
 \subsubsection{Requisitos funcionais}
 
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 1}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF01 \\
+\hline
+\textbf{Nome} & Persistência de dados \\
+\hline
+\textbf{Descrição} & O sistema deve permitir a persistência de dados, bem como suas operações de: criação, leitura, atualização e exclusão (CRUD). \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rfapi01}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 2}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF02\\
+\hline
+\textbf{Nome} & Autenticação de usuários \\
+\hline
+\textbf{Descrição} & O sistema deve permitir a autenticação de usuários, garantindo que apenas usuários cadastrados e com as devidas credenciais de acesso possam utilizar a plataforma. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rfapi02}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 3}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF03 \\
+\hline
+\textbf{Nome} & Autorização de usuários \\
+\hline
+\textbf{Descrição} & O sistema deve permitir a autorização de usuários, garantindo a distinção entre o papel de usuário mãe e administrador. Os recursos devem ser acessíveis apenas para os usuários com as permissões adequadas. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rfapi03}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 4}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF04 \\
+\hline
+\textbf{Nome} & Armazenamento de arquivos \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o armazenamento de arquivos, garantindo que os usuários possam enviar e gerenciar fotos de forma segura. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rfapi04}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 5}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF05 \\
+\hline
+\textbf{Nome} & Agendamento de notificações \\
+\hline
+\textbf{Descrição} & O sistema deve diariamente buscar usuários (mães) que possuem crianças na faixa etária apta para receber novas informações e agendar as respectivas notificações no dispositivo móvel. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rfapi05}
+\end{table}
+
+
 \subsubsection{Requisitos não-funcionais}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 1}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF 01\\
+\hline
+\textbf{Descrição} & O sistema deve garantir a privacidade dos dados dos usuários, utilizando técnicas de anonimização e criptografia. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rnfapi01}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 2}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF 02\\
+\hline
+\textbf{Descrição} & O sistema deve ser servido a partir do protocolo \emph{HTTPS} com certificado digital válido. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rnfapi02}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 3}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF 03\\
+\hline
+\textbf{Descrição} & O sistema deve ser escalável, possibilitando a instalação em diferentes servidores para cada município. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\end{tabular}
+\label{tab:rnfapi03}
+\end{table}
 
 \subsection{Levantamento de requisitos painel administrativo}
 
-% o sistema deve permitir o gerenciamento do conteúdo do aplicativo pelos profissionais de saúde, incluindo: postos de saúde, bairros, informações, dúvidas frequentes e termo de uso.
-% o sistema deve classificar as informações por idade para a visualização no aplicativo acompanhar o desenvolvimento da criança.
-% o sistema deve garantir que o usuário profissional de saúde acesse somente o painel administrativo, enquanto o usuário mãe pode somente acessar o aplicativo.
-% o sistema deve notificar a resposta de dúvidas frequentes através de \emph{push notifications} no aplicativo e por \emph{e-mail}.
-% o sistema deve ser escalável permitindo a adoção de novos municípios, garantindo que os dados sejam isolados e de responsabilidade de cada município.
-% o sistema deve estar em conformidade com a LGPD, garantindo a proteção dos dados pessoais dos usuários.
-% o sistema deve prover a gestão de fotos para informações ou marcos de desenvolvimento.
-% o sistema deve ser acessível somente a partir da \emph{Internet}, com usuários autenticados e conectados.
-% o sistema deve ser hospedado pelo município, possuir domínio próprio e certificado digital.
-% o sistema deve conter relatórios e gráficos para acompanhamento das métricas de uso e desempenho da plataforma.
-% o sistema deve permitir que o profissional de saúde possa responder dúvidas em tempo real dos usuários.
-% o sistema deve permitir que terceiros possam integrar suas soluções à plataforma.
-% o sistema deve permitir que notificações sejam disparadas pelos profissionais de saúde para todos os usuários ou grupos específicos de usuários.
-% o sistema deve permitir a pré-visualização de conteúdos antes da publicação no aplicativo.
+Para o painel administrativo, os requisitos foram definidos com foco na gestão e no monitoramento da plataforma. As funcionalidades contemplam a administração de usuários, acompanhamento de métricas, geração de relatórios e, principalmente, a gestão do conteúdo do aplicativo móvel. Isso inclui o gerenciamento de artigos, perguntas frequentes e respostas às dúvidas enviadas pelas mães, garantindo que os profissionais de saúde tenham acesso às informações atualizadas e que possam realizar as edições que desejarem.
 
-Para o painel administrativo, os requisitos foram definidos com foco na gestão e no monitoramento da plataforma. As funcionalidades contemplam a administração de usuários, acompanhamento de métricas, geração de relatórios e, principalmente, a gestão do conteúdo do aplicativo móvel. Isso inclui o gerenciamento de artigos, perguntas frequentes e respostas às dúvidas enviadas pelas mães, garantindo que os profissionais de saúde tenham acesso às informações mais relevantes e atualizadas.
+Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estudante que desenvolveu a primeira versão do painel administrativo, sendo assim cada requisito recebeu uma indicação de estado, identificando se permaneceu inalterado, se sofreu atualizações para atender às demandas atuais, é novo ou foi removido.
 
 \subsubsection{Requisitos funcionais}
 
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 1}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF01 \\
+\hline
+\textbf{Nome} & Cadastrar bairro \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o cadastro de bairros, solicitando informações como: nome do bairro. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel01}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 2}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF02 \\
+\hline
+\textbf{Nome} & Cadastrar Posto de Saúde \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o cadastro de postos de saúde, solicitando informações como: nome do posto, endereço e telefone. Cada posto deve possuir um identificador único e uma referência de um bairro. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel02}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 3}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF03 \\
+\hline
+\textbf{Nome} & Cadastrar Informação \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o cadastro de informações, solicitando dados como: título, corpo, idade alvo e outras opções da informação. Cada informação deve possuir um identificador único. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel03}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 4}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF04 \\
+\hline
+\textbf{Nome} & Cadastrar Notificação \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o cadastro de notificações, solicitando dados como: título, texto e idade alvo da notificação. Cada notificação deve possuir um identificador único. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel04}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 5}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF05 \\
+\hline
+\textbf{Nome} & Cadastrar Dúvida Frequente \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o cadastro de dúvidas frequentes, solicitando dados como: título e texto da dúvida. Cada dúvida frequente deve possuir um identificador único. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel05}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 6}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF06 \\
+\hline
+\textbf{Nome} & Cadastrar Termos de Uso \\
+\hline
+\textbf{Descrição} & O sistema deve permitir o cadastro de termos de uso, solicitando dados como: título e texto dos termos. Cada termo de uso deve possuir um identificador único. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel06}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 7}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF07 \\
+\hline
+\textbf{Nome} & Responder Dúvida do Usuário \\
+\hline
+\textbf{Descrição} & O sistema deve permitir que o usuário visualize e responda a dúvidas de outros usuários. O usuário pode escolher se a resposta será visível para todos ou apenas para o usuário que fez a pergunta. Cada dúvida deve possuir um identificador único. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel07}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 8}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF08 \\
+\hline
+\textbf{Nome} & Alterar Senha \\
+\hline
+\textbf{Descrição} & O sistema deve permitir ao usuário alterar sua senha, solicitando a senha atual, a nova senha e a confirmação da nova senha. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel08}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 9}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF09 \\
+\hline
+\textbf{Nome} & Envio de E-mail na Interação do Fale Conosco \\
+\hline
+\textbf{Descrição} & O sistema deve enviar um e-mail para o usuário do Painel quando uma nova dúvida de usuário chegar. Além disso, quando o usuário responder a dúvida, um e-mail deve ser enviado para o usuário que fez a pergunta. \\
+\hline
+\textbf{Tipo} & Desejável \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel09}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 10}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF10 \\
+\hline
+\textbf{Nome} & Pré-Visualizar Informação \\
+\hline
+\textbf{Descrição} & O sistema deve permitir que o usuário visualize como a informação ficará na tela de um celular antes de finalizar o cadastro. \\
+\hline
+\textbf{Tipo} & Desejável \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rfpanel10}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 11}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF11 \\
+\hline
+\textbf{Nome} & Remoção de conta \\
+\hline
+\textbf{Descrição} & O sistema deve permitir que o usuário possa solicitar a remoção de sua conta. Isso envolve a remoção de todo arquivo associado à conta e os dados devem ser anonimizados para garantir que as métricas se mantenham. \\
+\hline
+\textbf{Tipo} & Essencial \\
+\hline
+\textbf{Estado} & Novo \\
+\hline
+\end{tabular}
+\label{tab:rfpanel11}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Funcional 12}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RF12 \\
+\hline
+\textbf{Nome} & Exportação de relatórios \\
+\hline
+\textbf{Descrição} & O sistema deve permitir que o usuário possa solicitar a exportação de relatórios em formato de planilha. \\
+\hline
+\textbf{Tipo} & Desejável \\
+\hline
+\textbf{Estado} & Novo \\
+\hline
+\end{tabular}
+\label{tab:rfpanel12}
+\end{table}
+
+
 \subsubsection{Requisitos não-funcionais}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 1}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF01 \\
+\hline
+\textbf{Descrição} & O sistema deve ser desenvolvido na plataforma \emph{web}. \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel01}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 2}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF02 \\
+\hline
+\textbf{Descrição} & O sistema precisa de \emph{Internet} para ser acessado. \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel02}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 3}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF03 \\
+\hline
+\textbf{Descrição} & O sistema deve fornecer uma \emph{API} para consumo das informações. \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel03}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 4}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF04 \\
+\hline
+\textbf{Descrição} & O sistema deve utilizar o banco MySQL. \\
+\hline
+\textbf{Estado} & Removido \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel04}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 5}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF05 \\
+\hline
+\textbf{Descrição} & O sistema deve estar sempre disponível (alta disponibilidade) para as requisições. \\
+\hline
+\textbf{Estado} & Inalterado \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel05}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 6}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF06 \\
+\hline
+\textbf{Descrição} & O sistema deve possuir \emph{design} responsivo. \\
+\hline
+\textbf{Estado} & Novo \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel06}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Requisito Não Funcional 7}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{ID} & RNF07 \\
+\hline
+\textbf{Descrição} & O sistema deve ser acessado por um navegador \emph{web}. \\
+\hline
+\textbf{Estado} & Novo \\
+\hline
+\end{tabular}
+\label{tab:rnfpanel07}
+\end{table}
 
 \section{Arquitetura de \emph{software}}
 
@@ -170,8 +623,4 @@ Para o painel administrativo, os requisitos foram definidos com foco na gestão 
 
 \subsection{Padrões de desenvolvimento}
 
-\section{Qualidade de \emph{software}}
 
-\subsection{Testes automatizados}
-
-\subsection{Implantação automatizada}
