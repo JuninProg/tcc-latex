@@ -619,16 +619,27 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 
 \section{Arquitetura de \emph{software}}
 
-% arquitetura gritante?
-% ddd?
-% organização do código?
-% solid?
+De acordo com \citeonline{archlimpaunclebob}, um \emph{software} entrega basicamente dois tipos de valor. O primeiro é o seu comportamento, entendido como a capacidade de executar tarefas que gerem ou economizem recursos para os proprietários do produto. O segundo está implícito na própria palavra \emph{software}: o termo “\emph{soft}” remete à suavidade, isto é, à facilidade de modificar o sistema para atender novas necessidades.
 
-% Para a construção da plataforma Pró-Mamá foi considerada duas aplicações principais: o Painel Administrativo e a \emph{API} para comunicação. P
+Um sistema deve ser concebido para permitir alterações com simplicidade e baixo custo, de modo que o esforço necessário para modificá-lo esteja relacionado apenas à extensão da mudança, e não à sua forma ou estrutura já existentes. Nesse contexto, a arquitetura de \emph{software} desempenha papel central, organizando os componentes de forma a manter o núcleo da lógica de negócio protegido de elementos externos e instáveis.
 
-% \subsection{Diagramas}
-% \subsection{Padrões de desenvolvimento}
+A separação entre as regras de negócio e componentes voláteis — como bancos de dados, \emph{frameworks}, serviços externos e \emph{interfaces} de usuário — constitui uma diretriz fundamental \citeonline{archlimpaunclebob}. Tais elementos são classificados como detalhes de implementação e, por sua própria natureza, tendem a ser substituídos ao longo do ciclo de vida do sistema.
 
-De acordo com \citeonline{archlimpaunclebob}, um \emph{software} tem dois principais valores: o primeiro valor é o comportamento, os programadores são pagos para fazer a máquina se comportar da maneira que dê ou economize dinheiro aos donos do produto. O outro valor, está na primeira palavra que compõe \emph{software}, a suavidade (\emph{soft}), o sistema deve ser inventado para ser fácil de mudar, se não seria chamado de \emph{hardware}. A dificuldade em fazer a mudança deve ser proporcional apenas ao escopo da mudança, e não à forma da mudança.
+Ao manter esses detalhes isolados, evita-se que mudanças de tecnologia ou de fornecedores interfiram na lógica central do domínio. Essa prática garante a preservação das regras de negócio, facilita a manutenção e viabiliza evoluções rápidas e seguras, minimizando riscos e custos durante a introdução de novas funcionalidades.
 
-Muitas vezes, do ponto de vista dos desenvolvedores, o quebra-cabeça 
+Com base nesses princípios, o planejamento do Pró-Mamá adotou desde o início uma visão ampla do sistema, mapeando componentes, sua distribuição na infraestrutura e os fluxos de comunicação. Produziu-se uma representação inicial, ainda passível de ajustes, que evidencia as fronteiras entre o núcleo de negócio e os detalhes de implementação, conforme orienta a Arquitetura Limpa de \citeonline{archlimpaunclebob}. Na sequência, essa representação será apresentada e discutida.
+
+\subsection{Representação dos Componentes}
+
+A Figura~\ref{fig:macro-promama} apresenta a visão geral do sistema Pró-Mamá na forma de um esquema conceitual. Essa representação destaca os dois grupos principais de usuários — o administrador e a mãe — e os pontos de interação de cada um com a plataforma. O administrador acessa um painel \emph{web} interno, responsável pela gestão de conteúdo, acompanhamento de métricas e resposta a dúvidas. A mãe, por sua vez, utiliza um aplicativo móvel externo para cadastrar crianças, registrar marcos de desenvolvimento, consultar informações e enviar dúvidas.
+
+No centro da infraestrutura, um serviço de balanceamento de carga (\emph{NGINX Load Balancer}) intermedia as requisições, encaminhando-as para a \emph{API} monolítica, que concentra operações de autenticação, manipulação de dados e envio de notificações. Essa \emph{API} está isolada na rede interna, reforçando o controle de acesso e a segurança dos dados.
+
+A estrutura evidencia, desde essa visão inicial, a separação entre a lógica do domínio (núcleo de regras de negócio presentes na \emph{API}) e elementos externos mais suscetíveis a mudanças, como a interface \emph{web}, o aplicativo móvel e o mecanismo de balanceamento. Esse arranjo reflete a orientação de \citeonline{archlimpaunclebob}, favorecendo a substituição ou evolução de partes periféricas sem impacto direto no núcleo do sistema.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{imagens/promamamacro.png}
+\caption{Visão geral dos componentes e interações do sistema Pró-Mamá.}
+\label{fig:macro-promama}
+\end{figure}
