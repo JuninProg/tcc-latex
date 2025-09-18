@@ -627,19 +627,24 @@ A separação entre as regras de negócio e componentes voláteis — como banco
 
 Ao manter esses detalhes isolados, evita-se que mudanças de tecnologia ou de fornecedores interfiram na lógica central do domínio. Essa prática garante a preservação das regras de negócio, facilita a manutenção e viabiliza evoluções rápidas e seguras, minimizando riscos e custos durante a introdução de novas funcionalidades.
 
-Com base nesses princípios, o planejamento do Pró-Mamá adotou desde o início uma visão ampla do sistema, mapeando componentes, sua distribuição na infraestrutura e os fluxos de comunicação. Produziu-se uma representação inicial, ainda passível de ajustes, que evidencia as fronteiras entre o núcleo de negócio e os detalhes de implementação, conforme orienta a Arquitetura Limpa de \citeonline{archlimpaunclebob}. Na sequência, essa representação será apresentada e discutida.
+Com base nesses princípios, o planejamento do Pró-Mamá adotou desde o início uma visão ampla do sistema, mapeando componentes, sua distribuição na infraestrutura e os fluxos de comunicação. Produziu-se uma representação inicial, ainda passível de ajustes, que evidencia as fronteiras entre o núcleo de negócio e a infraestrutura de suporte, conforme orienta a Arquitetura Limpa de \citeonline{archlimpaunclebob}. Na sequência, essa representação será apresentada e discutida.
 
 \subsection{Representação dos Componentes}
 
-A Figura~\ref{fig:macro-promama} apresenta a visão geral do sistema Pró-Mamá na forma de um esquema conceitual. Essa representação destaca os dois grupos principais de usuários — o administrador e a mãe — e os pontos de interação de cada um com a plataforma. O administrador acessa um painel \emph{web} interno, responsável pela gestão de conteúdo, acompanhamento de métricas e resposta a dúvidas. A mãe, por sua vez, utiliza um aplicativo móvel externo para cadastrar crianças, registrar marcos de desenvolvimento, consultar informações e enviar dúvidas.
+A Figura~\ref{fig:macro-promama} apresenta a visão geral do sistema Pró‑Mamá na forma de esquema conceitual. Essa representação destaca os dois grupos principais de usuários — administrador e mãe — e os respectivos pontos de interação com a plataforma.
 
-No centro da infraestrutura, um serviço de balanceamento de carga (\emph{NGINX Load Balancer}) intermedia as requisições, encaminhando-as para a \emph{API} monolítica, que concentra operações de autenticação, manipulação de dados e envio de notificações. Essa \emph{API} está isolada na rede interna, reforçando o controle de acesso e a segurança dos dados.
+O administrador acessa um painel \emph{web} interno, utilizado para a gestão de conteúdo, acompanhamento de métricas e resposta a dúvidas. A mãe, por sua vez, interage por meio de um aplicativo móvel externo, no qual é possível cadastrar crianças, registrar marcos de desenvolvimento, consultar informações e enviar questionamentos.
 
-A estrutura evidencia, desde essa visão inicial, a separação entre a lógica do domínio (núcleo de regras de negócio presentes na \emph{API}) e elementos externos mais suscetíveis a mudanças, como a interface \emph{web}, o aplicativo móvel e o mecanismo de balanceamento. Esse arranjo reflete a orientação de \citeonline{archlimpaunclebob}, favorecendo a substituição ou evolução de partes periféricas sem impacto direto no núcleo do sistema.
+No centro da infraestrutura, um serviço de balanceamento de carga (\emph{NGINX Load Balancer}) recebe as requisições e as direciona para a \emph{API} monolítica, responsável por autenticação, manipulação de dados e envio de notificações. A \emph{API} está isolada na rede interna, o que reforça o controle de acesso e a segurança das informações.
+
+A estrutura proposta evidencia, desde esta visão inicial, a separação entre a lógica do domínio, concentrada na \emph{API}, e componentes técnicos suscetíveis a troca (camadas externas: \emph{interface} \emph{web}, aplicativo móvel e mecanismo de balanceamento). Essa separação segue o princípio de \citeonline{archlimpaunclebob}, segundo o qual aspectos tecnológicos periféricos devem permanecer ao redor do núcleo para que possam evoluir sem impacto direto nas regras centrais do sistema.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{imagens/promamamacro.png}
+\includegraphics[width=0.85\textwidth]{imagens/promamamacrov2.png}
 \caption{Visão geral dos componentes e interações do sistema Pró-Mamá.}
 \label{fig:macro-promama}
 \end{figure}
+
+\subsection{Codificação dos Componentes}
+
