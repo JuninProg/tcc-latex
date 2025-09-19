@@ -627,22 +627,26 @@ A separação entre as regras de negócio e componentes voláteis — como banco
 
 Ao manter esses detalhes isolados, evita-se que mudanças de tecnologia ou de fornecedores interfiram na lógica central do domínio. Essa prática garante a preservação das regras de negócio, facilita a manutenção e viabiliza evoluções rápidas e seguras, minimizando riscos e custos durante a introdução de novas funcionalidades.
 
-Com base nesses princípios, o planejamento do Pró-Mamá adotou desde o início uma visão ampla do sistema, mapeando componentes, sua distribuição na infraestrutura e os fluxos de comunicação. Produziu-se uma representação inicial, ainda passível de ajustes, que evidencia as fronteiras entre o núcleo de negócio e a infraestrutura de suporte, conforme orienta a Arquitetura Limpa de \citeonline{archlimpaunclebob}. Na sequência, essa representação será apresentada e discutida.
+Com base nesses princípios, o planejamento do Pró-Mamá adotou desde o início uma visão ampla do sistema, mapeando componentes, sua distribuição na infraestrutura e os fluxos de comunicação. Produziu-se uma representação conceitual, que evidencia as fronteiras entre o núcleo de negócio e a infraestrutura de suporte, conforme fundamentos da Arquitetura Limpa de \citeonline{archlimpaunclebob}. Na sequência, esse diagrama será apresentado e discutido.
 
 \subsection{Representação dos Componentes}
 
-A Figura~\ref{fig:macro-promama} apresenta a visão geral do sistema Pró‑Mamá na forma de esquema conceitual. Essa representação destaca os dois grupos principais de usuários — administrador e mãe — e os respectivos pontos de interação com a plataforma.
+A Figura~\ref{fig:macro-promama} representa a arquitetura conceitual do Pró‑Mamá. No centro, a \emph{API} monolítica concentra a implementação das regras de negócio, isolada em rede interna para reduzir a superfície de ataque e preservar a integridade funcional frente a mudanças nas camadas externas. Essa organização visa garantir a longevidade e a adaptabilidade do sistema \cite{sommerville2011engenharia}.
 
-O administrador acessa um painel \emph{web} interno, utilizado para a gestão de conteúdo, acompanhamento de métricas e resposta a dúvidas. A mãe, por sua vez, interage por meio de um aplicativo móvel externo, no qual é possível cadastrar crianças, registrar marcos de desenvolvimento, consultar informações e enviar questionamentos.
+Na camada de \emph{interface}, há dois públicos principais: o administrador, que utiliza o Painel Administrativo via navegador \emph{web}, e a mãe usuária, que acessa o sistema pelo aplicativo móvel. Ambos se conectam por \emph{HTTPS} e passam pelo serviço de borda \emph{Cloudflare}, responsável por filtrar tráfego malicioso, aplicar \emph{cache} de conteúdo estático e otimizar a entrega \cite{cloudflarefundamentals}. Esse filtro inicial impede que solicitações inválidas atinjam a infraestrutura interna.
 
-No centro da infraestrutura, um serviço de balanceamento de carga (\emph{NGINX Load Balancer}) recebe as requisições e as direciona para a \emph{API} monolítica, responsável por autenticação, manipulação de dados e envio de notificações. A \emph{API} está isolada na rede interna, o que reforça o controle de acesso e a segurança das informações.
+O \emph{Nginx Reverse Proxy} recebe as conexões após a filtragem e as direciona para o Painel Administrativo ou para a \emph{API}. Também gerencia certificados digitais, compressão de conteúdo e execução de balanceamento de carga básico \cite{nginxloadbalancer}. Essa função contribui para distribuir solicitações de forma eficiente entre instâncias de aplicação.
 
-A estrutura proposta evidencia, desde esta visão inicial, a separação entre a lógica do domínio, concentrada na \emph{API}, e componentes técnicos suscetíveis a troca (camadas externas: \emph{interface} \emph{web}, aplicativo móvel e mecanismo de balanceamento). Essa separação segue o princípio de \citeonline{archlimpaunclebob}, segundo o qual aspectos tecnológicos periféricos devem permanecer ao redor do núcleo para que possam evoluir sem impacto direto nas regras centrais do sistema.
+Segundo a documentação oficial, o Nginx suporta métodos como \emph{round-robin}, \emph{least-connected} e \emph{ip-hash}, além da configuração de pesos para controle de tráfego e \emph{health checks} para evitar instâncias indisponíveis \cite{nginxloadbalancer}. Esses recursos aumentam o desempenho, a escalabilidade e a tolerância a falhas, mantendo o isolamento entre a camada pública e os componentes de negócio.
+
+Como camada de suporte à \emph{API}, o banco de dados \emph{PostgreSQL} provê persistência transacional com integridade referencial \cite{postgresdocs}, garantindo que os dados — como cadastros de usuários, registros de crianças e métricas — sejam armazenados de forma estruturada e segura. Associado a ele, o serviço \emph{Redis} atua na execução de tarefas assíncronas (como envio de notificações) e no armazenamento temporário em memória (\emph{cache}), tecnologia que reduz a latência e melhora o desempenho em consultas recorrentes \cite{redisdocs}.
+
+Por fim, o armazenamento de arquivos (\emph{storage}) mantém imagens e documentos enviados pelos usuários, organizado de forma a permitir gestão independente do restante da aplicação. Esses elementos — banco de dados, filas de processamento, sistema de arquivos e mecanismos de entrega — constituem detalhes de implementação e, conforme preconizado pela Arquitetura Limpa, situam-se nas camadas externas. Assim, podem ser substituídos ou atualizados sem afetar a lógica de domínio, favorecendo manutenção evolutiva e escalabilidade controlada do Pró‑Mamá.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{imagens/promamamacrov2.png}
-\caption{Visão geral dos componentes e interações do sistema Pró-Mamá.}
+\caption{Visão geral dos componentes e interações do sistema Pró-Mamá.\\\small Fonte: Autoria Própria.}
 \label{fig:macro-promama}
 \end{figure}
 
