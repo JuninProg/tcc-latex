@@ -623,32 +623,77 @@ De acordo com \citeonline{archlimpaunclebob}, um \emph{software} entrega basicam
 
 Um sistema deve ser concebido para permitir alterações com simplicidade e baixo custo, de modo que o esforço necessário para modificá-lo esteja relacionado apenas à extensão da mudança, e não à sua forma ou estrutura já existentes. Nesse contexto, a arquitetura de \emph{software} desempenha papel central, organizando os componentes de forma a manter o núcleo da lógica de negócio protegido de elementos externos e instáveis.
 
-A separação entre as regras de negócio e componentes voláteis — como bancos de dados, \emph{frameworks}, serviços externos e \emph{interfaces} de usuário — constitui uma diretriz fundamental \citeonline{archlimpaunclebob}. Tais elementos são classificados como detalhes de implementação e, por sua própria natureza, tendem a ser substituídos ao longo do ciclo de vida do sistema.
+No histórico do Pró-Mamá, verificou-se que dificuldades de manutenção estavam ligadas à estrutura anterior, que integrava regras de domínio, dados e \emph{interface} de forma dependente. Soluções como \emph{MVC} em \emph{PHP} e \emph{Apache} centralizavam \emph{API} e \emph{frontend}, dificultando intervenções, especialmente diante de requisitos legais como a adequação à LGPD.
 
-Ao manter esses detalhes isolados, evita-se que mudanças de tecnologia ou de fornecedores interfiram na lógica central do domínio. Essa prática garante a preservação das regras de negócio, facilita a manutenção e viabiliza evoluções rápidas e seguras, minimizando riscos e custos durante a introdução de novas funcionalidades.
+Processos de atualização, como troca do banco de dados ou separação de camadas, demonstraram a necessidade de uma arquitetura capaz de desacoplar funcionalidades essenciais dos detalhes de implementação. Essa abordagem proporciona maior segurança e facilita a adaptação a novas demandas, sem comprometer a integridade das informações.
 
-Com base nesses princípios, o planejamento do Pró-Mamá adotou desde o início uma visão ampla do sistema, mapeando componentes, sua distribuição na infraestrutura e os fluxos de comunicação. Produziu-se uma representação conceitual, que evidencia as fronteiras entre o núcleo de negócio e a infraestrutura de suporte, conforme fundamentos da Arquitetura Limpa de \citeonline{archlimpaunclebob}. Na sequência, esse diagrama será apresentado e discutido.
+Nesse cenário, a adoção dos princípios da arquitetura limpa de \citeonline{archlimpaunclebob} foi estratégico para assegurar flexibilidade e sustentabilidade. A distinção entre o núcleo das regras e componentes voláteis permite atualizar ou substituir tecnologias e fornecedores sem interferir no funcionamento central da solução.
+
+O planejamento do Pró-Mamá, fundamentado nesses conceitos, resultou em uma organização modular, que favorece manutenção evolutiva, escalabilidade e conformidade com as exigências atuais de privacidade e segurança. A configuração adotada será detalhada na próxima seção, abordando os componentes principais e suas respectivas inter-relações.
 
 \subsection{Representação dos Componentes}
 
-A Figura~\ref{fig:macro-promama} representa a arquitetura conceitual do Pró‑Mamá. No centro, a \emph{API} monolítica concentra a implementação das regras de negócio, isolada em rede interna para reduzir a superfície de ataque e preservar a integridade funcional frente a mudanças nas camadas externas. Essa organização visa garantir a longevidade e a adaptabilidade do sistema \cite{sommerville2011engenharia}.
+A Figura~\ref{fig:macro-promama} ilustra de modo conceitual a arquitetura do Pró-Mamá, delineando a distribuição e interação dos principais módulos do sistema. No núcleo da solução, a \emph{API} centraliza a lógica funcional e opera em ambiente restrito, protegida por rede interna, o que reduz vulnerabilidades e garante maior resiliência frente a alterações nas camadas externas. Essa configuração fortalece a manutenção do domínio e prolonga a adaptabilidade do sistema \citeonline{sommerville2011engenharia}.
 
-Na camada de \emph{interface}, há dois públicos principais: o administrador, que utiliza o Painel Administrativo via navegador \emph{web}, e a mãe usuária, que acessa o sistema pelo aplicativo móvel. Ambos se conectam por \emph{HTTPS} e passam pelo serviço de borda \emph{Cloudflare}, responsável por filtrar tráfego malicioso, aplicar \emph{cache} de conteúdo estático e otimizar a entrega \cite{cloudflarefundamentals}. Esse filtro inicial impede que solicitações inválidas atinjam a infraestrutura interna.
+Na camada de \emph{interface}, distinguem-se dois perfis de usuário: administradores, que acessam o Painel Administrativo via navegador \emph{web}, e mães usuárias, que utilizam o aplicativo móvel. Ambos os acessos são intermediados pelo protocolo \emph{HTTPS} e pelo serviço de borda \emph{Cloudflare}, responsável por filtrar riscos de segurança, otimizar entrega por \emph{cache} e assegurar que apenas requisições válidas atinjam as demais estruturas \citeonline{cloudflarefundamentals}.
 
-O \emph{Nginx Reverse Proxy} recebe as conexões após a filtragem e as direciona para o Painel Administrativo ou para a \emph{API}. Também gerencia certificados digitais, compressão de conteúdo e execução de balanceamento de carga básico \cite{nginxloadbalancer}. Essa função contribui para distribuir solicitações de forma eficiente entre instâncias de aplicação.
+Após essa filtragem, o \emph{Nginx Reverse Proxy} direciona o tráfego para os destinos apropriados — Painel Administrativo ou \emph{API} —, gerenciando também certificados digitais, compressão dos dados e balanceamento básico de carga \citeonline{nginxloadbalancer}. Essa camada potencializa a eficiência e distribui as solicitações de modo a evitar sobrecarga de instâncias, aumentando a robustez do serviço.
 
-Segundo a documentação oficial, o Nginx suporta métodos como \emph{round-robin}, \emph{least-connected} e \emph{ip-hash}, além da configuração de pesos para controle de tráfego e \emph{health checks} para evitar instâncias indisponíveis \cite{nginxloadbalancer}. Esses recursos aumentam o desempenho, a escalabilidade e a tolerância a falhas, mantendo o isolamento entre a camada pública e os componentes de negócio.
+Todos os módulos do sistema operam em contêineres \emph{Docker}, que são unidades leves de \emph{software} capazes de executar aplicações de forma isolada e padronizada, independentemente do servidor utilizado \citeonline{dockerdocs}. Essa tecnologia oferece facilidade na implantação, atualização e manutenção dos serviços, além de maior portabilidade para o ambiente do município.
 
-Como camada de suporte à \emph{API}, o banco de dados \emph{PostgreSQL} provê persistência transacional com integridade referencial \cite{postgresdocs}, garantindo que os dados — como cadastros de usuários, registros de crianças e métricas — sejam armazenados de forma estruturada e segura. Associado a ele, o serviço \emph{Redis} atua na execução de tarefas assíncronas (como envio de notificações) e no armazenamento temporário em memória (\emph{cache}), tecnologia que reduz a latência e melhora o desempenho em consultas recorrentes \cite{redisdocs}.
+Para armazenar arquivos, adotou-se o uso de \emph{volumes} \emph{Docker}, recurso que permite conectar uma pasta do servidor diretamente aos contêineres \citeonline{dockerdocs}. O \emph{volume} garante que dados e documentos permaneçam preservados e acessíveis, mesmo que os contêineres sejam reiniciados ou substituídos. Isso facilita a gestão e a migração dos arquivos, especialmente das fotos retroativas da primeira versão do Pró-Mamá.
 
-Por fim, o armazenamento de arquivos (\emph{storage}) mantém imagens e documentos enviados pelos usuários, organizado de forma a permitir gestão independente do restante da aplicação. Esses elementos — banco de dados, filas de processamento, sistema de arquivos e mecanismos de entrega — constituem detalhes de implementação e, conforme preconizado pela Arquitetura Limpa, situam-se nas camadas externas. Assim, podem ser substituídos ou atualizados sem afetar a lógica de domínio, favorecendo manutenção evolutiva e escalabilidade controlada do Pró‑Mamá.
+O sistema utiliza o banco de dados \emph{PostgreSQL}, reconhecido por sua robustez, confiabilidade e suporte transacional \citeonline{postgresdocs}. Essa solução permite armazenar de maneira estruturada todas as informações essenciais, como cadastros, registros e métricas do Pró-Mamá, assegurando integridade e facilidade de consulta dos dados.
+
+O \emph{Redis} é empregado como serviço para processamento de tarefas em segundo plano, seguindo o modelo de filas e agendamento de tarefas \citeonline{redisdocs}. Essa abordagem permite que operações como o envio de notificações sejam tratadas de modo eficiente, sem impactar o desempenho das funções principais da \emph{API}.
+
+Os registros de operação, conhecidos como \emph{logs}, são produzidos por todos os serviços e armazenados localmente no servidor. Esses \emph{logs} podem ser acessados diretamente pelos desenvolvedores, auxiliando no diagnóstico de problemas. Com o crescimento da demanda, é possível integrar ferramentas especializadas para análise, visualização e centralização dos eventos registrados, aprimorando a capacidade de observabilidade e monitoramento.
+
+Dessa forma, a arquitetura adotada privilegia modularidade e transparência, mantendo o núcleo funcional protegido enquanto facilita o controle e a evolução do Pró-Mamá.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{imagens/promamamacrov2.png}
+\includegraphics[width=0.8\textwidth]{imagens/promamamacro.png}
 \caption{Visão geral dos componentes e interações do sistema Pró-Mamá.\\\small Fonte: Autoria Própria.}
 \label{fig:macro-promama}
 \end{figure}
 
 \subsection{Codificação dos Componentes}
+
+Após a identificação dos módulos do sistema, a etapa seguinte envolveu a seleção de padrões de desenvolvimento adequados para a implementação de cada componente. O intuito foi produzir uma estrutura de código que pudesse ser facilmente compreendida, mantida e expandida por futuros desenvolvedores.
+
+Tanto para a \emph{API}, quanto para o Painel Administrativo, optou-se pela arquitetura \emph{Hexagonal} (também conhecida como \emph{Ports and Adapters}), que promove o desacoplamento entre o núcleo da aplicação e suas \emph{interfaces} externas. Outro ponto importante que influenciou a decisão foi o que \citeonline{archlimpaunclebob} destaca em seu tópico sobre "Arquitetura Gritante", onde ele menciona que a organização do código deve refletir claramente o domínio do negócio, tornando evidente para qualquer desenvolvedor qual é o propósito do sistema apenas ao analisar sua estrutura.
+
+A implementação desse padrão implica que as camadas tenham suas responsabilidades bem definidas, facilitando a compreensão do fluxo de dados e a localização de funcionalidades específicas. Isso é especialmente relevante em projetos colaborativos ou com alta rotatividade de equipe, onde a clareza na organização do código é crucial para a continuidade do desenvolvimento.
+
+Mas não basta apenas entender como estruturar os arquivos de código-fonte. É necessário também adotar boas práticas de programação para garantir a qualidade do \emph{software}. Nesse sentido, foram seguidas as orientações sobre Código Limpo de \citeonline{cleancodeunclebob}, que enfatizam a importância de escrever código legível, simples e fácil de manter. Essas instruções incluem a escolha de nomes significativos para variáveis e funções, a redução da complexidade, a eliminação de duplicações e a organização lógica do código.
+
+Para o ato de pensar e escrever as funções e soluções, foi adotada a metodologia SOLID, um conjunto de princípios que visam melhorar a estrutura e a qualidade do código \citeonline{cleancodeunclebob}. Esses princípios incluem:
+\begin{itemize}
+    \item \textbf{S} - Princípio da Responsabilidade Única (\emph{Single Responsibility Principle}): Cada módulo ou classe deve ter uma única responsabilidade ou motivo para mudar.
+    \item \textbf{O} - Princípio do Aberto/Fechado (\emph{Open/Closed Principle}): Entidades de \emph{software} devem estar abertas para extensão, mas fechadas para modificação.
+    \item \textbf{L} - Princípio da Substituição de Liskov (\emph{Liskov Substitution Principle}): Objetos de uma classe derivada devem poder substituir objetos da classe base sem alterar o comportamento esperado do programa.
+    \item \textbf{I} - Princípio da Segregação de Interface (\emph{Interface Segregation Principle}): Muitas \emph{interfaces} específicas são melhores do que uma \emph{interface} única e geral. Clientes não devem ser forçados a depender de \emph{interfaces} que não utilizam.
+    \item \textbf{D} - Princípio da Inversão de Dependência (\emph{Dependency Inversion Principle}): Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem depender de abstrações. Abstrações não devem depender de detalhes. Detalhes devem depender de abstrações.
+\end{itemize}
+
+A adoção desses princípios contribui para a criação de um código mais modular, flexível e fácil de testar, o que é essencial para a manutenção e evolução do sistema ao longo do tempo. A seguir, serão detalhadas as escolhas tecnológicas e as implementações específicas para cada componente do Pró-Mamá.
+
+\subsubsection{Codificação da API}
+
+A \emph{API} do Pró-Mamá foi desenvolvida utilizando um conjunto de bibliotecas do ecossistema de \emph{Node.Js}. Para o servidor foi escolhido o \emph{Express}, um \emph{framework} minimalista e flexível que facilita a criação de aplicações \emph{web} e \emph{APIs RESTful} \citeonline{expressdocs}. O \emph{Express} oferece uma série de recursos, como roteamento, \emph{middleware} e suporte a diferentes formatos de resposta, tornando-o uma escolha popular para o desenvolvimento de \emph{APIs} em \emph{JavaScript}. 
+
+Complementando o \emph{Express}, foi utilizado o \emph{TypeScript}, uma linguagem que adiciona tipagem estática ao \emph{JavaScript}, proporcionando maior segurança e facilitando a detecção de erros durante o desenvolvimento \citeonline{typescriptdocs}. Para a documentação, foi criada uma especificação \emph{OpenAPI} utilizando o \emph{Swagger}, que permite a geração automática de documentação interativa e facilita a comunicação entre desenvolvedores e consumidores da \emph{API} \citeonline{swaggerdocs}.
+
+Essa especificação é gerada dinamicamente a partir do código-fonte, garantindo que a documentação esteja sempre atualizada com as últimas mudanças das rotas e que não tenha a necessidade de manutenção manual. Além disso, é possível facilmente pela \emph{interface} do \emph{Swagger UI} testar as rotas da \emph{API}, o que é especialmente útil durante o desenvolvimento e para a validação das funcionalidades implementadas.
+
+Não menos importante, todo o gerenciamento das dependências de código foi feito a partir da biblioteca \emph{awilix}, que implementa o padrão de Injeção de Dependência (DI - \emph{Dependency Injection}) \citeonline{awilixdocs}. A DI é uma técnica que promove o desacoplamento entre os componentes do sistema, facilitando a manutenção, o teste e a evolução do código. Com o \emph{awilix}, é possível registrar e resolver dependências de forma automática, simplificando a configuração e a organização dos módulos da aplicação.
+
+\subsection{Codificação do Painel Administrativo}
+
+O Painel Administrativo do Pró-Mamá é uma \emph{Single Page Application} (SPA), uma aplicação \emph{web} que carrega uma única página HTML e atualiza dinamicamente o conteúdo conforme o usuário interage com a interface, sem a necessidade de recarregar a página inteira \citeonline{spadocs}. Essa abordagem proporciona uma experiência de usuário mais fluida e responsiva, semelhante à de aplicações nativas.
+
+Para o desenvolvimento do Painel, foi utilizado o \emph{React}, uma biblioteca JavaScript amplamente adotada para a construção de interfaces de usuário \citeonline{reactdocs}. O \emph{React} permite a criação de componentes reutilizáveis e facilita a gestão do estado da aplicação, tornando-o uma escolha popular para o desenvolvimento de SPAs.
+
+
 
