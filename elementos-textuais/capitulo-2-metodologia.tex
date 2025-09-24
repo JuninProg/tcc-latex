@@ -633,9 +633,9 @@ O planejamento do Pró-Mamá, fundamentado nesses conceitos, resultou em uma org
 
 \subsection{Representação dos Componentes}
 
-A Figura~\ref{fig:macro-promama} ilustra de modo conceitual a arquitetura do Pró-Mamá, delineando a distribuição e interação dos principais módulos do sistema. No núcleo da solução, a \emph{API} centraliza a lógica funcional e opera em ambiente restrito, protegida por rede interna, o que reduz vulnerabilidades e garante maior resiliência frente a alterações nas camadas externas. Essa configuração fortalece a manutenção do domínio e prolonga a adaptabilidade do sistema \citeonline{sommerville2011engenharia}.
+A Figura~\ref{fig:macro-promama} ilustra de modo conceitual a arquitetura do Pró-Mamá, delineando a distribuição e interação dos principais módulos do sistema. No núcleo da solução, a \emph{API} centraliza a lógica funcional e opera em ambiente restrito, protegida por rede interna, o que reduz vulnerabilidades e garante maior resiliência frente a alterações nas camadas externas.
 
-Na camada de \emph{interface}, distinguem-se dois perfis de usuário: administradores, que acessam o Painel Administrativo via navegador \emph{web}, e mães usuárias, que utilizam o aplicativo móvel. Ambos os acessos são intermediados pelo protocolo \emph{HTTPS} e pelo serviço de borda \emph{Cloudflare}, responsável por filtrar riscos de segurança, otimizar entrega por \emph{cache} e assegurar que apenas requisições válidas atinjam as demais estruturas \citeonline{cloudflarefundamentals}.
+Na camada de apresentação, distinguem-se dois perfis de usuário: administradores, que acessam o Painel Administrativo via navegador \emph{web}, e mães usuárias, que utilizam o aplicativo móvel. Ambos os acessos são intermediados pelo protocolo \emph{HTTPS} e pelo serviço de borda \emph{Cloudflare}, responsável por filtrar riscos de segurança, otimizar entrega por \emph{cache} e assegurar que apenas requisições válidas atinjam as demais estruturas \citeonline{cloudflarefundamentals}.
 
 Após essa filtragem, o \emph{Nginx Reverse Proxy} direciona o tráfego para os destinos apropriados — Painel Administrativo ou \emph{API} —, gerenciando também certificados digitais, compressão dos dados e balanceamento básico de carga \citeonline{nginxloadbalancer}. Essa camada potencializa a eficiência e distribui as solicitações de modo a evitar sobrecarga de instâncias, aumentando a robustez do serviço.
 
@@ -657,43 +657,82 @@ Dessa forma, a arquitetura adotada privilegia modularidade e transparência, man
 \caption{Visão geral dos componentes e interações do sistema Pró-Mamá.\\\small Fonte: Autoria Própria.}
 \label{fig:macro-promama}
 \end{figure}
-
 \subsection{Codificação dos Componentes}
 
-Após a identificação dos módulos do sistema, a etapa seguinte envolveu a seleção de padrões de desenvolvimento adequados para a implementação de cada componente. O intuito foi produzir uma estrutura de código que pudesse ser facilmente compreendida, mantida e expandida por futuros desenvolvedores.
+Após a definição dos módulos do sistema, procedeu-se à escolha de padrões de desenvolvimento que pudessem ser aplicados de forma consistente tanto na \emph{API} quanto no Painel Administrativo. O objetivo foi estabelecer uma estrutura de código que favorecesse a compreensão, manutenção e expansão por futuros desenvolvedores, independentemente da familiaridade prévia com o projeto.
 
-Tanto para a \emph{API}, quanto para o Painel Administrativo, optou-se pela arquitetura \emph{Hexagonal} (também conhecida como \emph{Ports and Adapters}), que promove o desacoplamento entre o núcleo da aplicação e suas \emph{interfaces} externas. Outro ponto importante que influenciou a decisão foi o que \citeonline{archlimpaunclebob} destaca em seu tópico sobre "Arquitetura Gritante", onde ele menciona que a organização do código deve refletir claramente o domínio do negócio, tornando evidente para qualquer desenvolvedor qual é o propósito do sistema apenas ao analisar sua estrutura.
+Embora o \emph{JavaScript} não seja uma linguagem orientada a objetos de forma estrita, como o \emph{Java}, a adoção do \emph{TypeScript} permitiu incorporar recursos de tipagem estática e reforçar o paradigma de programação orientada a objetos. Essa abordagem contribuiu para maior clareza na definição de classes, \emph{interfaces} e contratos, além de facilitar a detecção precoce de erros durante o desenvolvimento.
 
-A implementação desse padrão implica que as camadas tenham suas responsabilidades bem definidas, facilitando a compreensão do fluxo de dados e a localização de funcionalidades específicas. Isso é especialmente relevante em projetos colaborativos ou com alta rotatividade de equipe, onde a clareza na organização do código é crucial para a continuidade do desenvolvimento.
+Para a organização dos arquivos e módulos, foi adotada a arquitetura \emph{Hexagonal} (\emph{Ports and Adapters}), que promove o desacoplamento entre o núcleo da aplicação e suas \emph{interfaces} externas. Essa decisão está alinhada ao conceito de "Arquitetura Gritante" descrito por \citeonline{archlimpaunclebob}, segundo o qual a estrutura do código deve refletir o domínio do negócio, permitindo que qualquer desenvolvedor identifique o propósito do sistema apenas ao analisar sua organização.
 
-Mas não basta apenas entender como estruturar os arquivos de código-fonte. É necessário também adotar boas práticas de programação para garantir a qualidade do \emph{software}. Nesse sentido, foram seguidas as orientações sobre Código Limpo de \citeonline{cleancodeunclebob}, que enfatizam a importância de escrever código legível, simples e fácil de manter. Essas instruções incluem a escolha de nomes significativos para variáveis e funções, a redução da complexidade, a eliminação de duplicações e a organização lógica do código.
-
-Para o ato de pensar e escrever as funções e soluções, foi adotada a metodologia SOLID, um conjunto de princípios que visam melhorar a estrutura e a qualidade do código \citeonline{cleancodeunclebob}. Esses princípios incluem:
+A implementação seguiu ainda princípios selecionados da metodologia SOLID, com destaque para:
 \begin{itemize}
-    \item \textbf{S} - Princípio da Responsabilidade Única (\emph{Single Responsibility Principle}): Cada módulo ou classe deve ter uma única responsabilidade ou motivo para mudar.
-    \item \textbf{O} - Princípio do Aberto/Fechado (\emph{Open/Closed Principle}): Entidades de \emph{software} devem estar abertas para extensão, mas fechadas para modificação.
-    \item \textbf{L} - Princípio da Substituição de Liskov (\emph{Liskov Substitution Principle}): Objetos de uma classe derivada devem poder substituir objetos da classe base sem alterar o comportamento esperado do programa.
-    \item \textbf{I} - Princípio da Segregação de Interface (\emph{Interface Segregation Principle}): Muitas \emph{interfaces} específicas são melhores do que uma \emph{interface} única e geral. Clientes não devem ser forçados a depender de \emph{interfaces} que não utilizam.
-    \item \textbf{D} - Princípio da Inversão de Dependência (\emph{Dependency Inversion Principle}): Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem depender de abstrações. Abstrações não devem depender de detalhes. Detalhes devem depender de abstrações.
+    \item \textbf{S} — Princípio da Responsabilidade Única (\emph{Single Responsibility Principle}): cada módulo ou classe deve possuir apenas uma responsabilidade, reduzindo acoplamentos desnecessários.
+    \item \textbf{I} — Princípio da Segregação de \emph{Interface} (\emph{Interface Segregation Principle}): \emph{interfaces} específicas são preferíveis a \emph{interfaces} genéricas, evitando que clientes dependam de métodos que não utilizam.
+    \item \textbf{D} — Princípio da Inversão de Dependência (\emph{Dependency Inversion Principle}): módulos de alto nível e baixo nível devem depender de abstrações, e não de implementações concretas.
 \end{itemize}
 
-A adoção desses princípios contribui para a criação de um código mais modular, flexível e fácil de testar, o que é essencial para a manutenção e evolução do sistema ao longo do tempo. A seguir, serão detalhadas as escolhas tecnológicas e as implementações específicas para cada componente do Pró-Mamá.
+A aplicação desses padrões e princípios resultou em um código mais modular, flexível e testável, características essenciais para a evolução contínua do sistema e para a integração de novos colaboradores. Na sequência, serão apresentadas as escolhas tecnológicas e as implementações específicas realizadas na \emph{API} e no Painel Administrativo do Pró-Mamá.
 
 \subsubsection{Codificação da API}
 
-A \emph{API} do Pró-Mamá foi desenvolvida utilizando um conjunto de bibliotecas do ecossistema de \emph{Node.Js}. Para o servidor foi escolhido o \emph{Express}, um \emph{framework} minimalista e flexível que facilita a criação de aplicações \emph{web} e \emph{APIs RESTful} \citeonline{expressdocs}. O \emph{Express} oferece uma série de recursos, como roteamento, \emph{middleware} e suporte a diferentes formatos de resposta, tornando-o uma escolha popular para o desenvolvimento de \emph{APIs} em \emph{JavaScript}. 
+A \emph{API} do Pró-Mamá foi desenvolvida no ecossistema \emph{Node.js}, utilizando o \emph{framework} \emph{Express} para a construção de aplicações \emph{web} e serviços \emph{RESTful}. O termo \emph{RESTful} refere-se a um estilo arquitetural para sistemas distribuídos que utiliza o protocolo HTTP e princípios como recursos identificáveis por URIs, operações padronizadas (\emph{GET}, \emph{POST}, \emph{PUT}, \emph{DELETE}) e comunicação sem estado \cite{REFERENCIA_RESTFUL}. Essa abordagem é amplamente adotada para integração entre sistemas e facilita a interoperabilidade.
 
-Complementando o \emph{Express}, foi utilizado o \emph{TypeScript}, uma linguagem que adiciona tipagem estática ao \emph{JavaScript}, proporcionando maior segurança e facilitando a detecção de erros durante o desenvolvimento \citeonline{typescriptdocs}. Para a documentação, foi criada uma especificação \emph{OpenAPI} utilizando o \emph{Swagger}, que permite a geração automática de documentação interativa e facilita a comunicação entre desenvolvedores e consumidores da \emph{API} \citeonline{swaggerdocs}.
+Para a documentação, adotou-se a especificação \emph{OpenAPI} por meio da ferramenta \emph{Swagger} \citeonline{swaggerdocs}, que permite a geração automática de documentação interativa e a validação das rotas diretamente pela \emph{interface} \emph{Swagger UI}. Essa prática assegura que a documentação permaneça sincronizada com o código-fonte, reduzindo a necessidade de manutenção manual.
 
-Essa especificação é gerada dinamicamente a partir do código-fonte, garantindo que a documentação esteja sempre atualizada com as últimas mudanças das rotas e que não tenha a necessidade de manutenção manual. Além disso, é possível facilmente pela \emph{interface} do \emph{Swagger UI} testar as rotas da \emph{API}, o que é especialmente útil durante o desenvolvimento e para a validação das funcionalidades implementadas.
+O gerenciamento de dependências internas foi estruturado com a biblioteca \emph{awilix} \citeonline{awilixdocs}, que implementa o padrão de Injeção de Dependência (\emph{Dependency Injection}). A Injeção de Dependência é um padrão de projeto que consiste em fornecer a um componente as suas dependências externas por meio de abstrações, em vez de criá-las internamente, promovendo o desacoplamento e facilitando testes e manutenção \cite{REFERENCIA_DI}.
 
-Não menos importante, todo o gerenciamento das dependências de código foi feito a partir da biblioteca \emph{awilix}, que implementa o padrão de Injeção de Dependência (DI - \emph{Dependency Injection}) \citeonline{awilixdocs}. A DI é uma técnica que promove o desacoplamento entre os componentes do sistema, facilitando a manutenção, o teste e a evolução do código. Com o \emph{awilix}, é possível registrar e resolver dependências de forma automática, simplificando a configuração e a organização dos módulos da aplicação.
+A organização da estrutura de pastas da \emph{API} seguiu uma divisão lógica, conforme a Tabela~\ref{tab:pastas_api}, separando responsabilidades e favorecendo a clareza arquitetural.
+
+\begin{table}[H]
+\centering
+\caption{Estrutura de pastas da API e responsabilidades}
+\label{tab:pastas_api}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Pasta} & \textbf{Responsabilidade} \\ \hline
+\texttt{app} & Contém a configuração principal da aplicação, incluindo inicialização de serviços e carregamento de módulos. \\ \hline
+\texttt{domain} & Implementa as regras de negócio e entidades centrais do sistema, isoladas de detalhes técnicos. \\ \hline
+\texttt{infra} & Gerencia recursos de infraestrutura, como acesso a banco de dados e provedores (\emph{e-mail}, notificações). \\ \hline
+\texttt{interfaces} & Define contratos e adaptadores para comunicação entre o núcleo da aplicação e componentes externos. \\ \hline
+\texttt{jobs} & Armazena tarefas agendadas e processos assíncronos executados periodicamente. \\ \hline
+\end{tabular}
+\end{table}
+
+Essa organização modular contribui para a manutenção evolutiva e a escalabilidade da solução. A estrutura estabelecida na \emph{API} serviu como base para o desenvolvimento do Painel Administrativo, que será detalhado na subseção seguinte.
 
 \subsection{Codificação do Painel Administrativo}
 
-O Painel Administrativo do Pró-Mamá é uma \emph{Single Page Application} (SPA), uma aplicação \emph{web} que carrega uma única página HTML e atualiza dinamicamente o conteúdo conforme o usuário interage com a interface, sem a necessidade de recarregar a página inteira \citeonline{spadocs}. Essa abordagem proporciona uma experiência de usuário mais fluida e responsiva, semelhante à de aplicações nativas.
+O Painel Administrativo do Pró-Mamá foi desenvolvido como uma \emph{Single Page Application} (SPA). Uma SPA é uma aplicação \emph{web} que carrega uma única página HTML e atualiza dinamicamente o conteúdo conforme o usuário interage com a \emph{interface}, sem a necessidade de recarregar a página inteira \cite{REFERENCIA_SPA}. 
 
-Para o desenvolvimento do Painel, foi utilizado o \emph{React}, uma biblioteca JavaScript amplamente adotada para a construção de interfaces de usuário \citeonline{reactdocs}. O \emph{React} permite a criação de componentes reutilizáveis e facilita a gestão do estado da aplicação, tornando-o uma escolha popular para o desenvolvimento de SPAs.
+Essa abordagem proporciona uma experiência de uso mais fluida e responsiva, além de reduzir o tempo de carregamento entre páginas. No contexto do projeto, a escolha por uma SPA favorece a integração com a \emph{API} e permite que as funcionalidades administrativas sejam acessadas de forma contínua, sem interrupções na navegação.
 
+Para a implementação, foi utilizada a biblioteca \emph{React.js}, amplamente adotada para construção de \emph{interfaces} de usuário baseadas em componentes \cite{REFERENCIA_REACT}. Essa arquitetura facilita a reutilização de elementos visuais e a manutenção do código, características essenciais para um projeto que poderá ser expandido por diferentes colaboradores ao longo do tempo.
 
+A estrutura de pastas do Painel Administrativo foi adaptada da arquitetura utilizada na \emph{API}, considerando as necessidades específicas do \emph{frontend}. A Tabela~\ref{tab:pastas_painel} apresenta a organização adotada.
 
+\begin{table}[H]
+\centering
+\caption{Estrutura de pastas do Painel Administrativo e responsabilidades}
+\label{tab:pastas_painel}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Pasta} & \textbf{Responsabilidade} \\ \hline
+\texttt{assets} & Contém arquivos estáticos como imagens, ícones e folhas de estilo globais. \\ \hline
+\texttt{components} & Implementa componentes visuais reutilizáveis da interface (\emph{UI}). \\ \hline
+\texttt{contexts} & Define contextos globais para gerenciamento de estado compartilhado entre componentes. \\ \hline
+\texttt{global} & Armazena configurações e estilos globais aplicados em toda a aplicação. \\ \hline
+\texttt{guards} & Implementa mecanismos de proteção de rotas, como verificação de autenticação. \\ \hline
+\texttt{infra} & Gerencia integrações com serviços externos e recursos de infraestrutura do \emph{frontend}. \\ \hline
+\texttt{domain} & Contém entidades e regras de negócio aplicadas no lado cliente. \\ \hline
+\texttt{pages} & Agrupa as páginas principais da aplicação, cada uma representando uma rota distinta. \\ \hline
+\texttt{providers} & Configura provedores de serviços e bibliotecas utilizadas globalmente. \\ \hline
+\texttt{routes} & Define o mapeamento das rotas da aplicação e sua associação com componentes. \\ \hline
+\end{tabular}
+\end{table}
+
+Para o gerenciamento de rotas, foi utilizada a biblioteca \emph{react-router-dom} \cite{REFERENCIA_ROUTER}, que permite definir caminhos e componentes associados, além de oferecer recursos para navegação programática e proteção de rotas. Essa escolha garante maior controle sobre a navegação interna da SPA e facilita a implementação de fluxos condicionais, como autenticação e autorização.
+
+O processo de construção e otimização do Painel Administrativo foi realizado com o \emph{Vite} \cite{REFERENCIA_VITE}, uma ferramenta moderna de empacotamento e desenvolvimento que oferece inicialização rápida do servidor e atualização instantânea durante o desenvolvimento. Essa característica contribuiu para maior produtividade da equipe e para um ciclo de desenvolvimento mais ágil.
+
+A adoção dessa arquitetura e conjunto de ferramentas assegura que o Painel Administrativo mantenha sintonia com a \emph{API}, tanto em organização quanto em práticas de desenvolvimento, favorecendo a manutenção e evolução conjunta das duas camadas do sistema.
