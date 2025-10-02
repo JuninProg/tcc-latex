@@ -1,1 +1,0 @@
-# Utilities para testes
