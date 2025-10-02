@@ -51,6 +51,11 @@ class PDFContent:
         if self.extracted_at is None:
             object.__setattr__(self, 'extracted_at', datetime.now())
     
+    @property
+    def text(self) -> str:
+        """Compatibilidade: retorna full_text."""
+        return self.full_text
+    
     def is_valid(self) -> bool:
         """
         Verifica se o conteúdo extraído é válido.

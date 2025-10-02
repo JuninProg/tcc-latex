@@ -9,8 +9,9 @@ import reflex as rx
 import os
 import asyncio
 import tempfile
+import uuid
 from datetime import datetime
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from dataclasses import asdict
 from dotenv import load_dotenv
 
@@ -32,26 +33,46 @@ class AppState(rx.State):
     # Versão da aplicação
     app_version: str = "1.0.0"
     
-    # Campos do formulário
+    # Campos do formulário (copiados do FormState)
     query_text: str = "aleitamento materno aplicativo"
     filter_criteria: str = "não apenas protótipo"
-    max_results: int = 20
+    max_results: int = 50
     
-    # Erros de validação
+    # Gerenciamento de colunas
+    columns: List[Dict[str, Any]] = []
+    
+    # Estados de validação
     query_text_error: str = ""
     filter_criteria_error: str = ""
+    columns_error: str = ""
+    form_is_valid: bool = False
+    
+    # Campos específicos do Scholar Scraper
+    year_min: int = 2022
+    year_max: int = 2025
     
     # Estado do processamento
     is_processing: bool = False
     progress_percentage: int = 0
     progress_message: str = ""
+    processing_status: str = "idle"
+    current_step: str = ""
+    total_articles: int = 0
+    processed_articles: int = 0
+    last_update: str = ""
     current_task_id: Optional[str] = None
+    
+    # Estado da interface
+    show_help: bool = False
+    download_filename: str = ""
+    generated_at: str = ""
     
     # Estado do resultado
     result_ready: bool = False
     download_ready: bool = False
     excel_file_path: Optional[str] = None
     result_summary: str = ""
+    error_message: str = ""
     
     def update_query_text(self, value: str) -> None:
         """Atualiza texto da query e limpa erro."""
@@ -67,12 +88,73 @@ class AppState(rx.State):
         if self.filter_criteria_error:
             self.filter_criteria_error = ""
             
+    def add_column(self) -> None:
+        """Adiciona uma nova coluna."""
+        new_column = {
+            "id": str(uuid.uuid4()),
+            "name": "",
+            "type": "text",
+            "description": "",
+            "is_required": False,
+            "order": len(self.columns) + 1
+        }
+        self.columns.append(new_column)
+        
+    def update_column_name(self, column_id: str, name: str) -> None:
+        """Atualiza o nome de uma coluna."""
+        for column in self.columns:
+            if column["id"] == column_id:
+                column["name"] = name
+                break
+                
+    def update_column_type(self, column_id: str, column_type: str) -> None:
+        """Atualiza o tipo de uma coluna."""
+        for column in self.columns:
+            if column["id"] == column_id:
+                column["type"] = column_type
+                break
+                
+    def update_column_description(self, column_id: str, description: str) -> None:
+        """Atualiza a descrição de uma coluna."""
+        for column in self.columns:
+            if column["id"] == column_id:
+                column["description"] = description
+                break
+                
+    def remove_column(self, column_id: str) -> None:
+        """Remove uma coluna."""
+        self.columns = [col for col in self.columns if col["id"] != column_id]
+        
     def update_max_results(self, value: str) -> None:
         """Atualiza número máximo de resultados."""
         try:
-            self.max_results = max(1, min(100, int(value)))
+            self.max_results = max(1, min(5000, int(value)))  # Permite até 5000
         except (ValueError, TypeError):
             self.max_results = 20
+            
+    def update_year_min(self, value: str) -> None:
+        """Atualiza ano mínimo para filtro."""
+        try:
+            year = int(value)
+            if 1900 <= year <= 2030:  # Validação básica
+                self.year_min = year
+                # Garante que year_min <= year_max
+                if self.year_min > self.year_max:
+                    self.year_max = self.year_min
+        except (ValueError, TypeError):
+            self.year_min = 2022
+            
+    def update_year_max(self, value: str) -> None:
+        """Atualiza ano máximo para filtro."""
+        try:
+            year = int(value)
+            if 1900 <= year <= 2030:  # Validação básica
+                self.year_max = year
+                # Garante que year_min <= year_max
+                if self.year_max < self.year_min:
+                    self.year_min = self.year_max
+        except (ValueError, TypeError):
+            self.year_max = 2025
             
     def can_submit_form(self) -> bool:
         """Verifica se o formulário pode ser submetido."""
@@ -81,6 +163,64 @@ class AppState(rx.State):
             bool(self.filter_criteria.strip()) and
             not self.is_processing
         )
+        
+    def toggle_help(self) -> None:
+        """Alterna exibição da ajuda."""
+        self.show_help = not self.show_help
+        
+    def cancel_job(self) -> None:
+        """Cancela o job atual."""
+        if self.current_task_id:
+            # Revoga a task do Celery
+            celery_app.control.revoke(self.current_task_id, terminate=True)
+            self.current_task_id = None
+        
+        # Reset do estado
+        self.is_processing = False
+        self.progress_percentage = 0
+        self.progress_message = ""
+        
+    def reset_application(self) -> None:
+        """Reseta a aplicação para o estado inicial."""
+        # Cancela job se estiver rodando
+        self.cancel_job()
+        
+        # Reset formulário (se herdado do FormState)
+        if hasattr(self, 'reset_form'):
+            self.reset_form()
+        
+        # Reset específico do AppState
+        self.show_help = False
+        
+    def clear_error(self) -> None:
+        """Limpa mensagens de erro."""
+        self.error_message = ""
+        self.query_text_error = ""
+        self.filter_criteria_error = ""
+        
+    def add_column(self) -> None:
+        """Adiciona uma nova coluna (compatibilidade com FormState)."""
+        # Implementação simples para compatibilidade
+        pass
+        
+    @rx.var
+    def get_main_action_text(self) -> str:
+        """Retorna texto do botão principal baseado no estado."""
+        if self.is_processing:
+            return "Processando..."
+        return "Buscar Artigos"
+        
+    @rx.var
+    def has_error(self) -> bool:
+        """Indica se há erros de validação."""
+        return bool(self.query_text_error or self.filter_criteria_error)
+        
+    @rx.var
+    def get_file_size_display(self) -> str:
+        """Retorna o tamanho do arquivo de download formatado."""
+        if self.download_filename:
+            return "Arquivo disponível"
+        return "Nenhum arquivo"
         
     def debug_print_values(self) -> None:
         """Debug: Imprime valores atuais."""
@@ -202,6 +342,8 @@ class AppState(rx.State):
                 query_text=self.query_text.strip(),
                 filter_criteria=self.filter_criteria.strip(),
                 max_results=self.max_results,
+                year_min=self.year_min if self.year_min else None,
+                year_max=self.year_max if self.year_max else None,
                 columns=columns
             )
             
@@ -268,8 +410,12 @@ class AppState(rx.State):
                     
                     # Obtém resultado
                     task_result = result.result
+                    print(f"DEBUG: task_result type: {type(task_result)}")
+                    print(f"DEBUG: task_result: {task_result}")
+                    
                     if isinstance(task_result, dict):
                         self.excel_file_path = task_result.get('excel_path')
+                        print(f"DEBUG: excel_file_path set to: {self.excel_file_path}")
                         total_articles = task_result.get('total_articles', 0)
                         meets_criteria = task_result.get('meets_criteria', 0)
                         
@@ -280,12 +426,15 @@ class AppState(rx.State):
                         
                         self.result_ready = True
                         self.download_ready = True
+                        print(f"DEBUG: result_ready={self.result_ready}, download_ready={self.download_ready}")
                     elif isinstance(task_result, str):
                         # Worker retorna apenas o caminho do arquivo
                         self.excel_file_path = task_result
+                        print(f"DEBUG: excel_file_path set to (string): {self.excel_file_path}")
                         self.result_summary = "Processamento concluído! Arquivo CSV gerado."
                         self.result_ready = True
                         self.download_ready = True
+                        print(f"DEBUG: result_ready={self.result_ready}, download_ready={self.download_ready}")
                     
                     self.is_processing = False
                     break
@@ -342,10 +491,14 @@ class AppState(rx.State):
         """
         Inicia processo de download usando JavaScript.
         """
+        print(f"DEBUG: initiate_download called - excel_file_path: {self.excel_file_path}, download_ready: {self.download_ready}")
+        
         if not self.excel_file_path or not self.download_ready:
+            print(f"DEBUG: No file path available for download")
             return rx.toast.error("Arquivo não está pronto para download")
         
         try:
+            print(f"DEBUG: Trying to read file: {self.excel_file_path}")
             # Lê o conteúdo do arquivo CSV
             with open(self.excel_file_path, 'r', encoding='utf-8') as f:
                 csv_content = f.read()
@@ -370,4 +523,49 @@ class AppState(rx.State):
             
         except Exception as e:
             print(f"Erro no initiate_download: {e}")
+            return rx.toast.error(f"Erro ao baixar arquivo: {e}")
+    
+    async def download_latest_csv(self) -> rx.event.EventSpec:
+        """
+        Baixa o CSV mais recente da pasta csvs_gerados.
+        """
+        try:
+            import glob
+            import os
+            
+            # Procura pelo CSV mais recente
+            csv_pattern = os.path.join("csvs_gerados", "scholar_scraper_*.csv")
+            csv_files = glob.glob(csv_pattern)
+            
+            if not csv_files:
+                return rx.toast.error("Nenhum arquivo CSV encontrado")
+                
+            # Pega o mais recente
+            latest_csv = max(csv_files, key=os.path.getctime)
+            print(f"DEBUG: Downloading latest CSV: {latest_csv}")
+            
+            # Lê o conteúdo do arquivo CSV
+            with open(latest_csv, 'r', encoding='utf-8') as f:
+                csv_content = f.read()
+            
+            # Escapar o conteúdo CSV para JavaScript
+            escaped_content = csv_content.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '\\r')
+            filename = os.path.basename(latest_csv)
+            
+            # Usar JavaScript para fazer o download
+            js_code = f"""
+            const content = "{escaped_content}";
+            const blob = new Blob([content], {{ type: 'text/csv;charset=utf-8;' }});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = '{filename}';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            """
+            
+            return rx.call_script(js_code)
+            
+        except Exception as e:
+            print(f"Erro no download_latest_csv: {e}")
             return rx.toast.error(f"Erro ao baixar arquivo: {e}")

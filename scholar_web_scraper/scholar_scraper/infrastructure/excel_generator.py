@@ -73,23 +73,24 @@ class ExcelGenerator:
             # Determina extensão e prefixo
             extension = '.csv' if format_type == 'csv' else '.xlsx'
             
-            # Cria arquivo temporário
-            temp_file = tempfile.NamedTemporaryFile(
-                delete=False,
-                suffix=extension,
-                prefix='scholar_scraper_'
-            )
-            temp_file.close()
+            # Define diretório de saída (junto com a aplicação)
+            output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'csvs_gerados')
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Gera nome único para o arquivo
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f"scholar_scraper_{timestamp}{extension}"
+            file_path = os.path.join(output_dir, filename)
             
             if format_type == 'csv':
                 # Limpa dados para evitar problemas com separador
                 cleaned_df = self._clean_dataframe_for_csv(df)
                 # Gera CSV com ponto e vírgula como separador
-                cleaned_df.to_csv(temp_file.name, index=False, encoding='utf-8', sep=';')
-                logger.info(f"CSV gerado: {temp_file.name}")
+                cleaned_df.to_csv(file_path, index=False, encoding='utf-8', sep=';')
+                logger.info(f"CSV gerado: {file_path}")
             else:
                 # Gera Excel com múltiplas abas e formatação
-                with pd.ExcelWriter(temp_file.name, engine='openpyxl') as writer:
+                with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
                     # Aba principal com dados
                     df.to_excel(writer, sheet_name='Artigos Analisados', index=False)
                     
@@ -102,9 +103,9 @@ class ExcelGenerator:
                     # Aplica formatação
                     self._format_workbook(writer.book, df, columns)
                 
-                logger.info(f"Arquivo gerado: {temp_file.name}")
+                logger.info(f"Arquivo gerado: {file_path}")
                 
-            return temp_file.name
+            return file_path
             
         except Exception as e:
             logger.error(f"Erro ao gerar Excel: {e}")

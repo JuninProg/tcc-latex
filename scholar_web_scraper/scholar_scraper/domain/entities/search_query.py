@@ -24,6 +24,8 @@ class SearchQuery:
         filter_criteria: Critérios de filtro para análise via IA
         columns: Lista de configurações de colunas para o resultado
         max_results: Número máximo de resultados a buscar
+        year_min: Ano mínimo para filtro de publicação (opcional)
+        year_max: Ano máximo para filtro de publicação (opcional)
         created_at: Timestamp de criação da consulta
         user_id: ID do usuário que criou a consulta (opcional)
     """
@@ -33,6 +35,8 @@ class SearchQuery:
     columns: List[ColumnConfig]
     id: str = ""
     max_results: int = 20
+    year_min: Optional[int] = None
+    year_max: Optional[int] = None
     created_at: Optional[datetime] = None
     user_id: Optional[str] = None
     
@@ -87,7 +91,7 @@ class SearchQuery:
         if not self.columns:
             return False
         
-        if self.max_results <= 0 or self.max_results > 100:
+        if self.max_results <= 0:
             return False
         
         # Valida cada coluna
@@ -117,8 +121,6 @@ class SearchQuery:
         
         if self.max_results <= 0:
             errors.append("Número máximo de resultados deve ser maior que zero")
-        elif self.max_results > 100:
-            errors.append("Número máximo de resultados não pode exceder 100")
         
         # Valida colunas individuais
         for i, column in enumerate(self.columns):

@@ -21,19 +21,14 @@ def help_modal() -> rx.Component:
     Returns:
         Componente do modal de ajuda
     """
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_header(
-                    rx.hstack(
-                        rx.icon("help-circle", size=24, color="blue.500"),
-                        rx.text("Como Usar o Scholar Web Scraper", font_size="xl"),
-                        align_items="center",
-                        spacing="1"
-                    )
-                ),
-                rx.modal_close_button(),
-                rx.modal_body(
+    return rx.dialog.root(
+        rx.dialog.content(
+            rx.dialog.title(
+                "Ajuda - Scholar Web Scraper",
+                margin_bottom="1rem"
+            ),
+            rx.dialog.description(
+                rx.vstack(
                     rx.vstack(
                         # Passo 1
                         rx.box(
@@ -150,7 +145,7 @@ def help_modal() -> rx.Component:
                         spacing="3"
                     )
                 ),
-                rx.modal_footer(
+                rx.dialog.close(
                     rx.button(
                         "Entendi",
                         on_click=AppState.toggle_help,
@@ -159,7 +154,7 @@ def help_modal() -> rx.Component:
                 )
             )
         ),
-        is_open=AppState.show_help
+        open=AppState.show_help
     )
 
 

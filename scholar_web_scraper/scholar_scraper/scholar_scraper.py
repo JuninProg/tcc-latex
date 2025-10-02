@@ -8,7 +8,7 @@ a app, estados e rotas principais.
 import reflex as rx
 
 from .states.app_state import AppState
-from .ui.pages import index_page
+from .pages import index
 
 
 # Configuração da aplicação
@@ -22,4 +22,4 @@ app = rx.App(
 )
 
 # Adiciona as páginas
-app.add_page(index_page, route="/", title="Scholar Web Scraper")
+app.add_page(index, route="/", title="Scholar Web Scraper")

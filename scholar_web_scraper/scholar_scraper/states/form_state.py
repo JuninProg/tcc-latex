@@ -17,9 +17,9 @@ class FormState(rx.State):
     """Estado do formulário principal."""
     
     # Campos do formulário
-    query_text: str = ""
-    filter_criteria: str = ""
-    max_results: int = 20
+    query_text: str = "aleitamento materno aplicativo"
+    filter_criteria: str = "não apenas protótipo"
+    max_results: int = 50
     
     # Gerenciamento de colunas
     columns: List[Dict[str, Any]] = []
@@ -234,7 +234,9 @@ class FormState(rx.State):
             query_text=self.query_text.strip(),
             filter_criteria=self.filter_criteria.strip(),
             columns=column_configs,
-            max_results=self.max_results
+            max_results=self.max_results,
+            year_min=getattr(self, 'year_min', None),
+            year_max=getattr(self, 'year_max', None)
         )
     
     def reset_form(self) -> None:

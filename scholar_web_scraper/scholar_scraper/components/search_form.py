@@ -98,16 +98,74 @@ def search_form() -> rx.Component:
                     value=AppState.max_results,
                     on_change=AppState.update_max_results,
                     min=1,
-                    max=100,
+                    max=5000,
                     width="120px"
                 ),
                 rx.text(
-                    "artigos (1-100)",
+                    "artigos (1-5000)",
                     color="gray.600",
                     font_size="1"
                 ),
                 align_items="center",
                 spacing="1"
+            ),
+            width="100%",
+            align_items="flex-start",
+            spacing="1"
+        ),
+        
+        # Campos de filtro por ano
+        rx.vstack(
+            rx.text(
+                "Filtro por Ano de Publicação",
+                font_weight="bold",
+                color="gray.700"
+            ),
+            rx.hstack(
+                rx.vstack(
+                    rx.text(
+                        "Ano Mínimo",
+                        font_size="1",
+                        color="gray.600"
+                    ),
+                    rx.input(
+                        type="number",
+                        value=AppState.year_min,
+                        on_change=AppState.update_year_min,
+                        min=1900,
+                        max=2030,
+                        width="100px",
+                        placeholder="2022"
+                    ),
+                    spacing="1",
+                    align_items="flex-start"
+                ),
+                rx.vstack(
+                    rx.text(
+                        "Ano Máximo",
+                        font_size="1",
+                        color="gray.600"
+                    ),
+                    rx.input(
+                        type="number",
+                        value=AppState.year_max,
+                        on_change=AppState.update_year_max,
+                        min=1900,
+                        max=2030,
+                        width="100px",
+                        placeholder="2025"
+                    ),
+                    spacing="1",
+                    align_items="flex-start"
+                ),
+                spacing="4",
+                align_items="flex-start"
+            ),
+            rx.text(
+                "Deixe em branco para não filtrar por ano",
+                color="gray.500",
+                font_size="1",
+                font_style="italic"
             ),
             width="100%",
             align_items="flex-start",

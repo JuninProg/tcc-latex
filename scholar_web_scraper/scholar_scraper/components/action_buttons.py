@@ -28,7 +28,7 @@ def main_action_button() -> rx.Component:
             ),
             rx.hstack(
                 rx.icon("search", size=16),
-                rx.text(AppState.get_main_action_text()),
+                rx.text(AppState.get_main_action_text),
                 align_items="center",
                 spacing="1"
             )
@@ -88,6 +88,22 @@ def download_button() -> rx.Component:
         rx.box()
     )
 
+def download_latest_button() -> rx.Component:
+    """
+    Botão para baixar o CSV mais recente (sempre disponível).
+    
+    Returns:
+        Componente do botão download
+    """
+    return rx.button(
+        rx.icon("download", size=16),
+        "Baixar Último CSV",
+        on_click=AppState.download_latest_csv,
+        color_scheme="blue",
+        size="4",
+        width="200px"
+    )
+
 
 def reset_button() -> rx.Component:
     """
@@ -136,6 +152,7 @@ def action_buttons() -> rx.Component:
             main_action_button(),
             cancel_button(),
             download_button(),
+            download_latest_button(),
             justify="center",
             align_items="center",
             spacing="4",
@@ -222,7 +239,7 @@ def download_info_display() -> rx.Component:
                             color="gray.700"
                         ),
                         rx.text(
-                            AppState.get_file_size_display(),
+                            AppState.get_file_size_display,
                             color="gray.500",
                             font_size="1"
                         ),

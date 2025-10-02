@@ -125,6 +125,11 @@ class GoogleScholarDriver:
         if not self._driver:
             raise RuntimeError("Driver não inicializado. Use context manager.")
             
+        logger.info(f"Iniciando busca: '{query.query_text}'")
+        logger.info(f"Máximo de resultados: {query.max_results}")
+        if query.year_min or query.year_max:
+            logger.info(f"Filtro de ano: {query.year_min or 'sem limite'} - {query.year_max or 'sem limite'}")
+            
         try:
             articles = []
             pages_needed = (query.max_results + self.RESULTS_PER_PAGE - 1) // self.RESULTS_PER_PAGE
@@ -134,7 +139,12 @@ class GoogleScholarDriver:
                 
                 logger.info(f"Buscando página {page + 1}/{pages_needed}")
                 
-                page_articles = self._search_page(query.query_text, start_index)
+                page_articles = self._search_page(
+                    query.query_text, 
+                    start_index,
+                    year_min=query.year_min,
+                    year_max=query.year_max
+                )
                 articles.extend(page_articles)
                 
                 # Respeitamos o limite máximo
@@ -153,13 +163,16 @@ class GoogleScholarDriver:
             logger.error(f"Erro na busca de artigos: {e}")
             raise
             
-    def _search_page(self, search_text: str, start: int = 0) -> List[Article]:
+    def _search_page(self, search_text: str, start: int = 0, 
+                     year_min: Optional[int] = None, year_max: Optional[int] = None) -> List[Article]:
         """
         Busca uma página específica de resultados.
         
         Args:
             search_text: Texto da busca
             start: Índice de início dos resultados
+            year_min: Ano mínimo para filtro (opcional)
+            year_max: Ano máximo para filtro (opcional)
             
         Returns:
             Lista de artigos da página
@@ -170,6 +183,13 @@ class GoogleScholarDriver:
             'start': start,
             'hl': 'pt'
         }
+        
+        # Adiciona filtros de ano se especificados
+        if year_min is not None:
+            params['as_ylo'] = str(year_min)
+        if year_max is not None:
+            params['as_yhi'] = str(year_max)
+            
         search_url = f"{self.BASE_URL}?{urlencode(params)}"
         
         logger.debug(f"Navegando para: {search_url}")

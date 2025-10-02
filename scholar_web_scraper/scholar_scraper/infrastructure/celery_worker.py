@@ -15,10 +15,12 @@ from celery.utils.log import get_task_logger
 
 from scholar_scraper.domain.entities import Article, SearchQuery, ColumnConfig
 from scholar_scraper.domain.value_objects import AnalysisResult, PDFContent
+from scholar_scraper.domain.value_objects.pdf_content import ExtractionMethod
 from scholar_scraper.infrastructure.web_driver import GoogleScholarDriver
 from scholar_scraper.infrastructure.pdf_processor import PDFProcessor
 from scholar_scraper.infrastructure.gemini_client import GeminiClient
 from scholar_scraper.infrastructure.excel_generator import ExcelGenerator
+from scholar_scraper.infrastructure.html_page_processor import HTMLPageProcessor
 
 
 # Configuração do Celery
@@ -140,6 +142,7 @@ class ArticleProcessingPipeline:
         )
         self.gemini_client = GeminiClient(api_key=gemini_api_key)
         self.excel_generator = ExcelGenerator()
+        self.html_processor = HTMLPageProcessor(timeout=30)
         
     def execute(self,
                search_query: SearchQuery,
@@ -223,54 +226,117 @@ class ArticleProcessingPipeline:
         
     def _process_pdfs(self, articles: List[Article]) -> List[Optional[PDFContent]]:
         """
-        Processa PDFs dos artigos.
+        Processa PDFs e HTML dos artigos com estratégia inteligente.
+        
+        Estratégia:
+        1. Tenta detectar e baixar PDF
+        2. Se PDF disponível: usa APENAS PDF para análise  
+        3. Se PDF indisponível: extrai HTML sanitizado da página
         
         Args:
             articles: Lista de artigos
             
         Returns:
-            Lista de conteúdos de PDF (pode conter None)
+            Lista de conteúdos (PDF ou HTML) para análise
         """
         self.task.update_state(
             state='PROGRESS',
             meta={
                 'current': 2,
                 'total': 5,
-                'status': 'Extraindo texto dos PDFs...',
-                'stage': 'pdf_processing'
+                'status': 'Extraindo conteúdo (PDF ou HTML)...',
+                'stage': 'content_processing'
             }
         )
         
-        pdf_contents = []
+        content_list = []
         processed = 0
         
         for article in articles:
             try:
+                # Etapa 1: Tenta PDF primeiro
                 pdf_content = self.pdf_processor.process_article_pdf(article)
-                pdf_contents.append(pdf_content)
+                
+                if pdf_content and pdf_content.text:
+                    # PDF disponível - usa APENAS PDF
+                    task_logger.info(f"PDF encontrado para: {article.metadata.title[:50] if article.metadata else article.id}")
+                    content_list.append(pdf_content)
+                else:
+                    # PDF indisponível - usa HTML da página
+                    task_logger.info(f"PDF indisponível, extraindo HTML para: {article.metadata.title[:50] if article.metadata else article.id}")
+                    html_content = self._extract_html_content(article)
+                    content_list.append(html_content)
+                
                 processed += 1
                 
-                # Atualiza progresso dentro da etapa
-                if processed % 5 == 0 or processed == len(articles):
+                # Atualiza progresso
+                if processed % 3 == 0 or processed == len(articles):
                     self.task.update_state(
                         state='PROGRESS',
                         meta={
                             'current': 2,
                             'total': 5,
-                            'status': f'Processando PDFs... ({processed}/{len(articles)})',
-                            'stage': 'pdf_processing',
+                            'status': f'Processando conteúdo... ({processed}/{len(articles)})',
+                            'stage': 'content_processing',
                             'sub_progress': processed / len(articles) * 100
                         }
                     )
                     
             except Exception as e:
                 article_title = article.metadata.title if article.metadata else article.id
-                task_logger.warning(f"Erro ao processar PDF de '{article_title}': {e}")
-                pdf_contents.append(None)
+                task_logger.warning(f"Erro ao processar conteúdo de '{article_title}': {e}")
+                content_list.append(None)
                 processed += 1
                 
-        task_logger.info(f"PDFs processados: {processed}/{len(articles)}")
-        return pdf_contents
+        task_logger.info(f"Conteúdos processados: {processed}/{len(articles)}")
+        return content_list
+    
+    def _extract_html_content(self, article: Article) -> Optional[PDFContent]:
+        """
+        Extrai conteúdo HTML sanitizado de um artigo quando PDF não está disponível.
+        
+        Args:
+            article: Artigo para extrair HTML
+            
+        Returns:
+            PDFContent com texto HTML limpo ou None se erro
+        """
+        try:
+            # Verifica se tem URL válida
+            if not hasattr(article, 'scholar_url') or not article.scholar_url:
+                task_logger.warning(f"Artigo sem URL válida: {article.id}")
+                return None
+            
+            # Extrai conteúdo da página HTML
+            page_content = self.html_processor.extract_page_content(article.scholar_url)
+            
+            if not page_content or not page_content.clean_text:
+                task_logger.warning(f"Não foi possível extrair HTML de: {article.scholar_url}")
+                return None
+            
+            # Combina texto limpo com dados extraídos
+            combined_text = page_content.clean_text
+            
+            # Adiciona metadados extraídos se disponíveis
+            if page_content.abstract:
+                combined_text = f"RESUMO: {page_content.abstract}\n\n{combined_text}"
+            
+            if page_content.keywords:
+                combined_text = f"{combined_text}\n\nPALAVRAS-CHAVE: {', '.join(page_content.keywords)}"
+            
+            # Retorna como PDFContent para compatibilidade
+            return PDFContent(
+                full_text=combined_text,
+                page_count=1,  # HTML conta como 1 página
+                extraction_method=ExtractionMethod.UNKNOWN,
+                extraction_confidence=0.8,  # HTML é menos confiável que PDF
+                file_size_bytes=len(combined_text),
+                error_message=None
+            )
+            
+        except Exception as e:
+            task_logger.error(f"Erro ao extrair HTML de {article.scholar_url}: {e}")
+            return None
         
     def _analyze_articles(self,
                          articles: List[Article],
