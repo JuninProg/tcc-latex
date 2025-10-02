@@ -1,0 +1,1 @@
+# Scholar Scraper - Aplicação Reflex principal

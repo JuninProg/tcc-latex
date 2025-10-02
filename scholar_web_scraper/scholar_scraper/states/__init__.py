@@ -1,0 +1,1 @@
+# Estados da aplicação Reflex
