@@ -139,7 +139,7 @@ class GeminiClient:
                              columns: List[ColumnConfig],
                              filter_criteria: str) -> str:
         """
-        Constrói prompt dinâmico para análise.
+        Constrói prompt dinâmico para análise estruturada.
         
         Args:
             article: Artigo a analisar
@@ -150,113 +150,71 @@ class GeminiClient:
         Returns:
             Prompt formatado para o Gemini
         """
-        # Cabeçalho do sistema
-        prompt = """Você é um assistente especializado em análise de artigos científicos. 
-Sua tarefa é analisar o artigo fornecido e extrair informações específicas baseadas nos critérios definidos.
-
-IMPORTANTE: Responda SEMPRE em formato JSON válido, seguindo exatamente a estrutura especificada.
-
-"""
-        
-        # Informações do artigo
+        # Obter dados do artigo
         title = getattr(article.metadata, 'title', article.id) if hasattr(article, 'metadata') else article.id
-        summary = getattr(article.metadata, 'summary', None) if hasattr(article, 'metadata') else None
+        summary = getattr(article.metadata, 'snippet', '') if hasattr(article, 'metadata') else ''
         authors = getattr(article.metadata, 'authors', []) if hasattr(article, 'metadata') else []
+        year = getattr(article.metadata, 'year', None) if hasattr(article, 'metadata') else None
         
-        prompt += f"""## ARTIGO PARA ANÁLISE
+        # Conteúdo disponível para análise
+        content_for_analysis = ""
+        if pdf_content and pdf_content.text:
+            # Usa o PDF completo se disponível
+            content_for_analysis = pdf_content.text[:15000]  # Limita para evitar exceder tokens
+            if len(pdf_content.text) > 15000:
+                content_for_analysis += "\n\n[... conteúdo adicional truncado ...]"
+        elif summary:
+            # Fallback para o resumo do Google Scholar
+            content_for_analysis = summary
+        else:
+            content_for_analysis = "Apenas título disponível para análise"
+        
+        prompt = f"""Você é um especialista em análise de artigos científicos na área de tecnologia e aplicativos móveis. 
+
+Analise o artigo científico fornecido e extraia as informações solicitadas. Retorne APENAS um JSON válido com a estrutura especificada.
+
+## ARTIGO PARA ANÁLISE
 
 **Título:** {title}
 
-**Resumo/Abstract:** {summary or "Não disponível"}
+**Autores:** {', '.join(authors) if authors else 'Não especificado'}
 
-**Metadados:**
-- Autores: {', '.join(authors) or "Não especificado"}
-- Ano: {getattr(article.metadata, 'year', 'Não especificado') if hasattr(article, 'metadata') and article.metadata else 'Não especificado'}
-- Venue: {getattr(article.metadata, 'venue', 'Não especificado') if hasattr(article, 'metadata') and article.metadata else 'Não especificado'}
-- Citações: {getattr(article.metadata, 'citations', 0) if hasattr(article, 'metadata') and article.metadata else 0}
+**Ano:** {year if year else 'Não especificado'}
 
-"""
+**Conteúdo para análise:**
+{content_for_analysis}
 
-        # Conteúdo do PDF se disponível
-        if pdf_content and pdf_content.text:
-            # Limita o texto para não exceder limites do modelo
-            text_preview = pdf_content.text[:8000]
-            if len(pdf_content.text) > 8000:
-                text_preview += "\n\n[... texto truncado ...]"
-                
-            prompt += f"""**Conteúdo do PDF (primeiras páginas):**
-{text_preview}
-
-"""
-
-        # Critérios de filtro
-        prompt += f"""## CRITÉRIOS DE FILTRO
+## CRITÉRIOS DE FILTRO
 
 {filter_criteria}
 
-"""
+## INSTRUÇÕES
 
-        # Configurações de colunas
-        prompt += """## COLUNAS PARA EXTRAÇÃO
-
-Analise o artigo e forneça os valores para as seguintes colunas:
-
-"""
-
-        for i, col in enumerate(columns, 1):
-            prompt += f"""{i}. **{col.name}**
-   - Tipo: {col.column_type}
-   - Descrição: {col.description or "Extrair conforme nome da coluna"}
-
-"""
-
-        # Formato de resposta
-        prompt += """## FORMATO DE RESPOSTA
-
-Responda EXCLUSIVAMENTE em formato JSON válido com a seguinte estrutura:
+Analise o conteúdo e responda APENAS com um JSON no formato exato abaixo:
 
 ```json
-{
-    "meets_criteria": true/false,
-    "confidence_score": 0.85,
-    "reasoning": "Explicação detalhada da análise e decisão",
-    "column_values": {
-"""
-
-        # Adiciona exemplos de valores para cada coluna
-        for i, col in enumerate(columns):
-            comma = "," if i < len(columns) - 1 else ""
-            
-            if col.column_type == "boolean":
-                example = "true/false"
-            elif col.column_type == "number":
-                example = "42"
-            elif col.column_type == "date":
-                example = "\"2023-12-15\""
-            else:  # text
-                example = "\"texto extraído ou analisado\""
-                
-            prompt += f"""        "{col.name}": {example}{comma}
-"""
-
-        prompt += """    }
-}
+{{
+    "descricao": "Breve descrição em 1-2 frases do que o artigo apresenta",
+    "tecnologias_usadas": "Principais tecnologias, linguagens ou frameworks mencionados",
+    "tem_aplicativo_movel": true/false,
+    "tem_painel_gestao": true/false,
+    "atende_filtro": true/false,
+    "confianca": 0.85,
+    "justificativa": "Explicação breve de por que atende ou não aos critérios"
+}}
 ```
 
-## INSTRUÇÕES ESPECÍFICAS
+## REGRAS ESPECÍFICAS:
 
-1. **meets_criteria**: Determine se o artigo atende aos critérios de filtro (true/false)
-2. **confidence_score**: Nível de confiança na análise (0.0 a 1.0)
-3. **reasoning**: Explique sua análise, destacando pontos-chave que levaram à decisão
-4. **column_values**: Para cada coluna:
-   - **text**: Extraia ou analise o texto relevante
-   - **number**: Extraia números específicos ou conte elementos
-   - **boolean**: Determine true/false baseado na análise
-   - **date**: Extraia datas no formato YYYY-MM-DD
-   - Se não encontrar informação, use valores apropriados (ex: "Não especificado", 0, false, null)
+1. **descricao**: Máximo 200 caracteres, focando no objetivo/contribuição principal
+2. **tecnologias_usadas**: Liste as principais tecnologias mencionadas (ex: "React Native, Node.js, PostgreSQL")
+3. **tem_aplicativo_movel**: true se menciona desenvolvimento de app móvel, false caso contrário
+4. **tem_painel_gestao**: true se menciona sistema web para gestão/administração, false caso contrário
+5. **atende_filtro**: true se o artigo atende aos critérios especificados
+6. **confianca**: Número entre 0.0 e 1.0 indicando sua confiança na análise
+7. **justificativa**: Máximo 100 caracteres explicando a decisão sobre atender o filtro
 
-Seja preciso, objetivo e baseie suas respostas no conteúdo real do artigo.
-"""
+Retorne APENAS o JSON, sem texto adicional."""
 
         return prompt
         
@@ -285,41 +243,57 @@ Seja preciso, objetivo e baseie suas respostas no conteúdo real do artigo.
             # Tenta parsear JSON
             data = json.loads(clean_text)
             
-            # Valida estrutura básica
-            required_keys = ['meets_criteria', 'confidence_score', 'column_values', 'reasoning']
-            for key in required_keys:
-                if key not in data:
-                    raise ValueError(f"Chave obrigatória '{key}' não encontrada")
-                    
-            # Valida tipos
-            if not isinstance(data['meets_criteria'], bool):
-                data['meets_criteria'] = str(data['meets_criteria']).lower() == 'true'
-                
-            if not isinstance(data['confidence_score'], (int, float)):
-                try:
-                    data['confidence_score'] = float(data['confidence_score'])
-                except (ValueError, TypeError):
-                    data['confidence_score'] = 0.5
-                    
-            # Garante que confidence_score está entre 0 e 1
-            data['confidence_score'] = max(0.0, min(1.0, float(data['confidence_score'])))
+            # Converte para o formato esperado pelo AnalysisResult
+            result = {
+                'meets_filter': bool(data.get('atende_filtro', False)),
+                'confidence_score': float(data.get('confianca', 0.5)),
+                'justification': str(data.get('justificativa', '')),
+                'column_data': {
+                    'Descrição': str(data.get('descricao', '')),
+                    'Tecnologias Usadas': str(data.get('tecnologias_usadas', '')),
+                    'Tem Aplicativo Móvel?': bool(data.get('tem_aplicativo_movel', False)),
+                    'Tem Painel de Gestão?': bool(data.get('tem_painel_gestao', False))
+                }
+            }
             
-            if not isinstance(data['column_values'], dict):
-                data['column_values'] = {}
-                
-            if not isinstance(data['reasoning'], str):
-                data['reasoning'] = str(data['reasoning'])
-                
-            return data
+            # Valida e ajusta valores
+            result['confidence_score'] = max(0.0, min(1.0, result['confidence_score']))
+            
+            logger.debug(f"Dados extraídos: {result}")
+            return result
             
         except json.JSONDecodeError as e:
             logger.error(f"Erro ao decodificar JSON: {e}")
             logger.debug(f"Resposta original: {response_text}")
-            raise ValueError(f"Resposta não é JSON válido: {e}")
+            
+            # Retorna valores padrão em caso de erro
+            return {
+                'meets_filter': False,
+                'confidence_score': 0.0,
+                'justification': f'Erro ao processar resposta da IA: {e}',
+                'column_data': {
+                    'Descrição': 'Erro na análise',
+                    'Tecnologias Usadas': 'Erro na análise',
+                    'Tem Aplicativo Móvel?': False,
+                    'Tem Painel de Gestão?': False
+                }
+            }
             
         except Exception as e:
             logger.error(f"Erro ao processar resposta: {e}")
-            raise
+            
+            # Retorna valores padrão em caso de erro
+            return {
+                'meets_filter': False,
+                'confidence_score': 0.0,
+                'justification': f'Erro inesperado: {e}',
+                'column_data': {
+                    'Descrição': 'Erro na análise',
+                    'Tecnologias Usadas': 'Erro na análise',
+                    'Tem Aplicativo Móvel?': False,
+                    'Tem Painel de Gestão?': False
+                }
+            }
             
     def test_connection(self) -> bool:
         """

@@ -130,51 +130,144 @@ class ExcelGenerator:
         for i, article in enumerate(articles):
             row = {}
             
-            # Colunas básicas do artigo
-            title = getattr(article.metadata, 'title', article.id) if hasattr(article, 'metadata') else article.id
-            url = getattr(article, 'scholar_url', '') if hasattr(article, 'scholar_url') else ''
-            summary = getattr(article.metadata, 'summary', '') if hasattr(article, 'metadata') else ''
-            
-            row['Título'] = title
-            row['URL'] = url
-            row['Resumo'] = summary
-            
-            # Metadados básicos
+            # Colunas básicas do artigo (dados do scraping)
             metadata = article.metadata if hasattr(article, 'metadata') else None
-            if metadata:
-                row['Autores'] = ', '.join(metadata.authors) if metadata.authors else ''
-                row['Ano'] = metadata.year or ''
-                row['Venue/Conferência'] = metadata.journal or ''
-                row['Citações'] = metadata.citations_count or 0
+            
+            # Título - limpo e sem caracteres especiais
+            title = self._clean_text(getattr(metadata, 'title', '') if metadata else '')
+            row['Título'] = title if title else 'Título não disponível'
+            
+            # URL - limpa e validada
+            url = self._clean_url(getattr(article, 'scholar_url', '') if hasattr(article, 'scholar_url') else '')
+            row['URL'] = url
+            
+            # Autores - tratamento especial para evitar problemas de formatação
+            if metadata and metadata.authors:
+                authors_clean = [self._clean_text(author) for author in metadata.authors if author]
+                row['Autores'] = ', '.join(authors_clean[:3])  # Máximo 3 autores para evitar linhas muito longas
             else:
-                row['Autores'] = ''
-                row['Ano'] = ''
-                row['Venue/Conferência'] = ''
-                row['Citações'] = 0
+                row['Autores'] = 'Autores não especificados'
+            
+            # Ano de publicação
+            row['Ano de Publicação'] = str(metadata.year) if metadata and metadata.year else 'Não especificado'
             
             # Resultado da análise IA
             if i < len(analysis_results):
                 result = analysis_results[i]
-                row['Atende Critérios'] = 'Sim' if result.meets_filter else 'Não'
+                
+                # Confiança da IA
                 row['Confiança da IA'] = f"{result.confidence_score:.2f}"
-                row['Justificativa da IA'] = result.justification or ''
                 
-                # Colunas personalizadas
-                for col in columns:
-                    col_value = result.get_column_value(col.name) or ''
-                    row[col.name] = self._format_column_value(col_value, col.column_type)
+                # Busca valores específicos da análise IA
+                row['Descrição'] = self._clean_text(result.get_column_value('Descrição') or 
+                                                  result.get_column_value('Resumo') or 
+                                                  getattr(metadata, 'snippet', '') if metadata else '')
+                
+                row['Tecnologias Usadas'] = self._clean_text(result.get_column_value('Tecnologia Principal') or 
+                                                           result.get_column_value('Tecnologias Usadas') or 'Não especificado')
+                
+                row['Tem Aplicativo Móvel?'] = self._format_boolean_value(result.get_column_value('Tem Aplicativo Móvel?') or 
+                                                                        result.get_column_value('Aplicativo Móvel'))
+                
+                row['Tem Painel de Gestão?'] = self._format_boolean_value(result.get_column_value('Tem Painel de Gestão?') or 
+                                                                        result.get_column_value('Painel Gestão'))
+                
+                row['Atende ao Filtro?'] = 'Sim' if result.meets_filter else 'Não'
+                
             else:
-                # Preenche com valores padrão se análise não disponível
-                row['Atende Critérios'] = 'Não analisado'
+                # Valores padrão quando análise IA não disponível
                 row['Confiança da IA'] = '0.00'
-                row['Justificativa da IA'] = 'Análise não realizada'
-                
-                for col in columns:
-                    row[col.name] = self._get_default_value(col.column_type)
+                row['Descrição'] = self._clean_text(getattr(metadata, 'snippet', '') if metadata else '') or 'Descrição não disponível'
+                row['Tecnologias Usadas'] = 'Não analisado'
+                row['Tem Aplicativo Móvel?'] = 'Não analisado'
+                row['Tem Painel de Gestão?'] = 'Não analisado'
+                row['Atende ao Filtro?'] = 'Não analisado'
                     
             rows.append(row)
             
         return pd.DataFrame(rows)
+        
+    def _clean_text(self, text: str) -> str:
+        """
+        Limpa texto removendo caracteres problemáticos para CSV.
+        
+        Args:
+            text: Texto a ser limpo
+            
+        Returns:
+            Texto limpo
+        """
+        if not text or text == 'None':
+            return ''
+            
+        text = str(text).strip()
+        
+        # Remove caracteres problemáticos para CSV
+        text = text.replace(';', ',')  # Substitui ponto e vírgula por vírgula
+        text = text.replace('\n', ' ')  # Remove quebras de linha
+        text = text.replace('\r', ' ')  # Remove carriage returns
+        text = text.replace('\t', ' ')  # Remove tabs
+        text = text.replace('"', "'")   # Substitui aspas duplas por simples
+        
+        # Remove espaços duplos
+        while '  ' in text:
+            text = text.replace('  ', ' ')
+            
+        return text
+        
+    def _clean_url(self, url: str) -> str:
+        """
+        Limpa e valida URL.
+        
+        Args:
+            url: URL a ser limpa
+            
+        Returns:
+            URL limpa ou string vazia se inválida
+        """
+        if not url or url == 'None':
+            return ''
+            
+        url = str(url).strip()
+        
+        # Verifica se é uma URL válida
+        if not (url.startswith('http://') or url.startswith('https://')):
+            return ''
+            
+        # Remove caracteres problemáticos
+        url = url.replace(';', '')
+        url = url.replace('\n', '')
+        url = url.replace('\r', '')
+        url = url.replace(' ', '')
+        
+        return url
+        
+    def _format_boolean_value(self, value: Any) -> str:
+        """
+        Formata valores booleanos de forma consistente.
+        
+        Args:
+            value: Valor a ser formatado
+            
+        Returns:
+            'Sim', 'Não' ou 'Não especificado'
+        """
+        if value is None or value == '' or value == 'None':
+            return 'Não especificado'
+            
+        if isinstance(value, bool):
+            return 'Sim' if value else 'Não'
+            
+        if isinstance(value, str):
+            value_lower = value.lower().strip()
+            if value_lower in ['true', 'sim', 'yes', '1', 'verdadeiro']:
+                return 'Sim'
+            elif value_lower in ['false', 'não', 'nao', 'no', '0', 'falso']:
+                return 'Não'
+            else:
+                return 'Não especificado'
+                
+        return 'Não especificado'
         
     def _format_column_value(self, value: Any, column_type: str) -> Any:
         """

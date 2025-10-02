@@ -7,6 +7,7 @@ com rate limiting e tratamento de erros robusto.
 
 import time
 import logging
+import re
 from typing import List, Optional, Dict, Any
 from urllib.parse import urlencode
 from dataclasses import asdict
@@ -237,11 +238,26 @@ class GoogleScholarDriver:
             if not title_elem:
                 return None
                 
+            # Limpa título removendo marcadores HTML
             title = title_elem.get_text().strip()
+            # Remove prefixos como [HTML], [PDF], etc.
+            title = re.sub(r'^\[.*?\]\s*', '', title)
+            title = title.replace('\n', ' ').replace('\r', ' ')
+            # Remove espaços duplos
+            while '  ' in title:
+                title = title.replace('  ', ' ')
+            
+            if not title:
+                return None
             
             # Link (opcional mas importante)
             link_elem = title_elem.find('a')
-            url = link_elem['href'] if link_elem and link_elem.get('href') else ""
+            url = ""
+            if link_elem and link_elem.get('href'):
+                url = link_elem['href'].strip()
+                # Valida se é uma URL válida
+                if not (url.startswith('http://') or url.startswith('https://')):
+                    url = ""
             
             # Autores e publicação
             authors_elem = element.find('div', class_='gs_a')
@@ -252,7 +268,13 @@ class GoogleScholarDriver:
             
             # Resumo/snippet
             snippet_elem = element.find('span', class_='gs_rs')
-            summary = snippet_elem.get_text().strip() if snippet_elem else ""
+            summary = ""
+            if snippet_elem:
+                summary = snippet_elem.get_text().strip()
+                summary = summary.replace('\n', ' ').replace('\r', ' ')
+                # Remove espaços duplos
+                while '  ' in summary:
+                    summary = summary.replace('  ', ' ')
             
             # Citações
             citations_count = self._extract_citations(element)
@@ -268,10 +290,13 @@ class GoogleScholarDriver:
             
             # Cria artigo
             article = Article(
-                id=f"scholar_{hash(url)}",  # Gera ID único baseado na URL
+                id=f"scholar_{hash(url + title)}",  # ID único baseado na URL + título
                 metadata=metadata,
                 scholar_url=url
             )
+            
+            # Log detalhado do artigo extraído
+            logger.debug(f"Artigo extraído: '{title[:50]}...' | URL: {url[:50]}... | Autores: {len(authors)} | Ano: {year}")
             
             return article
             
@@ -295,28 +320,40 @@ class GoogleScholarDriver:
         if not authors_text:
             return authors, year
             
+        # Remove caracteres problemáticos
+        clean_text = authors_text.replace('\n', ' ').replace('\r', ' ').strip()
+        
         # Pattern comum: "Autor1, Autor2 - Revista, 2023"
-        parts = authors_text.split(' - ')
+        parts = clean_text.split(' - ')
         
         if parts:
             # Primeira parte são os autores
             authors_part = parts[0].strip()
             if authors_part:
                 # Remove elementos extras e divide por vírgula
-                authors = [
+                author_candidates = [
                     author.strip() 
                     for author in authors_part.split(',')
                     if author.strip() and not author.strip().startswith('…')
                 ]
                 
-        # Procura ano (4 dígitos)
+                # Filtra autores válidos (evita pegar partes do título da revista)
+                for author in author_candidates[:5]:  # Máximo 5 autores
+                    if len(author) > 2 and not author.isdigit():
+                        # Remove caracteres especiais do final
+                        clean_author = author.rstrip('.,;:-')
+                        if clean_author:
+                            authors.append(clean_author)
+                
+        # Procura ano (4 dígitos) - prioriza anos mais recentes
         import re
-        year_match = re.search(r'\b(19|20)\d{2}\b', authors_text)
-        if year_match:
-            try:
-                year = int(year_match.group())
-            except ValueError:
-                pass
+        year_matches = re.findall(r'\b(19|20)\d{2}\b', clean_text)
+        if year_matches:
+            # Pega o ano mais recente encontrado
+            years = [int(y) for y in year_matches]
+            year = max(years)
+                
+        return authors, year
                 
         return authors, year
         
