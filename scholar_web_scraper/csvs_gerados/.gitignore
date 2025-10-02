@@ -1,6 +1,0 @@
-# Ignorar todos os arquivos CSV gerados
-*.csv
-*.xlsx
-
-# Mas manter o diretório
-!.gitignore

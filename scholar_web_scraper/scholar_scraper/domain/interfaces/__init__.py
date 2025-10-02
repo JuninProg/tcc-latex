@@ -1,1 +1,0 @@
-# Interfaces/Portas do domínio
