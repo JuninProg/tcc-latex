@@ -44,8 +44,8 @@ class GoogleScholarDriver:
     
     def __init__(self, 
                  headless: bool = True,
-                 timeout: int = 30,
-                 rate_limit_delay: float = 2.0):
+                 timeout: int = 10,  # Reduzido de 30 para 10
+                 rate_limit_delay: float = 0.5):  # Reduzido de 2.0 para 0.5
         """
         Inicializa o driver com configurações padrão.
         
@@ -127,8 +127,8 @@ class GoogleScholarDriver:
             
         logger.info(f"Iniciando busca: '{query.query_text}'")
         logger.info(f"Máximo de resultados: {query.max_results}")
-        if query.year_min or query.year_max:
-            logger.info(f"Filtro de ano: {query.year_min or 'sem limite'} - {query.year_max or 'sem limite'}")
+        if query.as_ylo or query.as_yhi:
+            logger.info(f"Filtro de ano: {query.as_ylo or 'sem limite'} - {query.as_yhi or 'sem limite'}")
             
         try:
             articles = []
@@ -142,8 +142,8 @@ class GoogleScholarDriver:
                 page_articles = self._search_page(
                     query.query_text, 
                     start_index,
-                    year_min=query.year_min,
-                    year_max=query.year_max
+                    year_min=query.as_ylo,
+                    year_max=query.as_yhi
                 )
                 articles.extend(page_articles)
                 
@@ -161,6 +161,50 @@ class GoogleScholarDriver:
             
         except Exception as e:
             logger.error(f"Erro na busca de artigos: {e}")
+            raise
+
+    def search_articles_batch(self, query: SearchQuery, start_page: int, end_page: int) -> List[Article]:
+        """
+        Executa busca de artigos em um lote específico de páginas.
+        
+        Args:
+            query: Objeto com parâmetros de busca
+            start_page: Página inicial do lote (1-based)
+            end_page: Página final do lote (1-based)
+            
+        Returns:
+            Lista de artigos encontrados no lote
+        """
+        if not self._driver:
+            raise RuntimeError("Driver não inicializado. Use context manager.")
+            
+        logger.info(f"Buscando lote: páginas {start_page}-{end_page} para '{query.query_text}'")
+        
+        try:
+            articles = []
+            
+            for page in range(start_page, end_page + 1):
+                start_index = (page - 1) * self.RESULTS_PER_PAGE
+                
+                logger.info(f"Buscando página {page}/{end_page}")
+                
+                page_articles = self._search_page(
+                    query.query_text, 
+                    start_index,
+                    year_min=query.as_ylo,
+                    year_max=query.as_yhi
+                )
+                articles.extend(page_articles)
+                
+                # Rate limiting entre páginas
+                if page < end_page:
+                    time.sleep(self.rate_limit_delay)
+                    
+            logger.info(f"Lote concluído: {len(articles)} artigos encontrados nas páginas {start_page}-{end_page}")
+            return articles
+            
+        except Exception as e:
+            logger.error(f"Erro na busca do lote: {e}")
             raise
             
     def _search_page(self, search_text: str, start: int = 0, 

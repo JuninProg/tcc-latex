@@ -34,8 +34,14 @@ celery_app.conf.update(
     timezone='America/Sao_Paulo',
     enable_utc=True,
     task_track_started=True,
+    # Aumenta número de workers e otimiza configurações
+    worker_concurrency=4,  # Número de workers simultâneos
+    worker_prefetch_multiplier=1,  # Controla quantas tarefas cada worker pega antecipadamente
+    task_acks_late=True,  # Confirma tarefa apenas após conclusão
+    worker_max_tasks_per_child=100,  # Reinicia worker após 100 tarefas
     task_routes={
         'scholar_scraper.infrastructure.celery_worker.process_articles': {'queue': 'main'},
+        'scholar_scraper.infrastructure.celery_worker.process_page_batch': {'queue': 'batches'},
     }
 )
 
@@ -81,7 +87,7 @@ def process_articles(self,
             }
         )
         
-        # Pipeline de processamento
+        # Pipeline de processamento sequencial otimizado
         pipeline = ArticleProcessingPipeline(
             task=self,
             gemini_api_key=gemini_api_key

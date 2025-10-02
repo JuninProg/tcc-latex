@@ -39,19 +39,22 @@ class PDFProcessor:
     """
     
     def __init__(self, 
-                 timeout: int = 30,
-                 max_pages: int = 50,
-                 ssl_verify: bool = True):
+                 timeout: int = 10,  # Reduzido de 30 para 10
+                 max_pages: int = 3,
+                 max_content_length: int = 15000,
+                 ssl_verify: bool = False):  # Mudado de True para False
         """
         Inicializa o processador.
         
         Args:
             timeout: Timeout para downloads em segundos
             max_pages: Número máximo de páginas a processar
+            max_content_length: Tamanho máximo do conteúdo
             ssl_verify: Se deve verificar certificados SSL
         """
         self.timeout = timeout
         self.max_pages = max_pages
+        self.max_content_length = max_content_length
         self.ssl_verify = ssl_verify
         
         # Inicializa HTMLPageProcessor para análise das páginas
@@ -255,7 +258,7 @@ class PDFProcessor:
                 'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8',
             }
             
-            # Primeira tentativa com SSL verificação
+            # Primeira tentativa SEM SSL verificação (mais rápido)
             try:
                 response = requests.get(
                     url,
@@ -263,21 +266,25 @@ class PDFProcessor:
                     timeout=self.timeout,
                     stream=True,
                     allow_redirects=True,
-                    verify=True
+                    verify=False  # Começa sem SSL
                 )
                 response.raise_for_status()
-            except (requests.exceptions.SSLError, requests.exceptions.RequestException) as ssl_error:
-                logger.debug(f"Erro SSL com verificação ativada: {ssl_error}")
-                # Segunda tentativa sem verificação SSL
-                response = requests.get(
-                    url,
-                    headers=headers,
-                    timeout=self.timeout,
-                    stream=True,
-                    allow_redirects=True,
-                    verify=False
-                )
-                response.raise_for_status()
+            except requests.exceptions.RequestException as error:
+                logger.debug(f"Erro sem verificação SSL: {error}")
+                # Segunda tentativa COM verificação SSL se a primeira falhar
+                try:
+                    response = requests.get(
+                        url,
+                        headers=headers,
+                        timeout=self.timeout,
+                        stream=True,
+                        allow_redirects=True,
+                        verify=True
+                    )
+                    response.raise_for_status()
+                except requests.exceptions.RequestException as ssl_error:
+                    logger.warning(f"Falha ao baixar PDF de {url}: {ssl_error}")
+                    return None
             
             # Verifica se é realmente um PDF
             content_type = response.headers.get('content-type', '').lower()

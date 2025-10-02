@@ -45,7 +45,7 @@ class HTMLPageProcessor:
     Processa páginas HTML de artigos científicos.
     """
     
-    def __init__(self, timeout: int = 30, max_content_length: int = 50000):
+    def __init__(self, timeout: int = 10, max_content_length: int = 50000):
         """
         Inicializa processador de páginas HTML.
         
@@ -109,15 +109,15 @@ class HTMLPageProcessor:
         try:
             logger.info(f"Extraindo conteúdo da página: {url}")
             
-            # Primeira tentativa com SSL verificação
+            # Primeira tentativa sem SSL verificação (mais rápida)
             try:
-                response = requests.get(url, headers=self.headers, timeout=self.timeout, verify=True)
-                response.raise_for_status()
-            except (requests.exceptions.SSLError, requests.exceptions.RequestException) as ssl_error:
-                logger.warning(f"Erro SSL com verificação ativada: {ssl_error}")
-                logger.info("Tentando novamente com SSL desabilitado...")
-                # Segunda tentativa sem verificação SSL
                 response = requests.get(url, headers=self.headers, timeout=self.timeout, verify=False)
+                response.raise_for_status()
+            except requests.exceptions.RequestException as ssl_error:
+                logger.warning(f"Erro sem SSL: {ssl_error}")
+                logger.info("Tentando novamente com SSL habilitado...")
+                # Segunda tentativa com verificação SSL
+                response = requests.get(url, headers=self.headers, timeout=self.timeout, verify=True)
                 response.raise_for_status()
             
             # Verifica tamanho do conteúdo

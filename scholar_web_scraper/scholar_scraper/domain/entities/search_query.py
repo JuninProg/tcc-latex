@@ -50,6 +50,16 @@ class SearchQuery:
         # Garante que as colunas obrigatórias estejam presentes
         self._ensure_required_columns()
     
+    @property
+    def as_ylo(self) -> Optional[int]:
+        """Alias para year_min (compatibilidade com Google Scholar)."""
+        return self.year_min
+    
+    @property 
+    def as_yhi(self) -> Optional[int]:
+        """Alias para year_max (compatibilidade com Google Scholar)."""
+        return self.year_max
+    
     def _ensure_required_columns(self) -> None:
         """Garante que as colunas obrigatórias estejam presentes."""
         required_columns = {"Link", "Atende ao Filtro?"}
