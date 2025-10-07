@@ -78,7 +78,7 @@ Para essa etapa, utilizou-se como fonte principal a plataforma Google Scholar. A
 
 \subsubsection{Estratégia de Busca}
 
-Após o resultado da pesquisa inicial, foi realizada uma triagem em múltiplas etapas. A primeira consistiu em percorrer todas as páginas listadas pela fonte, acessar um a um os \emph{links} para os textos acadêmicos, ler seu título, resumo e aplicar os seguintes critérios de inclusão e exclusão:
+Após o resultado da pesquisa inicial, foi realizada uma triagem em múltiplas etapas. A primeira consistiu em percorrer todas as páginas listadas pela fonte, acessar um a um os \emph{links} para os textos acadêmicos, ler seu título e aplicar os seguintes critérios de inclusão e exclusão:
 
 \begin{itemize}
   \item \textbf{Inclusão:} (a) protótipo ou implementação de aplicativo móvel, com ou sem página \emph{web} associada;
@@ -87,101 +87,70 @@ Após o resultado da pesquisa inicial, foi realizada uma triagem em múltiplas e
   \item \textbf{Exclusão:} (d) temas da área da enfermagem sem relação com tecnologia;
 \end{itemize}
 
-Com base na leitura dos resumos, 489 trabalhos foram excluídos por não atenderem aos critérios, restando 23 para avaliação do texto. Nessa segunda etapa, as informações foram extraídas e organizadas em uma planilha, a fim de facilitar a caracterização dos trabalhos. A síntese consolidada é apresentada na Tabela \ref{tab:trabalhos_sintese}.
+Com base no primeiro filtro, 489 trabalhos foram excluídos por não atenderem aos critérios, restando 23 para avaliação do resumo e algumas partes do texo. A seguir descreve-se o processo de pontuação e seleção final dos trabalhos priorizados.
 
-\begin{small}
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.06}
-\begin{longtable}{p{5.9cm}p{1.9cm}p{1.15cm}p{1.15cm}p{1.25cm}p{1.4cm}p{1.5cm}}
-\caption{Síntese dos trabalhos selecionados (2020--2025).}\label{tab:trabalhos_sintese}\\\hline
-Título & Tema & App & Painel & Usuários & Suporte & Int. Pública \\\hline
-\endfirsthead
-\caption[]{(continuação)}\\\hline
-Título & Tema & App & Painel & Usuários & Suporte & Int. Pública \\\hline
-\endhead
-\hline\\[-4pt]
-\multicolumn{6}{r}{Continua na próxima página}\\
-\endfoot
+\subsubsection{Pontuação dos Trabalhos}
+
+As informações coletadas foram estruturadas em planilha contendo as colunas: Título, Tema, Breve descrição, Aplicativo, Painel de Gestão, Usuários, Suporte, Int. sis. públicos, Pontuação, Tecnologias, Ano e Link PDF. A pontuação varia de 0 a 5 e resulta da soma dos valores atribuídos às cinco dimensões binárias diretamente relacionadas à arquitetura e maturidade funcional das soluções (cada ocorrência de \textit{Sim} = 1; \textit{Não} = 0): (i) Aplicativo; (ii) Painel de Gestão; (iii) Usuários (participação ou avaliação com público-alvo); (iv) Suporte (mediação por profissional de saúde); (v) Integração com sistemas públicos. Os estudos com escore final $\geq 4$ foram selecionados para síntese por apresentarem convergência com o escopo técnico-institucional deste projeto.
+
+\begin{figure}[H]
+  \centering
+  \caption{Planilha de classificação dos trabalhos (parte 1).}
+  \includegraphics[width=\textwidth]{imagens/trabalhos_relacionados_1.png}
+  \vspace{0.2em}
+  \footnotesize Fonte: Elaborado pelo autor (2025).
+  \label{fig:planilha_classificacao_1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \caption{Planilha de classificação dos trabalhos (parte 2).}
+  \includegraphics[width=\textwidth]{imagens/trabalhos_relacionados_2.png}
+  \vspace{0.2em}
+  \footnotesize Fonte: Elaborado pelo autor (2025).
+  \label{fig:planilha_classificacao_2}
+\end{figure}
+
+\noindent\textbf{Notas metodológicas:} Todas as dimensões avaliadas apresentam classificação estritamente binária (Sim/Não). A planilha integral permanece arquivada para rastreabilidade.
+
+\subsubsection{Trabalhos Selecionados (Síntese)}
+
+Os cinco estudos selecionados (escore $\geq 4$) configuram um subconjunto representativo das abordagens que integram, em diferentes níveis, recursos de gestão, mediação profissional e operacionalização assistencial. A Tabela \ref{tab:trabalhos_selecionados} apresenta uma síntese narrativa funcional de cada solução, enquanto as Figuras \ref{fig:planilha_classificacao_1} e \ref{fig:planilha_classificacao_2} explicitam a distribuição dos atributos que sustentam a pontuação final. Essa separação facilita a leitura analítica ao evitar redundância entre descrição e registro tabular dos marcadores binários.
+
+\begin{table}[H]
+\centering
+\caption{Trabalhos selecionados para análise comparativa (síntese).}\label{tab:trabalhos_selecionados}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{6pt}
+\begin{minipage}{0.96\textwidth}
+\centering
+\begin{tabular}{|>{\centering\arraybackslash}p{3.0cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{8.9cm}|}
 \hline
-\multicolumn{6}{l}{Fonte: Autoria própria (2025).}\\
-\endlastfoot
-GESTASUS: Aplicativo móvel para integração da caderneta da gestante ao SISPRENATAL WEB & Gestação & Sim & Sim & Sim & Sim & Sim \\
-AMAR – Aplicativo de Monitoramento, Acompanhamento e Rastreio do Desenvolvimento Infantil – um estudo de desenvolvimento e validade do conteúdo & Saúde Criança & Sim & Sim & Sim & Sim & Não \\
-Avaliação da usabilidade de um aplicativo móvel como facilitador de acesso a serviços de saúde de atenção à gestante de uma maternidade no sul do Maranhão & Gestação & Sim & Sim & Sim & Sim & Não \\
-Web app for the monitoring of pregnant and puerperal women: technological production & Gestação & Sim & Sim & Sim & Sim & Não \\
-Hora de Mamar! Aplicação Mobile \& Web de acompanhamento alimentar infantil direcionado a pais, cuidadores e profissionais de saúde de bebês de 0 a 12 meses & Aleitamento Materno & Sim & Sim & Não & Sim & Não \\
-Sistema AcGest para assistência à saúde de gestantes e puérperas na atenção primária & Gestação & Sim & Sim & Não & Sim & Não \\
-Desenvolvimento e validação de aplicativo em saúde no período puerperal & Puerpério & Sim & Não & Sim & Sim & Não \\
-Construção de tecnologia m-health para a promoção do aleitamento materno & Aleitamento Materno & Sim & Não & Sim & Sim & Não \\
-Aplicativo “Nasci Bem” para profissionais de saúde e familiares de recém-nascidos: construção, validação e avaliação & Recém-nascido & Sim & Não & Sim & Sim & Não \\
-Saber G‑estar: construção e validação de um aplicativo móvel para educação em saúde no ciclo gravídico‑puerperal & Gestação & Sim & Não & Sim & Sim & Não \\
-Construção e validação de uma tecnologia móvel para apoio às mães de recém-nascidos prematuros & Recém-nascido & Sim & Não & Sim & Sim & Não \\
-Desenvolvimento de aplicativo móvel para o acompanhamento pré-natal e validação de conteúdo (Gestação Saudável) & Gestação & Sim & Não & Sim & Sim & Não \\
-Produção de aplicativo móvel para orientações a mulher no puerpério & Puerpério & Sim & Não & Não & Sim & Não \\
-Uma ontologia de aplicação e plataforma móvel para acompanhamento e promoção do aleitamento materno & Aleitamento Materno & Sim & Não & Não & Sim & Não \\
-Desenvolvimento de aplicativo móvel para o acompanhamento pré-natal e validação de conteúdo & Gestação & Sim & Não & Não & Sim & Não \\
-Aplicativo móvel sobre a primeira consulta de enfermagem ao recém-nascido na atenção básica: construção e validação & Puericultura & Sim & Não & Não & Sim & Não \\
-Aplicativo “PuerpérioSEGURO” em plataforma mobile como tecnologia para o cuidado à beira leito & Puerpério & Sim & Não & Não & Sim & Não \\
-SUS\_PRÉ-NATAL\_APP: protótipo de aplicativo móvel para o cuidado pré-natal no Sistema Único de Saúde & Gestação & Sim & Não & Não & Sim & Não \\
-PADRÃO OURO: DESENVOLVIMENTO E AVALIAÇÃO DE APLICATIVO MÓVEL SOBRE ALEITAMENTO MATERNO PARA ENFERMEIROS & Aleitamento Materno & Sim & Não & Não & Não & Não \\
-SOS MAMA: APLICATIVO MOVEL PARA PUERPERAS QUE VIVENCIAM DIFICULDADES NO ALEITAMENTO MATERNO & Aleitamento Materno & Sim & Não & Não & Não & Não \\
-Amamentação com amor: um aplicativo móvel para as lactantes & Aleitamento Materno & Sim & Não & Não & Não & Não \\
-Website para família de crianças não amamentadas: desenvolvimento e validação de conteúdo e de interface & Nutrição & Não & Não & Não & Sim & Não \\
-\end{longtable}
-\end{small}
+Autor & Ano & Resumo Sintético \\
+\hline
+\citeonline{gestasus2025} & 2025 & Protótipo Android que espelha a caderneta física da gestante via QR Code associado ao SISPRENATAL Web, permitindo acesso offline aos registros e avaliação de usabilidade com gestantes e especialistas. \\
+\hline
+\citeonline{amar2021} & 2021 & Sistema web e aplicativo móvel para acompanhamento do desenvolvimento infantil por profissionais e famílias, com validação de conteúdo (IVC $\geq 90$\%) e arquitetura React/Django; sem integração com sistemas públicos. \\
+\hline
+\citeonline{gestacaosegura2021} & 2021 & Aplicativo Android com perfis profissional e gestante, suporte comunicacional (web chat) e avaliação de usabilidade por 20 profissionais (classificações Bom a Melhor Alcançável); não apresenta interoperabilidade formal. \\
+\hline
+\citeonline{gestarcare2022} & 2022 & Aplicativo web/móvel com áreas de usuário, administração e clínica, validado por método Delphi (funcionalidade 99\%, inovação 100\%), oferecendo teleatendimento e prontuário eletrônico sem integração a sistemas públicos. \\
+\hline
+\citeonline{acgest2023} & 2023 & Sistema integrado (dois aplicativos Android e módulo web) para cadastros, visitas domiciliares e gestão de ocorrências na atenção primária, validado em ambiente simulado, com potencial de apoio operacional local. \\
+\hline
+\end{tabular}
+\vspace{3pt}
+\footnotesize \centering Fonte: Elaborado pelo autor (2025).
+\end{minipage}
+\end{table}
 
-\vspace{0.4em}
-\noindent\textbf{Notas:} "App" indica existência de aplicativo (inclui protótipo); "Suporte" = mediação/atuação de profissional de saúde; "Int. Pública" = integração (prefeituras ou sistemas/sistemas públicos).
+\subsubsection{Análise Crítica}
+Os cinco trabalhos selecionados apresentam convergência na oferta de suporte informacional ou operacional mediado por tecnologia móvel, revelando maturidade crescente em soluções focadas no acompanhamento de gestantes, puérperas ou famílias. Observa-se adoção recorrente de arquiteturas híbridas (aplicativo \emph{+} módulo web) e validações iniciais de usabilidade ou conteúdo, com delineamentos predominantemente transversais e tamanho amostral reduzido. A presença de mediação profissional é um elemento estruturante, reforçando a necessidade de curadoria qualificada em contextos de saúde.
 
-Nessa tabela, foi ordenado de cima para baixo por ordem de precedência de "sim" nas colunas Painel, Usuários, Suporte e Integração Pública, de modo a destacar os trabalhos com maior número número de recursos alinhados ao escopo do sistema proposto. Dessa forma, pode-se observar que os 6 primeiros trabalhos são os que mais se aproximam do escopo funcional e técnico desejado, por possuírem painel administrativo, por mais que o tema não seja exclusivamente idêntico ao do presente estudo.
+Do ponto de vista das decisões deste trabalho, a existência de módulos administrativos e de canais de comunicação (\citeonline{gestacaosegura2021, gestarcare2022, acgest2023}) sustenta a incorporação de um painel de gestão orientado à atualização de conteúdos e acompanhamento de interações. A integração explícita ao SISPRENATAL (\citeonline{gestasus2025}) evidencia a relevância de contemplar, em fases futuras, estratégias de interoperabilidade com sistemas públicos, ainda ausentes na maioria das demais iniciativas. A validação estruturada de conteúdo e participação de múltiplos perfis de usuários (\citeonline{amar2021}) reforçam a pertinência de adotar processos formais de revisão e versionamento informacional.
 
-Diante disso, optou-se por selecionar esses 6 trabalhos para uma análise comparativa mais detalhada, conforme apresentado na seção seguinte.
+Como diferencial do presente projeto, destaca-se a orientação municipal aplicada e a preocupação com escalabilidade evolutiva desde a concepção, buscando mitigar lacunas de interoperabilidade, governança de dados e ampliação territorial identificadas nos estudos analisados. Além disso, a proposta de consolidar métricas de uso contínuo e mecanismos de atualização sistemática do conteúdo técnico pretende responder a fragilidades recorrentes de ausência de versionamento explícito.
 
-\subsubsection{Caracterização Comparativa}
+Por outro lado, permanecem fora do escopo atual funcionalidades observadas em alguns trabalhos, como teleatendimento síncrono estruturado (\citeonline{gestarcare2022}) ou múltiplos perfis especializados operando simultaneamente em ambiente distribuído (\citeonline{acgest2023}). Tais elementos configuram oportunidades para evolução incremental futura, especialmente no que tange à expansão de perfis profissionais e à interoperabilidade técnica com ecossistemas nacionais de informação em saúde.
 
-Esta subseção apresenta a caracterização analítica dos seis trabalhos priorizados, organizando a leitura em três eixos para cada estudo: (i) descrição sintética do propósito e construção; (ii) análise comparativa dos recursos estruturais frente às dimensões funcionais adotadas neste projeto (painel, mediação profissional, gestão de conteúdo e potencial de evolução); e (iii) principais lacunas observadas, agrupadas quando convergem em fragilidades compartilhadas.
-
-\paragraph{GESTASUS}
-O GESTASUS é voltado à representação digital da caderneta da gestante, com transferência de dados via QR Code em ambiente autorizado \citeonline{gestasus2025}. Reporta escore SUS médio de 82{,}85 em avaliação com 22 gestantes e 5 especialistas. Fornece ao dispositivo um espelho dos registros clínicos essenciais, acessível localmente, alinhado a fluxos institucionais do pré-natal.
-
-O foco recai na sincronização pontual e visualização estática, sem evidências de curadoria de conteúdo ou versionamento. O vínculo à caderneta reduz necessidade de arquitetura expansível, mas limita flexibilidade modular e interoperabilidade futura.
-
-Ausência de atualização contínua formalizada, ampliação multiprofissional estruturada, trilhas de auditoria e planejamento para adoção intermunicipal.
-
-\paragraph{AMAR}
-O sistema AMAR integra módulo \emph{web} para profissionais e aplicativo para famílias, concebido com design participativo \citeonline{amar2021}. Abrange registros clínicos, acompanhamento do desenvolvimento e material multimídia validado. O IVC geral foi $\geq 90\%$, exceto item de diversidade familiar (80\%), com participação de dez profissionais e dez famílias.
-
-Combina registro longitudinal e material educativo, porém sem estratégias declaradas de interoperabilidade ou padrões de integração. Mantém caráter de protótipo, sem processos descritos de evolução sustentada ou validação longitudinal.
-
-Persistem ausência de governança de ciclo de vida do conteúdo e de mecanismos para expansão entre jurisdições ou conexão técnica a sistemas públicos.
-
-\paragraph{Gestação Segura}
-O aplicativo para gestantes de maior risco provê suporte comunicacional e acesso segmentado por perfis (profissional e gestante) \citeonline{gestacaosegura2021}. Inclui canal de interação e registros básicos. A usabilidade, avaliada por 20 profissionais, apresentou distribuição SUS: 20\% Bom, 45\% Excelente e 35\% Melhor Alcançável.
-
-Centraliza comunicação e prontuário sintético, com limitação de portabilidade (ausência de múltiplas plataformas) e menor robustez operacional. A camada administrativa concentra-se em inserção assistencial, sem mecanismos claros de ampliação temática ou curadoria de conteúdo estruturada.
-
-Falta de interoperabilidade declarada, plano tecnológico multiambiente e discussão de manutenção preventiva ou observabilidade.
-
-\paragraph{Gestar Care}
-O Gestar Care adota abordagem \emph{web} responsiva com áreas usuária, administrativa e clínica \citeonline{gestarcare2022}. A técnica Delphi em duas rodadas produziu concordância: funcionalidade 99\%; confidencialidade/acessibilidade 100\%; viabilidade 85\% (100\% após ajustes); inovação 100\%.
-
-Estrutura multifuncional organizada, porém sem mecanismos descritos de escalonamento ou adaptação regional. Não evidencia padrões de interoperabilidade ou rota de integração incremental nem validação longitudinal.
-
-Ausência de estratégia formal de integração a ecossistemas públicos e de transparência sobre governança de dados sensíveis.
-
-\paragraph{Hora de Mamar}
-O Hora de Mamar é aplicação \emph{web} responsiva para registro de eventos alimentares de crianças até doze meses e oferta de central de conhecimento \citeonline{horademamar2021}. Gera relatórios compartilháveis. Não há relato de testes com usuários finais (métrica não reportada).
-
-Predomina lógica transacional de registro e consolidação em relatórios, suportada por conteúdo estático. Não há validação longitudinal em escala nem processo de curadoria contínua explícito.
-
-Falta interoperabilidade, evolução editorial formalizada e evidências de uso monitorado externo ao desenvolvimento.
-
-\paragraph{AcGest}
-O AcGest reúne dois aplicativos Android (agente comunitário e gestante/puérpera) e módulo de gestão \emph{web} para consolidação de visitas, ocorrências e cadastros \citeonline{acgest2023}. Foi validado em ambiente simulado com equipe de saúde (sem métricas quantitativas adicionais publicadas).
-
-Múltiplos perfis e coordenação operacional são positivos, porém a dependência de plataforma proprietária aumenta acoplamento e limita portabilidade. Não descreve padrões de interoperabilidade ou intercâmbio de dados.
-
-Falta interoperabilidade formal, validação em escala territorial e há risco adicional de dependência tecnológica concentrada.
-
-\paragraph{Síntese das Fragilidades Comuns}
-Observam-se padrões transversais: (i) inexistência ou descrição incipiente de interoperabilidade com sistemas públicos; (ii) curadoria de conteúdo e versionamento contínuo pouco formalizados; (iii) validações pontuais sem validação longitudinal; e (iv) escassez de estratégias técnicas para evolução modular e adoção intermunicipal. Esse agrupamento sintetiza o racional comparativo sem reiterar individualmente cada fragilidade já compartilhada.
+Em síntese, o conjunto analisado justifica a ênfase deste trabalho em um núcleo funcional estável, passível de expansão modular. A análise crítica direciona prioridades futuras: (i) consolidar fundamentos de interoperabilidade; (ii) instituir governança formal de conteúdo; e (iii) ampliar cobertura funcional apenas após validação de usabilidade e utilidade em ambiente real.
