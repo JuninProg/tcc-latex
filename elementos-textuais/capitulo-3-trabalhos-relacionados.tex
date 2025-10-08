@@ -74,11 +74,11 @@ A ausência de respostas inviabilizou a realização de uma comparação técnic
 
 \subsection{Levantamento Documental}
 
-Para essa etapa, utilizou-se como fonte principal a plataforma Google Scholar. A estratégia de busca envolveu a utilização do texto de pesquisa "aplicativo móvel aleitamento materno web", com filtro temporal a partir de 2020. Como o resultado bruto foi extenso (512 ocorrências), foram aplicados critérios de inclusão e exclusão para refinar a seleção.
+Para essa etapa, utilizou-se como fonte principal a plataforma Google Acadêmico. A estratégia de busca envolveu a utilização do texto de pesquisa "aplicativo móvel aleitamento materno web", com filtro temporal a partir de 2020. Como o resultado bruto foi extenso (512 ocorrências), foram aplicados critérios de inclusão e exclusão para refinar a seleção.
 
 \subsubsection{Estratégia de Busca}
 
-Após o resultado da pesquisa inicial, foi realizada uma triagem em múltiplas etapas. A primeira consistiu em percorrer todas as páginas listadas pela fonte, acessar um a um os \emph{links} para os textos acadêmicos, ler seu título e aplicar os seguintes critérios de inclusão e exclusão:
+Após o resultado da pesquisa inicial, foi realizada uma triagem em múltiplas etapas. A primeira consistiu em percorrer todas as páginas listadas pela fonte, ler cada título dos textos acadêmicos encontrados e aplicar os seguintes critérios de inclusão e exclusão:
 
 \begin{itemize}
   \item \textbf{Inclusão:} (a) protótipo ou implementação de aplicativo móvel, com ou sem página \emph{web} associada;
@@ -87,11 +87,28 @@ Após o resultado da pesquisa inicial, foi realizada uma triagem em múltiplas e
   \item \textbf{Exclusão:} (d) temas da área da enfermagem sem relação com tecnologia;
 \end{itemize}
 
-Com base no primeiro filtro, 489 trabalhos foram excluídos por não atenderem aos critérios, restando 23 para avaliação do resumo e algumas partes do texo. A seguir descreve-se o processo de pontuação e seleção final dos trabalhos priorizados.
+Com base no primeiro filtro, 489 trabalhos foram excluídos por não atenderem aos critérios, restando 23 para avaliação do resumo e algumas partes do texto. A seguir descreve-se o processo de pontuação e seleção final dos trabalhos priorizados.
 
 \subsubsection{Pontuação dos Trabalhos}
 
-As informações coletadas foram estruturadas em planilha contendo as colunas: Título, Tema, Breve descrição, Aplicativo, Painel de Gestão, Usuários, Suporte, Int. sis. públicos, Pontuação, Tecnologias, Ano e Link PDF. A pontuação varia de 0 a 5 e resulta da soma dos valores atribuídos às cinco dimensões binárias diretamente relacionadas à arquitetura e maturidade funcional das soluções (cada ocorrência de \textit{Sim} = 1; \textit{Não} = 0): (i) Aplicativo; (ii) Painel de Gestão; (iii) Usuários (participação ou avaliação com público-alvo); (iv) Suporte (mediação por profissional de saúde); (v) Integração com sistemas públicos. Os estudos com escore final $\geq 4$ foram selecionados para síntese por apresentarem convergência com o escopo técnico-institucional deste projeto.
+Para uma caracterização objetiva dos trabalhos, foi desenvolvida uma planilha de classificação contemplando algumas informações chaves para realizar a comparação entre os trabalhos. As colunas da planilha incluem:
+
+\begin{itemize}
+  \item \textbf{Título:} Nome do trabalho ou sistema;
+  \item \textbf{Tema:} Foco principal do estudo (ex.: aleitamento materno, saúde infantil);
+  \item \textbf{Breve descrição:} Resumo do texto, objetivos, resultados principais;
+  \item \textbf{Aplicativo:} Presença de aplicativo móvel desenvolvido;
+  \item \textbf{Painel de Gestão:} Existência de algum painel \emph{web} para administração do aplicativo;
+  \item \textbf{Usuários:} Participação ou avaliação com o público-alvo (gestantes, mães, profissionais);
+  \item \textbf{Suporte:} Mediação ou suporte por profissional de saúde;
+  \item \textbf{Int. sis. públicos:} Integração com sistemas públicos de saúde;
+  \item \textbf{Pontuação:} Escore final (0 a 5) resultante da soma das dimensões binárias (cada ocorrência de \emph{Sim} = 1; \emph{Não} = 0);
+  \item \textbf{Tecnologias:} Tecnologias e arquiteturas empregadas (ex.: Android, React, Django);
+  \item \textbf{Ano:} Ano de publicação do trabalho;
+  \item \textbf{Link PDF:} Link para o texto completo, quando disponível
+\end{itemize}
+
+Abaixo segue as imagens dos resultados obtidos na planilha de classificação dos trabalhos, dividida em duas partes para melhor visualização.
 
 \begin{figure}[H]
   \centering
@@ -111,20 +128,22 @@ As informações coletadas foram estruturadas em planilha contendo as colunas: T
   \label{fig:planilha_classificacao_2}
 \end{figure}
 
-\noindent\textbf{Notas metodológicas:} Todas as dimensões avaliadas apresentam classificação estritamente binária (Sim/Não). A planilha integral permanece arquivada para rastreabilidade.
+Com essa estrutura, foi possível atribuir uma pontuação a cada trabalho, facilitando a identificação dos mais completos e alinhados aos objetivos deste estudo. A pontuação máxima possível é 5, indicando que o trabalho atende a todas as dimensões avaliadas.
 
-\subsubsection{Trabalhos Selecionados (Síntese)}
+A próxima seção apresenta uma síntese dos cinco trabalhos com maior pontuação (escore $\geq 4$), seguida de uma análise crítica comparativa, destacando convergências, lacunas e oportunidades de aprimoramento em relação ao projeto proposto.
 
-Os cinco estudos selecionados (escore $\geq 4$) configuram um subconjunto representativo das abordagens que integram, em diferentes níveis, recursos de gestão, mediação profissional e operacionalização assistencial. A Tabela \ref{tab:trabalhos_selecionados} apresenta uma síntese narrativa funcional de cada solução, enquanto as Figuras \ref{fig:planilha_classificacao_1} e \ref{fig:planilha_classificacao_2} explicitam a distribuição dos atributos que sustentam a pontuação final. Essa separação facilita a leitura analítica ao evitar redundância entre descrição e registro tabular dos marcadores binários.
+\subsubsection{Trabalhos Selecionados}
+
+Após a seleção dos cinco estudos com maior pontuação, foi realizado a leitura dos textos completos, visando identificar aspectos funcionais, tecnológicos e metodológicos relevantes para a análise comparativa.
+
+Dessa forma, produziu-se a Tabela \ref{tab:trabalhos_selecionados}, que sintetiza os principais elementos de cada trabalho, destacando suas contribuições e resultados.
 
 \begin{table}[H]
 \centering
-\caption{Trabalhos selecionados para análise comparativa (síntese).}\label{tab:trabalhos_selecionados}
+\caption{Síntese dos Trabalhos Selecionados}\label{tab:trabalhos_selecionados}
 \renewcommand{\arraystretch}{1.12}
 \setlength{\tabcolsep}{6pt}
-\begin{minipage}{0.96\textwidth}
-\centering
-\begin{tabular}{|>{\centering\arraybackslash}p{3.0cm}|>{\centering\arraybackslash}p{1.1cm}|>{\centering\arraybackslash}p{8.9cm}|}
+\begin{tabular}{|p{3.0cm}|p{1.1cm}|p{8.9cm}|}
 \hline
 Autor & Ano & Resumo Sintético \\
 \hline
@@ -139,9 +158,9 @@ Autor & Ano & Resumo Sintético \\
 \citeonline{acgest2023} & 2023 & Sistema integrado (dois aplicativos Android e módulo web) para cadastros, visitas domiciliares e gestão de ocorrências na atenção primária, validado em ambiente simulado, com potencial de apoio operacional local. \\
 \hline
 \end{tabular}
-\vspace{3pt}
-\footnotesize \centering Fonte: Elaborado pelo autor (2025).
-\end{minipage}
+
+\vspace{0.3em}
+{\footnotesize Fonte: Elaborado pelo autor (2025).}
 \end{table}
 
 \subsubsection{Análise Crítica}
