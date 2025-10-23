@@ -6,23 +6,21 @@
 
 A amamentação é a primeira e mais importante contribuição que toda mãe pode dar à saúde do seu filho, assim como à sua própria saúde. No entanto, apesar dos esforços contínuos da Organização Mundial de Saúde em fundamentar pilares para disseminação de informações e recomendações, ainda enfrentamos desafios significativos na promoção e apoio ao aleitamento materno.
 
-% TODO: arrumar citação
 Segundo a OMS \citeonline{oms9241561300}, as autoridades competentes devem implementar medidas sociais para dar suporte e proteção às gestantes e mães. Isso implica em manter as mulheres adequadamente informadas sobre assuntos relacionados à alimentação infantil, que recebam suporte apropriado da família e comunidade a fim de facilitar e encorajar a amamentação, inibindo quaisquer influências contrárias.
 
-% TODO: arrumar citação com o título da reportagem
-Em 2016, o município de Osório criou o programa Pró-Mamá, coordenado pelo Núcleo de Apoio à Saúde da Família (NASF), com o objetivo de padronizar a assistência ao recém-nascido e orientar nutrizes no manejo do aleitamento materno \citeonline{planomunicipaloso}. O programa visa aumentar os índices de amamentação, reduzir o desmame precoce e a morbimortalidade neonatal, contando com uma equipe multiprofissional composta por fonoaudióloga, nutricionista, psicóloga e profissionais de referência em cada equipe de Saúde da Família .
+Em 2016, o município de Osório criou o programa Pró-Mamá, coordenado pelo Núcleo de Apoio à Saúde da Família (NASF), com o objetivo de padronizar a assistência ao recém-nascido e orientar nutrizes no manejo do aleitamento materno \citeonline{planomunicipaloso}. O programa visa aumentar os índices de amamentação, reduzir o desmame precoce e a morbimortalidade neonatal, contando com uma equipe multiprofissional composta por fonoaudióloga, nutricionista, psicóloga e profissionais de referência em cada equipe de Saúde da Família.
 
 A partir da proposta dos profissionais do NASF, o grupo Pró-Mamá buscou desenvolver um aplicativo para facilitar o acesso à informação sobre aleitamento materno e promover a interação entre as mães e os profissionais de saúde. Com a parceira realizada com o Instituto Federal do Rio Grande do Sul (IFRS) - Campus Osório, o aplicativo foi lançado em agosto de 2018 e estava disponível para ser baixado em ambas as plataformas de dispositivos móveis: \emph{Android} e \emph{iOS}.
 
 O aplicativo foi bem sucedido, conforme retratado na reportagem \citeonline{promamapremiacao}, conquistando o 1º lugar na categoria “Atenção Básica” no 31º Congresso do Conselho das Secretarias Municipais de Saúde do Rio Grande do Sul (Cosems/RS). No entanto, com o passar do tempo e a falta de atualizações, problemas como incompatibilidade com as versões mais atuais dos sistemas operacionais e principalmente a inconformidade com a Lei Geral de Proteção de Dados (LGPD), levaram à sua remoção das lojas de aplicativos móveis.
 
-O presente trabalho tem como objetivo migrar tecnologicamente a plataforma responsável pelo aplicativo Pró-Mamá, para assim atender às necessidades da lei de privacidade de dados dos usuários e suas restrições de segurança. Além disso, o projeto visa implantar novas tecnologias para facilitar o suporte de forma eficiente e segura no futuro. O foco principal é não apenas manter as funcionalidades já estabelecidas, mas também agregar novas soluções propostas pelos profissionais de saúde, assim como as sugestões dos alunos fundadores do projeto.
+O presente trabalho tem como objetivo migrar tecnologicamente a plataforma responsável pelo aplicativo Pró-Mamá, para assim atender às necessidades da lei de privacidade de dados dos usuários e suas restrições de segurança. Além disso, o projeto visa implantar novas tecnologias para facilitar o suporte de forma eficiente e segura no futuro. O foco principal é não apenas manter as funcionalidades existentes, mas também agregar novas soluções propostas pelos profissionais de saúde, assim como as sugestões dos alunos fundadores do projeto.
 
 \section{Objetivos}
 
 \subsection{Objetivo geral}
 
-Migrar tecnologicamente o painel administrativo e infraestrutura \emph{web} do Pró-Mamá para que os sistemas estejam de acordo com os requisitos de segurança e sejam restaurados, estabelecer um processo de continuidade no ciclo de desenvolvimento do \emph{software} e adicionar escalabilidade para que a plataforma possa ser utilizada por outros municípios.
+Migrar tecnologicamente o painel administrativo e infraestrutura \emph{web} do Pró-Mamá para que os sistemas estejam de acordo com os requisitos de segurança e sejam restaurados, designar um processo de continuidade no ciclo de desenvolvimento de \emph{software} e adicionar escalabilidade para que a plataforma possa ser utilizada por outros municípios.
 
 \subsection{Objetivos específicos}
 
@@ -30,17 +28,21 @@ Migrar tecnologicamente o painel administrativo e infraestrutura \emph{web} do P
   \item Reconstruir a infraestrutura \emph{web} visando boas práticas de segurança em conformidade com a LGPD;
   \item Reconstruir o painel administrativo de acordo com os requisitos pré-estabelecidos;
   \item Realizar a migração dos dados e arquivos retroativos garantindo integridade das informações;
-  \item Implementar um processo de continuidade no ciclo de desenvolvimento do \emph{software}, estabelecendo práticas de entrega e integração contínua, além de testes automatizados para garantir a qualidade do sistema;
+  \item Implementar um processo de continuidade no ciclo de desenvolvimento de \emph{software}, estabelecendo práticas de entrega e integração contínua, além de testes automatizados para garantir a qualidade do sistema;
   \item Consolidar a escalabilidade do sistema, permitindo que o painel administrativo e a infraestrutura \emph{web} possam ser utilizados por outros municípios, além de um manual de uso e um guia de instalação para facilitar a adoção do sistema;
 \end{itemize}
 
 \section{Justificativa}
 
-De acordo com \citeonline{onlineintervention} a meta-análise mostra que o uso de modelos de intervenção pela \emph{Internet} podem melhorar o nível de conhecimento sobre o aleitamento materno e que o seu domínio está intimamente relacionado ao efeito da amamentação, sendo uma condição importante para promover o comportamento de amamentação e melhorar a taxa de aleitamento materno. Algumas puérperas, especialmente primíparas, carecem de experiência de amamentação, enquanto o modo de intervenção pela \emph{Internet} facilita o aprendizado, através de plataformas ou aplicativos de educação sobre amamentação.
+De acordo com \citeonline{onlineintervention}, a meta-análise mostra que o uso de modelos de intervenção pela \emph{Internet} podem melhorar o nível de conhecimento sobre o aleitamento materno e que o seu domínio está intimamente relacionado ao efeito da amamentação. Sendo uma condição importante para promover o comportamento de amamentação e melhorar a taxa de aleitamento materno. 
+
+Algumas puérperas, especialmente primíparas, carecem de experiência de amamentação, enquanto o modo de intervenção pela \emph{Internet} facilita o aprendizado, através de plataformas ou aplicativos de educação sobre amamentação.
 
 Esse conhecimento, está diretamente relacionado com a prática da amamentação e o suporte oferecido às mães durante esse período é crucial. Pois, conforme o \citeonline{minsaudealeitamento}, o uso de uma técnica inadequada de amamentação pode levar a complicações como dor, fissuras mamárias, mastite e até mesmo o desmame precoce. A saúde do bebê também é afetada, resultando em problemas nutricionais e de desenvolvimento.
 
-A plataforma Pró-Mamá, estabelecida pelas diretrizes do NASF e com o apoio do IFRS, tem como objetivo promover a saúde materno-infantil e fornecer informações relevantes sobre aleitamento materno. Caracterizado como um agente interventivo, o programa tem demonstrado resultados positivos desde sua implantação em 2019 no município de Osório, com mais de 10.864 acessos, 1.348 cadastros realizados e mais de 188 dúvidas respondidas \citeonline{dadospromama}. Esses números evidenciam a importância do aplicativo como uma ferramenta eficaz para disseminar informações e apoiar as mães em sua jornada de amamentação.
+A plataforma Pró-Mamá, fundamentada pelas diretrizes do NASF e com o apoio do IFRS, tem como objetivo promover a saúde materno-infantil e fornecer informações relevantes sobre aleitamento materno. 
+
+Caracterizado como um agente interventivo, o programa tem demonstrado resultados positivos desde sua implantação em 2019 no município de Osório, com mais de 10.864 acessos, 1.348 cadastros realizados e mais de 188 dúvidas respondidas \citeonline{dadospromama}. Esses números evidenciam a importância do aplicativo como uma ferramenta eficaz para disseminar informações e apoiar as mães em sua jornada de amamentação.
 
 Desde sua retirada das lojas de aplicativos móveis em 2022, o sistema deixou de atender a uma demanda crescente por informações e suporte, impactando negativamente na experiência dos usuários que utilizavam do serviço. Portanto, é fundamental realizar as atualizações necessárias no Pró-Mamá e seu ecossistema para estar em conformidade com a LGPD e restabelecer o acesso ao aplicativo, contribuindo assim para a promoção do aleitamento materno e o bem-estar das mães e bebês.
 
