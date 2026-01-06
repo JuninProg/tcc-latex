@@ -2,7 +2,7 @@
 
 \section{Tipo de pesquisa}
 
-O presente estudo caracteriza-se como pesquisa aplicada, de natureza tecnológica e abordagem mista. Foram combinadas técnicas qualitativas e quantitativas, como levantamento documental e estudo de caso único, com foco na plataforma Pró-Mamá e seus serviços \emph{web} (\emph{API} e painel administrativo). O aplicativo móvel, embora relacionado, não constitui objeto central por ser resultado de outro trabalho acadêmico.
+O presente estudo caracteriza-se como pesquisa aplicada, de natureza tecnológica e abordagem mista \cite{siena2007metodologia}. Foram combinadas técnicas qualitativas e quantitativas, como levantamento documental e estudo de caso único, com foco na plataforma Pró-Mamá e seus serviços \emph{web} (\emph{API} e painel administrativo). O aplicativo móvel, embora relacionado, não constitui objeto central por ser resultado de outro trabalho acadêmico.
 
 O delineamento temporal do estudo foi estruturado em três fases: diagnóstico, reconstrução e validação. Na primeira fase, foram coletados documentos internos e registros históricos, incluindo versões de código, relatórios de implantação, problemas e requisitos originais. Também foi realizado levantamento de aplicativos de saúde digital, considerando funcionalidades, integrações e políticas de dados, a fim de estabelecer parâmetros de comparação para a conjuntura do Pró-Mamá.
 
@@ -18,25 +18,29 @@ Essa estratégia permitiu uma análise mais abrangente, tornando-se possível ob
 
 As metodologias ágeis surgiram como uma resposta às limitações dos modelos tradicionais de desenvolvimento, propondo maior flexibilidade, adaptação às mudanças e entregas frequentes de valor ao usuário. De acordo com \citeonline{NagaiSbragia2023Agil}, a consolidação dessas práticas está associada à priorização da colaboração, da comunicação contínua e da entrega incremental de resultados, fatores cruciais em ambientes complexos e em constante transformação.
 
-Entre os métodos ágeis, o modelo incremental destaca-se pela entrega em etapas sucessivas. Como destacam \citeonline{Lima2023IncrementalModel}, “o modelo incremental é uma metodologia ágil e iterativa que possibilita a entrega de resultados em etapas e em um curto espaço de tempo, permitindo que os clientes monitorem atentamente o progresso do projeto e realizem ajustes ou alterações, se necessário”. Essa característica favorece maior controle de qualidade e mitigação de riscos.
+Entre os métodos ágeis, o modelo incremental destaca-se pela entrega em etapas sucessivas. Como destacam \citeonline[p.~3]{Lima2023IncrementalModel}:
+\begin{citacao}
+O  modelo  incremental  é  uma  metodologia  de  desenvolvimento  de software altamente adequada para projetos que exigem entregas em curto prazo e modificações constantes. Isso ocorre porque o modelo permite  a  entrega  de  resultados  parciais  em  um  curto  período  de  tempo,  permitindo  que  os  clientes  acompanhem  de  perto  o progresso do projeto e façam ajustes ou mudanças de rota, caso necessário.
+\end{citacao}
+Essa característica favorece maior controle de qualidade e mitigação de riscos.
 
 No caso do Pró-Mamá, a reconstrução da plataforma foi planejada em pequenos incrementos, permitindo validação contínua pelos profissionais de saúde. Cada funcionalidade previamente definida foi fragmentada em partes menores, implementadas, testadas e revisadas em ciclos curtos. Essa abordagem garantiu maior aderência às necessidades reais dos usuários e possibilitou a incorporação de \emph{feedbacks} ao longo do processo.
 
 \section{Análise e (re)especificação de requisitos}
 
-A engenharia de requisitos é o processo que visa compreender e documentar o que o sistema deve realizar, sendo considerada uma das atividades mais críticas dentro da engenharia de \emph{software}. Como define \citeonline{sommerville2011engenharia}, trata-se da “atividade de descobrir, analisar, documentar e verificar os serviços e restrições do sistema”. Nesse cenário, a análise de requisitos busca transformar necessidades dos usuários e restrições de negócio em especificações claras e compreensíveis.
+A engenharia de requisitos é a atividade de compreender e definir os serviços requisitados do sistema e identificar restrições relativas à sua operação e desenvolvimento, sendo considerada um estágio crítico da engenharia de \emph{software}, pois "erros nessa fase inevitavelmente geram problemas no projeto e na implementação do sistema" \cite[p.~24]{sommerville2011engenharia}. Nesse cenário, a análise de requisitos transforma necessidades dos usuários e restrições de negócio em especificações claras e compreensíveis.
 
-Segundo \citeonline{sommerville2011engenharia}, “a falha em compreender as reais necessidades dos usuários está entre as principais causas de insucesso de projetos de \emph{software}, tornando essencial o uso de boas práticas e técnicas de elicitação para reduzir ambiguidades e conflitos”. Essa afirmação destaca a relevância de aplicar métodos estruturados na análise de requisitos, garantindo maior qualidade e confiabilidade ao processo de desenvolvimento.
+O processo de engenharia de requisitos "tem como objetivo produzir um documento de requisitos acordados que especifica um sistema que satisfaz os requisitos dos \emph{stakeholders}" \cite[p.~24]{sommerville2011engenharia}. Para atingir tal objetivo, a fase de elicitação e análise envolve a derivação dos requisitos "por meio da observação dos sistemas existentes, além de discussões com os potenciais usuários e compradores, análise de tarefas, entre outras etapas" \cite[p.~25]{sommerville2011engenharia}.
 
-Para a correta aplicação dos métodos de engenharia de requisitos, é necessário compreender inicialmente quais aspectos devem ser investigados. Nesse sentido, os requisitos podem ser classificados em duas categorias principais: funcionais e não funcionais. Conforme \citeonline{pressman2016engenharia}, “os requisitos funcionais descrevem o comportamento do sistema ou de suas partes, ou seja, as funções que o \emph{software} deve executar. Já os requisitos não funcionais são restrições globais impostas ao produto ou ao processo de desenvolvimento, como padrões, desempenho ou restrições de \emph{interface}”.
+Nessa análise alguns aspectos devem ser investigados e considerados, assim duas categorias principais de requisitos são definidas: funcionais e não funcionais. Para \citeonline[p.~141]{pressman2016engenharia}, "um requisito não funcional pode ser descrito como um atributo de qualidade, de desempenho, de segurança ou como uma restrição geral em um sistema". São características que embora não relacionadas diretamente às funcionalidades, influenciam de forma significativa a utilidade e a confiabilidade do \emph{software}.
 
-Além da classificação, é preciso considerar as regras de negócio, de acordo com \citeonline{pressman2016engenharia}, “são restrições que aplicam-se ao comportamento do sistema. Algumas regras representam políticas governamentais ou empresariais que devem ser aplicadas ao sistema de \emph{software}”. Essas regras são essenciais para garantir que o sistema esteja alinhado com os objetivos e diretrizes da organização, influenciando diretamente na definição dos requisitos.
+Já o requisito funcional está relacionado às funções e serviços que o sistema deve disponibilizar para atender aos objetivos identificados na fase de levantamento e elaboração. De acordo com \citeonline{pressman2016engenharia}, sua definição parte da compreensão das necessidades do negócio, da descrição de funcionalidades e recursos esperados, bem como das restrições envolvidas.
 
-Para o Pró-Mamá, as regras de negócio foram extraídas das entrevistas realizadas com os profissionais de saúde e os alunos do projeto, permitindo uma compreensão mais profunda das necessidades dos usuários e das diretrizes de domínio. Após a concepção da ideia e identificação dos elementos da plataforma: aplicativo móvel, painel administrativo e infraestrutura \emph{web}, foram realizados alinhamentos para definição de tarefas e responsabilidades, sendo assim criada a primeira versão pelos alunos fundadores.
+Na criação do Pró-Mamá, as regras de negócio foram extraídas das entrevistas realizadas com os profissionais de saúde e os alunos do projeto, permitindo uma compreensão mais profunda das necessidades dos usuários e das diretrizes de domínio. Após a concepção da ideia e identificação dos elementos da plataforma: aplicativo móvel, painel administrativo e infraestrutura \emph{web}, foram realizados alinhamentos para definição de tarefas e responsabilidades, sendo assim criada a primeira versão pelos alunos fundadores.
 
 Com base nessas informações, houve uma segunda rodada de entrevistas e discussões, após a descontinuidade do aplicativo móvel, para avaliar a viabilidade de continuidade do projeto. Essas discussões permitiram identificar os principais desafios e oportunidades para a reconstrução da plataforma, considerando aspectos técnicos, de usabilidade e de segurança.
 
-Assim, cada requisito anteriormente registrado foi revisado e atualizado caso necessário, considerando as mudanças principalmente no que tange a segurança, continuidade e escalabilidade. A seguir, serão apresentados as regras de negócio e os requisitos funcionais e não funcionais identificados para cada sistema.
+Assim, cada requisito anteriormente registrado foi revisado e atualizado conforme sua necessidade, considerando as mudanças principalmente no que tange a segurança, continuidade e escalabilidade. A seguir, serão apresentados as regras de negócio e os requisitos funcionais e não funcionais identificados para cada sistema.
 
 \subsection{Regras de negócio}
 
@@ -44,7 +48,6 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 
 \begin{table}[H]
 \centering
-\caption{Regra de Negócio 1}
 \begin{tabular}{|l|p{12cm}|}
 \hline
 \textbf{ID} & RN01 \\
@@ -54,12 +57,12 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Todo conteúdo educativo deve ser categorizado por faixa etária da criança (ex.: 0-6 meses para amamentação exclusiva), alinhando-se às diretrizes da OMS para promover o desenvolvimento infantil e reduzir desmame precoce. \\
 \hline
 \end{tabular}
+\caption{Regra de Negócio 1}
 \label{tab:rn01}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Regra de Negócio 2}
 \begin{tabular}{|l|p{12cm}|}
 \hline
 \textbf{ID} & RN02 \\
@@ -69,12 +72,12 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Dados pessoais de usuários (mães e crianças) devem ser processados em estrita conformidade com a LGPD, limitando coletas a essenciais e impondo anonimato em interações públicas para proteger privacidade em contextos de saúde. \\
 \hline
 \end{tabular}
+\caption{Regra de Negócio 2}
 \label{tab:rn02}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Regra de Negócio 3}
 \begin{tabular}{|l|p{12cm}|}
 \hline
 \textbf{ID} & RN03 \\
@@ -84,12 +87,12 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Respostas a dúvidas de mães devem ser fornecidas por equipe multiprofissional (fonoaudióloga, nutricionista, psicóloga), refletindo a estrutura do NASF e priorizando suporte comunitário para inibir influências contrárias à amamentação. \\
 \hline
 \end{tabular}
+\caption{Regra de Negócio 3}
 \label{tab:rn03}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Regra de Negócio 4}
 \begin{tabular}{|l|p{12cm}|}
 \hline
 \textbf{ID} & RN04 \\
@@ -99,12 +102,12 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Dados de usuários devem ser isolados por município para garantir que informações sensíveis não sejam compartilhadas entre diferentes localidades, respeitando a privacidade e as particularidades de cada região. \\
 \hline
 \end{tabular}
+\caption{Regra de Negócio 4}
 \label{tab:rn04}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Regra de Negócio 5}
 \begin{tabular}{|l|p{12cm}|}
 \hline
 \textbf{ID} & RN05 \\
@@ -114,12 +117,12 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Métricas de uso (acessos, cadastros, dúvidas respondidas) devem rastrear impacto na promoção do aleitamento materno, alinhando-se aos objetivos do programa para redução de morbimortalidade neonatal. \\
 \hline
 \end{tabular}
+\caption{Regra de Negócio 5}
 \label{tab:rn05}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Regra de Negócio 6}
 \begin{tabular}{|l|p{12cm}|}
 \hline
 \textbf{ID} & RN06 \\
@@ -129,22 +132,22 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & As notificações devem ser personalizadas com base na informação que esteja na faixa etária da criança ou um disparo geral para avisos, fomentando o engajamento das mães. \\
 \hline
 \end{tabular}
+\caption{Regra de Negócio 6}
 \label{tab:rn06}
 \end{table}
 
 
 \subsection{Levantamento de requisitos \emph{API} e infraestrutura \emph{web}}
 
-Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tudo aquilo que é necessário para garantir o funcionamento adequado e seguro da plataforma. Isso inclui aspectos como autenticação, autorização, comunicação entre serviços e armazenamento de dados e arquivos.
+Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tudo aquilo que é necessário para garantir o funcionamento adequado e seguro da plataforma. Isso inclui aspectos como autenticação, autorização, comunicação entre serviços e armazenamento de dados e arquivos. Para a identificação dos requisitos, utilizou-se do sufixo "API" no final do ID, para facilitar a distinção entre os sistemas.
 
 \subsubsection{Requisitos funcionais}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 1}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF01 \\
+\textbf{ID} & RFAPI01 \\
 \hline
 \textbf{Nome} & Persistência de dados \\
 \hline
@@ -153,15 +156,15 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 1}
 \label{tab:rfapi01}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 2}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF02\\
+\textbf{ID} & RFAPI02 \\
 \hline
 \textbf{Nome} & Autenticação de usuários \\
 \hline
@@ -170,15 +173,15 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 2}
 \label{tab:rfapi02}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 3}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF03 \\
+\textbf{ID} & RFAPI03 \\
 \hline
 \textbf{Nome} & Autorização de usuários \\
 \hline
@@ -187,15 +190,15 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 3}
 \label{tab:rfapi03}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 4}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF04 \\
+\textbf{ID} & RFAPI04 \\
 \hline
 \textbf{Nome} & Armazenamento de arquivos \\
 \hline
@@ -204,15 +207,15 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 4}
 \label{tab:rfapi04}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 5}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF05 \\
+\textbf{ID} & RFAPI05 \\
 \hline
 \textbf{Nome} & Agendamento de notificações \\
 \hline
@@ -221,6 +224,7 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 5}
 \label{tab:rfapi05}
 \end{table}
 
@@ -229,46 +233,46 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 1}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF 01\\
+\textbf{ID} & RNFAPI01 \\
 \hline
 \textbf{Descrição} & O sistema deve garantir a privacidade dos dados dos usuários, utilizando técnicas de anonimização e criptografia. \\
 \hline
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 1}
 \label{tab:rnfapi01}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 2}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF 02\\
+\textbf{ID} & RNFAPI02 \\
 \hline
 \textbf{Descrição} & O sistema deve ser servido a partir do protocolo \emph{HTTPS} com certificado digital válido. \\
 \hline
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 2}
 \label{tab:rnfapi02}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 3}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF 03\\
+\textbf{ID} & RNFAPI03 \\
 \hline
 \textbf{Descrição} & O sistema deve ser escalável, possibilitando a instalação em diferentes servidores para cada município. \\
 \hline
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 3}
 \label{tab:rnfapi03}
 \end{table}
 
@@ -276,16 +280,15 @@ Para a \emph{API} e infraestrutura \emph{web}, considerou-se como requisitos tud
 
 Para o painel administrativo, os requisitos foram definidos com foco na gestão e no monitoramento da plataforma. As funcionalidades contemplam a administração de usuários, acompanhamento de métricas, geração de relatórios e, principalmente, a gestão do conteúdo do aplicativo móvel. Isso inclui o gerenciamento de artigos, perguntas frequentes e respostas às dúvidas enviadas pelas mães, garantindo que os profissionais de saúde tenham acesso às informações atualizadas e que possam realizar as edições que desejarem.
 
-Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estudante que desenvolveu a primeira versão do painel administrativo, sendo assim cada requisito recebeu uma indicação de estado, identificando se permaneceu inalterado, se sofreu atualizações para atender às demandas atuais, é novo ou foi removido.
+Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estudante que desenvolveu a primeira versão do painel administrativo, sendo assim cada requisito recebeu uma indicação de estado, identificando se permaneceu inalterado, se sofreu atualizações para atender às demandas atuais, é novo ou foi removido. O sufixo "PANEL" foi utilizado no final do ID para facilitar a distinção entre os sistemas.
 
 \subsubsection{Requisitos funcionais}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 1}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF01 \\
+\textbf{ID} & RFPANEL01 \\
 \hline
 \textbf{Nome} & Cadastrar bairro \\
 \hline
@@ -296,15 +299,15 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 1}
 \label{tab:rfpanel01}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 2}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF02 \\
+\textbf{ID} & RFPANEL02 \\
 \hline
 \textbf{Nome} & Cadastrar Posto de Saúde \\
 \hline
@@ -315,15 +318,15 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 2}
 \label{tab:rfpanel02}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 3}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF03 \\
+\textbf{ID} & RFPANEL03 \\
 \hline
 \textbf{Nome} & Cadastrar Informação \\
 \hline
@@ -334,15 +337,15 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 3}
 \label{tab:rfpanel03}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 4}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF04 \\
+\textbf{ID} & RFPANEL04 \\
 \hline
 \textbf{Nome} & Cadastrar Notificação \\
 \hline
@@ -353,15 +356,15 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 4}
 \label{tab:rfpanel04}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 5}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF05 \\
+\textbf{ID} & RFPANEL05 \\
 \hline
 \textbf{Nome} & Cadastrar Dúvida Frequente \\
 \hline
@@ -372,15 +375,15 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 5}
 \label{tab:rfpanel05}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 6}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF06 \\
+\textbf{ID} & RFPANEL06 \\
 \hline
 \textbf{Nome} & Cadastrar Termos de Uso \\
 \hline
@@ -391,92 +394,92 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 6}
 \label{tab:rfpanel06}
 \end{table}
 
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 7}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF07 \\
+\textbf{ID} & RFPANEL07 \\
 \hline
 \textbf{Nome} & Responder Dúvida do Usuário \\
 \hline
-\textbf{Descrição} & O sistema deve permitir que o usuário visualize e responda a dúvidas de outros usuários. O usuário pode escolher se a resposta será visível para todos ou apenas para o usuário que fez a pergunta. Cada dúvida deve possuir um identificador único. \\
+\textbf{Descrição} & O sistema deve permitir que o administrador visualize e responda a dúvidas de outros usuários. O administrador pode escolher se a resposta será visível para todos ou apenas para o usuário que fez a pergunta. Cada dúvida deve possuir um identificador único. \\
 \hline
 \textbf{Tipo} & Essencial \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 7}
 \label{tab:rfpanel07}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 8}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF08 \\
+\textbf{ID} & RFPANEL08 \\
 \hline
 \textbf{Nome} & Alterar Senha \\
 \hline
-\textbf{Descrição} & O sistema deve permitir ao usuário alterar sua senha, solicitando a senha atual, a nova senha e a confirmação da nova senha. \\
+\textbf{Descrição} & O sistema deve permitir ao administrador alterar sua senha, solicitando a senha atual, a nova senha e a confirmação da nova senha. \\
 \hline
 \textbf{Tipo} & Essencial \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 8}
 \label{tab:rfpanel08}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 9}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF09 \\
+\textbf{ID} & RFPANEL09 \\
 \hline
 \textbf{Nome} & Envio de E-mail na Interação do Fale Conosco \\
 \hline
-\textbf{Descrição} & O sistema deve enviar um e-mail para o usuário do Painel quando uma nova dúvida de usuário chegar. Além disso, quando o usuário responder a dúvida, um e-mail deve ser enviado para o usuário que fez a pergunta. \\
+\textbf{Descrição} & O sistema deve enviar um e-mail para o administrativo do Painel quando uma nova dúvida de usuário chegar. Além disso, quando o administrador responder a dúvida, um e-mail deve ser enviado para o usuário que fez a pergunta. \\
 \hline
 \textbf{Tipo} & Desejável \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 9}
 \label{tab:rfpanel09}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 10}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF10 \\
+\textbf{ID} & RFPANEL10 \\
 \hline
 \textbf{Nome} & Pré-Visualizar Informação \\
 \hline
-\textbf{Descrição} & O sistema deve permitir que o usuário visualize como a informação ficará na tela de um celular antes de finalizar o cadastro. \\
+\textbf{Descrição} & O sistema deve permitir que o administrador visualize como a informação ficará na tela de um celular antes de finalizar o cadastro. \\
 \hline
 \textbf{Tipo} & Desejável \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 10}
 \label{tab:rfpanel10}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 11}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF11 \\
+\textbf{ID} & RFPANEL11 \\
 \hline
 \textbf{Nome} & Remoção de conta \\
 \hline
@@ -487,25 +490,26 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 11}
 \label{tab:rfpanel11}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Funcional 12}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RF12 \\
+\textbf{ID} & RFPANEL12 \\
 \hline
 \textbf{Nome} & Exportação de relatórios \\
 \hline
-\textbf{Descrição} & O sistema deve permitir que o usuário possa solicitar a exportação de relatórios em formato de planilha. \\
+\textbf{Descrição} & O sistema deve permitir que o administrador possa solicitar a exportação de relatórios em formato de planilha. \\
 \hline
 \textbf{Tipo} & Desejável \\
 \hline
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
+\caption{Requisito Funcional 12}
 \label{tab:rfpanel12}
 \end{table}
 
@@ -514,106 +518,106 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 1}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF01 \\
+\textbf{ID} & RNFPANEL01 \\
 \hline
 \textbf{Descrição} & O sistema deve ser desenvolvido na plataforma \emph{web}. \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 1}
 \label{tab:rnfpanel01}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 2}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF02 \\
+\textbf{ID} & RNFPANEL02 \\
 \hline
 \textbf{Descrição} & O sistema precisa de \emph{Internet} para ser acessado. \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 2}
 \label{tab:rnfpanel02}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 3}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF03 \\
+\textbf{ID} & RNPANEL03 \\
 \hline
 \textbf{Descrição} & O sistema deve fornecer uma \emph{API} para consumo das informações. \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 3}
 \label{tab:rnfpanel03}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 4}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF04 \\
+\textbf{ID} & RNPANEL04 \\
 \hline
 \textbf{Descrição} & O sistema deve utilizar o banco MySQL. \\
 \hline
 \textbf{Estado} & Removido \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 4}
 \label{tab:rnfpanel04}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 5}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF05 \\
+\textbf{ID} & RNFPANEL05 \\
 \hline
 \textbf{Descrição} & O sistema deve estar sempre disponível (alta disponibilidade) para as requisições. \\
 \hline
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 5}
 \label{tab:rnfpanel05}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 6}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF06 \\
+\textbf{ID} & RNFPANEL06 \\
 \hline
 \textbf{Descrição} & O sistema deve possuir \emph{design} responsivo. \\
 \hline
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 6}
 \label{tab:rnfpanel06}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Requisito Não Funcional 7}
 \begin{tabular}{|l|p{12cm}|}
 \hline
-\textbf{ID} & RNF07 \\
+\textbf{ID} & RNPANEL07 \\
 \hline
 \textbf{Descrição} & O sistema deve ser acessado por um navegador \emph{web}. \\
 \hline
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
+\caption{Requisito Não Funcional 7}
 \label{tab:rnfpanel07}
 \end{table}
 
@@ -623,7 +627,7 @@ De acordo com \citeonline{archlimpaunclebob}, um \emph{software} entrega basicam
 
 Um sistema deve ser concebido para permitir alterações com simplicidade e baixo custo, de modo que o esforço necessário para modificá-lo esteja relacionado apenas à extensão da mudança, e não à sua forma ou estrutura já existentes. Nesse contexto, a arquitetura de \emph{software} desempenha papel central, organizando os componentes de forma a manter o núcleo da lógica de negócio protegido de elementos externos e instáveis.
 
-No histórico do Pró-Mamá, verificou-se que dificuldades de manutenção estavam ligadas à estrutura anterior, que integrava regras de domínio, dados e \emph{interface} de forma dependente. Soluções como \emph{MVC} em \emph{PHP} e \emph{Apache} centralizavam \emph{API} e \emph{frontend}, dificultando intervenções, especialmente diante de requisitos legais como a adequação à LGPD.
+No histórico do Pró-Mamá, verificou-se que dificuldades de manutenção estavam ligadas à estrutura anterior, que integrava regras de domínio, dados e \emph{interface} de forma dependente. Soluções como \emph{MVC} em \emph{PHP} e \emph{Apache} centralizavam \emph{API} e \emph{frontend}, dificultando intervenções, qualquer mudança exigia revisões extensas e testes rigorosos para evitar impactos indesejados.
 
 Processos de atualização, como troca do banco de dados ou separação de camadas, demonstraram a necessidade de uma arquitetura capaz de desacoplar funcionalidades essenciais dos detalhes de implementação. Essa abordagem proporciona maior segurança e facilita a adaptação a novas demandas, sem comprometer a integridade das informações.
 
@@ -635,17 +639,17 @@ O planejamento do Pró-Mamá, fundamentado nesses conceitos, resultou em uma org
 
 A Figura~\ref{fig:macro-promama} ilustra de modo conceitual a arquitetura do Pró-Mamá, delineando a distribuição e interação dos principais módulos do sistema. No núcleo da solução, a \emph{API} centraliza a lógica funcional e opera em ambiente restrito, protegida por rede interna, o que reduz vulnerabilidades e garante maior resiliência frente a alterações nas camadas externas.
 
-Na camada de apresentação, distinguem-se dois perfis de usuário: administradores, que acessam o Painel Administrativo via navegador \emph{web}, e mães usuárias, que utilizam o aplicativo móvel. Ambos os acessos são intermediados pelo protocolo \emph{HTTPS} e pelo serviço de borda \emph{Cloudflare}, responsável por filtrar riscos de segurança, otimizar entrega por \emph{cache} e assegurar que apenas requisições válidas atinjam as demais estruturas \citeonline{cloudflarefundamentals}.
+Na camada de apresentação, distinguem-se dois perfis de usuário: administradores, que acessam o Painel Administrativo via navegador \emph{web}, e mães usuárias, que utilizam o aplicativo móvel. Ambos os acessos são intermediados pelo protocolo \emph{HTTPS} e pelo serviço de borda \emph{Cloudflare}, responsável por filtrar riscos de segurança, otimizar entrega por \emph{cache} e assegurar que apenas requisições válidas atinjam as demais estruturas \cite{cloudflarefundamentals}.
 
-Após essa filtragem, o \emph{Nginx Reverse Proxy} direciona o tráfego para os destinos apropriados — Painel Administrativo ou \emph{API} —, gerenciando também certificados digitais, compressão dos dados e balanceamento básico de carga \citeonline{nginxloadbalancer}. Essa camada potencializa a eficiência e distribui as solicitações de modo a evitar sobrecarga de instâncias, aumentando a robustez do serviço.
+Após essa filtragem, o \emph{Nginx Reverse Proxy} direciona o tráfego para os destinos apropriados — Painel Administrativo ou \emph{API} —, gerenciando também certificados digitais, compressão dos dados e balanceamento básico de carga \cite{nginxloadbalancer}. Essa camada potencializa a eficiência e distribui as solicitações de modo a evitar sobrecarga de instâncias, aumentando a robustez do serviço.
 
-Todos os módulos do sistema operam em contêineres \emph{Docker}, que são unidades leves de \emph{software} capazes de executar aplicações de forma isolada e padronizada, independentemente do servidor utilizado \citeonline{dockerdocs}. Essa tecnologia oferece facilidade na implantação, atualização e manutenção dos serviços, além de maior portabilidade para o ambiente do município.
+Todos os módulos do sistema operam em contêineres \emph{Docker}, que são unidades leves de \emph{software} capazes de executar aplicações de forma isolada e padronizada, independentemente do servidor utilizado \cite{dockerdocs}. Essa tecnologia oferece facilidade na implantação, atualização e manutenção dos serviços, além de maior portabilidade para o ambiente do município.
 
-Para armazenar arquivos, adotou-se o uso de \emph{volumes} \emph{Docker}, recurso que permite conectar uma pasta do servidor diretamente aos contêineres \citeonline{dockerdocs}. O \emph{volume} garante que dados e documentos permaneçam preservados e acessíveis, mesmo que os contêineres sejam reiniciados ou substituídos. Isso facilita a gestão e a migração dos arquivos, especialmente das fotos retroativas da primeira versão do Pró-Mamá.
+Para armazenar arquivos, adotou-se o uso de \emph{volumes} \emph{Docker}, recurso que permite conectar uma pasta do servidor diretamente aos contêineres \cite{dockerdocs}. O \emph{volume} garante que dados e documentos permaneçam preservados e acessíveis, mesmo que os contêineres sejam reiniciados ou substituídos. Isso facilita a gestão e a migração dos arquivos, especialmente das fotos retroativas da primeira versão do Pró-Mamá.
 
-O sistema utiliza o banco de dados \emph{PostgreSQL}, reconhecido por sua robustez, confiabilidade e suporte transacional \citeonline{postgresdocs}. Essa solução permite armazenar de maneira estruturada todas as informações essenciais, como cadastros, registros e métricas do Pró-Mamá, assegurando integridade e facilidade de consulta dos dados.
+O sistema utiliza o banco de dados \emph{PostgreSQL}, reconhecido por sua robustez, confiabilidade e suporte transacional \cite{postgresdocs}. Essa solução permite armazenar de maneira estruturada todas as informações essenciais, como cadastros, registros e métricas do Pró-Mamá, assegurando integridade e facilidade de consulta dos dados.
 
-O \emph{Redis} é empregado como serviço para processamento de tarefas em segundo plano, seguindo o modelo de filas e agendamento de tarefas \citeonline{redisdocs}. Essa abordagem permite que operações como o envio de notificações sejam tratadas de modo eficiente, sem impactar o desempenho das funções principais da \emph{API}.
+O \emph{Redis} é empregado como serviço para processamento de tarefas em segundo plano, seguindo o modelo de filas e agendamento de tarefas \cite{redisdocs}. Essa abordagem permite que operações como o envio de notificações sejam tratadas de modo eficiente, sem impactar o desempenho das funções principais da \emph{API}.
 
 Os registros de operação, conhecidos como \emph{logs}, são produzidos por todos os serviços e armazenados localmente no servidor. Esses \emph{logs} podem ser acessados diretamente pelos desenvolvedores, auxiliando no diagnóstico de problemas. Com o crescimento da demanda, é possível integrar ferramentas especializadas para análise, visualização e centralização dos eventos registrados, aprimorando a capacidade de observabilidade e monitoramento.
 
@@ -664,7 +668,7 @@ Após a definição dos módulos do sistema, estabeleceram-se padrões de desenv
 
 Embora o \emph{JavaScript} não seja estritamente orientado a objetos, a adoção do \emph{TypeScript} permitiu incorporar tipagem estática e reforçar conceitos desse paradigma, como classes, \emph{interfaces} e contratos, contribuindo para maior previsibilidade e detecção precoce de erros.
 
-A organização dos arquivos seguiu a arquitetura \emph{Hexagonal} (\emph{Ports and Adapters}), que promove o isolamento do núcleo da aplicação em relação às suas dependências externas. Essa escolha está alinhada ao conceito de "Arquitetura Gritante" descrito por \citeonline{archlimpaunclebob}, segundo o qual a estrutura do código deve refletir o domínio do negócio, permitindo rápida identificação de seu propósito apenas ao analisar sua organização.
+A organização dos arquivos seguiu a arquitetura \emph{Hexagonal} (\emph{Ports and Adapters}), que promove o isolamento do núcleo da aplicação em relação às suas dependências externas. Essa escolha está alinhada ao conceito de “Arquitetura Gritante” descrito por \citeonline{archlimpaunclebob}, segundo o qual a estrutura do código deve refletir o domínio do negócio, permitindo rápida identificação de seu propósito apenas ao analisar sua organização.
 
 Foram ainda aplicados princípios selecionados da metodologia SOLID, com destaque para:
 \begin{itemize}
@@ -677,11 +681,11 @@ Essas diretrizes resultaram em um código mais organizado e adaptável, favorece
 
 \subsubsection{Codificação da API}
 
-A \emph{API} do Pró-Mamá foi desenvolvida no ecossistema \emph{Node.js}, utilizando o \emph{framework} \emph{Express} para a construção de aplicações \emph{web} e serviços \emph{RESTful}. O termo \emph{RESTful} refere-se a um estilo arquitetural para sistemas distribuídos que utiliza o protocolo HTTP e princípios como recursos identificáveis por URIs, operações padronizadas (\emph{GET}, \emph{POST}, \emph{PUT}, \emph{DELETE}) e comunicação sem estado \cite{REFERENCIA_RESTFUL}, amplamente empregado para integração entre sistemas e facilita a interoperabilidade.
+A \emph{API} do Pró-Mamá foi desenvolvida no ecossistema \emph{Node.js}, utilizando o \emph{framework} \emph{Express} para a construção de aplicações \emph{web} e serviços \emph{REST}. O termo \emph{REST} refere-se a um estilo arquitetural para sistemas distribuídos que utiliza o protocolo HTTP e princípios como recursos identificáveis por URIs, operações padronizadas (\emph{GET}, \emph{POST}, \emph{PUT}, \emph{DELETE}) e comunicação sem estado \cite{restibm}, amplamente empregado para integração entre sistemas e facilita a interoperabilidade.
 
-A documentação foi implementada com a especificação \emph{OpenAPI} por meio da ferramenta \emph{Swagger} \citeonline{swaggerdocs}, permitindo a geração automática de documentação interativa e a validação das rotas diretamente na \emph{Swagger UI}. Essa integração mantém a documentação sincronizada com o código-fonte e reduz a necessidade de manutenção manual.
+A documentação foi implementada com a especificação \emph{OpenAPI} por meio da ferramenta \emph{Swagger}, permitindo a geração automática de documentação interativa e a validação das rotas diretamente na \emph{Swagger UI} \cite{swaggeropenapi}. Essa integração mantém a documentação sincronizada com o código-fonte e reduz a necessidade de manutenção manual.
 
-O gerenciamento de dependências internas foi realizado com a biblioteca \emph{awilix} \citeonline{awilixdocs}, que implementa o padrão de Injeção de Dependência (\emph{Dependency Injection}). Essa técnica consiste em fornecer a um componente suas dependências externas por meio de abstrações, em vez de criá-las internamente, promovendo baixo acoplamento e facilitando testes \cite{REFERENCIA_DI}.
+O gerenciamento de dependências internas foi realizado com a biblioteca \emph{awilix}, que implementa o padrão de Injeção de Dependência (\emph{Dependency Injection}) \cite{awilixdocs}. Essa técnica consiste em fornecer a um componente suas dependências externas por meio de abstrações, em vez de criá-las internamente, promovendo baixo acoplamento e facilitando testes \cite{dimartinfowler}.
 
 A estrutura de pastas da \emph{API} foi definida conforme a Tabela~\ref{tab:pastas_api}.
 
@@ -704,9 +708,9 @@ Essa organização serviu como base para a arquitetura do Painel Administrativo,
 
 \subsubsection{Codificação do Painel Administrativo}
 
-O Painel Administrativo foi desenvolvido como uma \emph{Single Page Application} (SPA), aplicação \emph{web} que carrega uma única página HTML e atualiza seu conteúdo de forma dinâmica, sem recarregamento completo \cite{REFERENCIA_SPA}. Essa abordagem proporciona maior fluidez na interação e reduz o tempo de resposta, sendo adequada para integração contínua com a \emph{API}.
+O Painel Administrativo foi desenvolvido como uma \emph{Single Page Application} (SPA), aplicação \emph{web} que carrega uma única página HTML e atualiza seu conteúdo de forma dinâmica, sem recarregamento completo \cite{spamdn}. Essa abordagem proporciona maior fluidez na interação e reduz o tempo de resposta, sendo adequada para integração contínua com a \emph{API}.
 
-A implementação utilizou \emph{React.js}, biblioteca amplamente empregada para construção de \emph{interfaces} baseadas em componentes reutilizáveis \cite{REFERENCIA_REACT}. A arquitetura de pastas foi adaptada da \emph{API} para atender às necessidades do \emph{frontend}, conforme a Tabela~\ref{tab:pastas_painel}.
+A implementação utilizou \emph{React.js}, biblioteca amplamente empregada para construção de \emph{interfaces} baseadas em componentes reutilizáveis \cite{react}. A arquitetura de pastas foi adaptada da \emph{API} para atender às necessidades do \emph{frontend}, conforme a Tabela~\ref{tab:pastas_painel}.
 
 \begin{table}[H]
 \centering
@@ -728,13 +732,13 @@ A implementação utilizou \emph{React.js}, biblioteca amplamente empregada para
 \end{tabular}
 \end{table}
 
-Para o gerenciamento de rotas, foi utilizada a biblioteca \emph{react-router-dom} \cite{REFERENCIA_ROUTER}. Essa ferramenta permite definir caminhos, associar componentes e implementar navegação programática de forma estruturada no \emph{frontend}.
+Para o gerenciamento de rotas, foi utilizada a biblioteca \emph{react-router-dom} \cite{reactrouter}. Essa ferramenta permite definir caminhos, associar componentes e implementar navegação programática de forma estruturada no \emph{frontend}.
 
 No projeto, o \emph{react-router-dom} foi configurado com mecanismos de autenticação por meio de \emph{guards}. Esse recurso separa rotas públicas e privadas, garantindo que apenas usuários autenticados acessem determinadas áreas do painel.
 
 Também foram implementados redirecionamentos automáticos para manter a coerência da navegação. Essa prática é essencial em uma SPA, pois assegura que o usuário seja direcionado corretamente conforme seu estado de autenticação.
 
-O processo de construção e otimização do Painel Administrativo foi realizado com o \emph{Vite} \cite{REFERENCIA_VITE}. Essa ferramenta de empacotamento oferece inicialização quase instantânea do servidor de desenvolvimento e atualização automática (\emph{hot module replacement}) durante alterações no código.
+O processo de construção e otimização do Painel Administrativo foi realizado com o \emph{Vite} \cite{vite}. Essa ferramenta de empacotamento oferece inicialização quase instantânea do servidor de desenvolvimento e atualização automática (\emph{hot module replacement}) durante alterações no código.
 
 Além de acelerar o ciclo de desenvolvimento, o \emph{Vite} aplica otimizações no \emph{bundle} final, como divisão automática de módulos e carregamento sob demanda. Essas práticas reduzem o tempo de carregamento e melhoram o desempenho da aplicação em produção.
 
