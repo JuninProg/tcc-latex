@@ -627,7 +627,7 @@ De acordo com \citeonline{archlimpaunclebob}, um \emph{software} entrega basicam
 
 Um sistema deve ser concebido para permitir alterações com simplicidade e baixo custo, de modo que o esforço necessário para modificá-lo esteja relacionado apenas à extensão da mudança, e não à sua forma ou estrutura já existentes. Nesse contexto, a arquitetura de \emph{software} desempenha papel central, organizando os componentes de forma a manter o núcleo da lógica de negócio protegido de elementos externos e instáveis.
 
-No histórico do Pró-Mamá, verificou-se que dificuldades de manutenção estavam ligadas à estrutura anterior, que integrava regras de domínio, dados e \emph{interface} de forma dependente. Soluções como \emph{MVC} em \emph{PHP} e \emph{Apache} centralizavam \emph{API} e \emph{frontend}, dificultando intervenções, qualquer mudança exigia revisões extensas e testes rigorosos para evitar impactos indesejados.
+No histórico do Pró-Mamá, verificou-se que dificuldades de manutenção estavam ligadas à estrutura anterior, que integrava regras de domínio, dados e \emph{interface} de forma dependente. Soluções como \emph{Model View Controller (MVC)} em \emph{PHP} e \emph{Apache} centralizavam \emph{API} e \emph{front-end}, dificultando intervenções, qualquer mudança exigia revisões extensas e testes rigorosos para evitar impactos indesejados.
 
 Processos de atualização, como troca do banco de dados ou separação de camadas, demonstraram a necessidade de uma arquitetura capaz de desacoplar funcionalidades essenciais dos detalhes de implementação. Essa abordagem proporciona maior segurança e facilita a adaptação a novas demandas, sem comprometer a integridade das informações.
 
@@ -668,7 +668,7 @@ Após a definição dos módulos do sistema, estabeleceram-se padrões de desenv
 
 Embora o \emph{JavaScript} não seja estritamente orientado a objetos, a adoção do \emph{TypeScript} permitiu incorporar tipagem estática e reforçar conceitos desse paradigma, como classes, \emph{interfaces} e contratos, contribuindo para maior previsibilidade e detecção precoce de erros.
 
-A organização dos arquivos seguiu a arquitetura \emph{Hexagonal} (\emph{Ports and Adapters}), que promove o isolamento do núcleo da aplicação em relação às suas dependências externas. Essa escolha está alinhada ao conceito de “Arquitetura Gritante” descrito por \citeonline{archlimpaunclebob}, segundo o qual a estrutura do código deve refletir o domínio do negócio, permitindo rápida identificação de seu propósito apenas ao analisar sua organização.
+A organização dos arquivos está alinhada ao conceito de “Arquitetura Gritante” descrito por \citeonline{archlimpaunclebob}, segundo o qual a estrutura do código deve refletir o domínio do negócio, permitindo rápida identificação de seu propósito apenas ao analisar sua organização.
 
 Foram ainda aplicados princípios selecionados da metodologia SOLID, com destaque para:
 \begin{itemize}
@@ -691,8 +691,6 @@ A estrutura de pastas da \emph{API} foi definida conforme a Tabela~\ref{tab:past
 
 \begin{table}[H]
 \centering
-\caption{Estrutura de pastas da API e responsabilidades}
-\label{tab:pastas_api}
 \begin{tabular}{|l|p{10cm}|}
 \hline
 \textbf{Pasta} & \textbf{Responsabilidade} \\ \hline
@@ -702,6 +700,8 @@ A estrutura de pastas da \emph{API} foi definida conforme a Tabela~\ref{tab:past
 \texttt{interfaces} & Contratos e adaptadores para comunicação entre o núcleo da aplicação e componentes externos. \\ \hline
 \texttt{jobs} & Tarefas agendadas e processos assíncronos executados periodicamente. \\ \hline
 \end{tabular}
+\caption{Estrutura de pastas da API e responsabilidades}
+\label{tab:pastas_api}
 \end{table}
 
 Essa organização serviu como base para a arquitetura do Painel Administrativo, detalhada a seguir.
@@ -710,12 +710,10 @@ Essa organização serviu como base para a arquitetura do Painel Administrativo,
 
 O Painel Administrativo foi desenvolvido como uma \emph{Single Page Application} (SPA), aplicação \emph{web} que carrega uma única página HTML e atualiza seu conteúdo de forma dinâmica, sem recarregamento completo \cite{spamdn}. Essa abordagem proporciona maior fluidez na interação e reduz o tempo de resposta, sendo adequada para integração contínua com a \emph{API}.
 
-A implementação utilizou \emph{React.js}, biblioteca amplamente empregada para construção de \emph{interfaces} baseadas em componentes reutilizáveis \cite{react}. A arquitetura de pastas foi adaptada da \emph{API} para atender às necessidades do \emph{frontend}, conforme a Tabela~\ref{tab:pastas_painel}.
+A implementação utilizou \emph{React.js}, biblioteca amplamente empregada para construção de \emph{interfaces} baseadas em componentes reutilizáveis \cite{react}. A arquitetura de pastas foi adaptada da \emph{API} para atender às necessidades do \emph{front-end}, conforme a Tabela~\ref{tab:pastas_painel}.
 
 \begin{table}[H]
 \centering
-\caption{Estrutura de pastas do Painel Administrativo e responsabilidades}
-\label{tab:pastas_painel}
 \begin{tabular}{|l|p{10cm}|}
 \hline
 \textbf{Pasta} & \textbf{Responsabilidade} \\ \hline
@@ -724,15 +722,17 @@ A implementação utilizou \emph{React.js}, biblioteca amplamente empregada para
 \texttt{contexts} & Contextos globais para gerenciamento de estado compartilhado. \\ \hline
 \texttt{global} & Configurações e estilos globais aplicados em toda a aplicação. \\ \hline
 \texttt{guards} & Mecanismos de proteção de rotas, como autenticação. \\ \hline
-\texttt{infra} & Integrações com serviços externos e recursos de infraestrutura do \emph{frontend}. \\ \hline
+\texttt{infra} & Integrações com serviços externos e recursos de infraestrutura do \emph{front-end}. \\ \hline
 \texttt{domain} & Entidades e regras de negócio aplicadas no lado cliente. \\ \hline
 \texttt{pages} & Páginas principais da aplicação, cada uma associada a uma rota. \\ \hline
 \texttt{providers} & Configuração de provedores de serviços e bibliotecas globais. \\ \hline
 \texttt{routes} & Mapeamento das rotas e associação com componentes. \\ \hline
 \end{tabular}
+\caption{Estrutura de pastas do Painel Administrativo e responsabilidades}
+\label{tab:pastas_painel}
 \end{table}
 
-Para o gerenciamento de rotas, foi utilizada a biblioteca \emph{react-router-dom} \cite{reactrouter}. Essa ferramenta permite definir caminhos, associar componentes e implementar navegação programática de forma estruturada no \emph{frontend}.
+Para o gerenciamento de rotas, foi utilizada a biblioteca \emph{react-router-dom} \cite{reactrouter}. Essa ferramenta permite definir caminhos, associar componentes e implementar navegação programática de forma estruturada no \emph{front-end}.
 
 No projeto, o \emph{react-router-dom} foi configurado com mecanismos de autenticação por meio de \emph{guards}. Esse recurso separa rotas públicas e privadas, garantindo que apenas usuários autenticados acessem determinadas áreas do painel.
 
