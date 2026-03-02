@@ -17,9 +17,6 @@
         "-outdir=%OUTDIR%",
         "%DOC%"
       ],
-      "env": {
-        "PATH": "/usr/local/texlive/2025basic/bin/universal-darwin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-      }
     }
   ],
   "latex-workshop.latex.recipes": [
