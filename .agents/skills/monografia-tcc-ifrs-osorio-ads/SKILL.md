@@ -60,6 +60,9 @@ Progress:
 - [ ] Confirmar tema, problema, objetivos e formato do TCC.
 - [ ] Mapear a matriz para os capitulos do repositorio.
 - [ ] Escrever ou revisar o capitulo alvo em portugues academico formal.
+- [ ] Reler o contexto imediato e verificar repeticoes lexicais, ecos de ideia e redundancias entre frases proximas.
+- [ ] Reescrever o trecho para eliminar redundancias sem perder precisao tecnica.
+- [ ] Repetir a leitura critica e a reescrita ate que o texto fique coeso, especifico e sem repeticoes evitaveis.
 - [ ] Checar coerencia entre problema, objetivos, metodo e conclusoes.
 - [ ] Conferir citacoes no texto e entradas em `referencias.bib`.
 - [ ] Compilar ou, se nao for possivel, ao menos validar os arquivos incluidos e a consistencia estrutural.
@@ -85,6 +88,7 @@ Progress:
 - Se faltar evidencia, escreva de forma condicional ou marque como pendencia.
 - Prefira paragrafos coesos a listas no texto final da monografia, salvo quando a propria secao pedir enumeracao.
 - Mantenha paragrafos equilibrados. No PDF final, prefira paragrafos entre 4 e 5 linhas; 6 linhas sao aceitaveis apenas quando a coesao exigir. Se ficar curto demais ou ultrapassar esse limite sem necessidade, reescreva e redistribua o conteudo.
+- Antes de concluir qualquer reescrita, releia o trecho no contexto da secao e procure redundancias de palavras, radicais, conectores e ideias. Corrija e repita esse processo ate que a escrita fique natural e sem repeticoes evitaveis.
 - Use tom academico, preciso e sem linguagem promocional.
 - Diferencie claramente:
   - referencial teorico = o que a literatura diz;
@@ -114,4 +118,5 @@ Progress:
 6. A conclusao responde aos objetivos e assume limites sem criar afirmacoes novas?
 7. Toda citacao do texto possui entrada correspondente em `elementos-pos-textuais/referencias.bib`?
 8. Os paragrafos permanecem, em geral, entre 4 e 5 linhas no PDF final, admitindo 6 apenas quando necessario?
-9. Se houver compilacao local, o PDF gera sem erros bloqueantes?
+9. O trecho foi relido no contexto e teve redundancias lexicais e conceituais removidas?
+10. Se houver compilacao local, o PDF gera sem erros bloqueantes?

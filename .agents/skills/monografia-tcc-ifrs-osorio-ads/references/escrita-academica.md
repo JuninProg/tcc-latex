@@ -21,12 +21,14 @@ Redacao cientifica nao e so formatacao. O texto precisa:
 5. Definir a metodologia do trabalho e os criterios de avaliacao.
 6. Escrever por secoes, sem tentar produzir a monografia inteira em um unico passe.
 7. Reescrever com base em orientacoes, incoerencias detectadas e lacunas de evidencia.
+8. Reler o trecho no contexto imediato, identificar redundancias de palavras e ideias, e repetir a reescrita ate que a formulacao fique limpa e precisa.
 
 ## Regras de qualidade textual
 
 - Cada secao precisa responder a uma pergunta clara.
 - Cada paragrafo deve ter foco unico e funcao argumentativa.
 - Cada paragrafo deve permanecer equilibrado no resultado final; prefira 4 a 5 linhas no PDF e admita 6 apenas quando a coesao do argumento exigir.
+- Reler o texto apos escrever faz parte da tarefa. Revise redundancias de vocabulario, ecos de raiz e repeticoes de ideia entre frases proximas.
 - Evite paragrafos que so listam tecnologias, autores ou fatos sem costura analitica.
 - Evite frases promocionais como "solucao inovadora" sem evidencia.
 - Evite generalizacoes fortes sem fonte.
@@ -85,6 +87,7 @@ Retome os objetivos, sintetize o que foi alcancado, reconheca limites e proponha
 
 - O paragrafo tem ideia central clara?
 - O paragrafo ficou, em geral, entre 4 e 5 linhas no PDF final, admitindo 6 apenas se necessario?
+- Ha repeticao evitavel de palavras, radicais ou ideias no trecho?
 - A afirmacao principal tem fonte ou evidencia?
 - Existe conexao explicita com o problema ou objetivo do TCC?
 - A transicao com o paragrafo anterior esta fluida?

@@ -40,17 +40,17 @@ Com base nesse diagrama, o modelo físico foi implementado em PostgreSQL por mei
 
 Além das tabelas centrais do domínio, foram incluídas estruturas de apoio para registro de leituras, histórico de acesso e controle da evolução do esquema. Também foram adotados campos temporais de criação, atualização e, quando aplicável, exclusão lógica, favorecendo rastreabilidade e manutenção.
 
-Em síntese, a modelagem articulou uma visão lógica orientada ao domínio com uma implementação física aderente às regras de negócio, estabelecendo uma base estável para as etapas seguintes de implementação.
+Desse modo, a modelagem articulou uma visão lógica orientada ao domínio com uma implementação física aderente às regras de negócio, estabelecendo uma base estável para as etapas seguintes de implementação.
 
 \subsection{Configuração do ambiente de desenvolvimento}
 
-A configuração do ambiente foi conduzida com foco na operacionalização do ciclo de trabalho, de modo a viabilizar implementação contínua, validações locais e demonstrações funcionais.
+A configuração do ambiente foi conduzida com foco na reprodutibilidade das rotinas de desenvolvimento, buscando tornar a execução local mais previsível entre diferentes máquinas e reduzir variações que comprometessem testes, manutenção e acompanhamento do projeto.
 
-Como a \emph{API} e o Painel Administrativo operam no ecossistema \emph{Node.js}, adotou-se a versão 20 durante o desenvolvimento. Para padronizar essa execução entre diferentes máquinas, utilizou-se o \emph{Node Version Manager} (\emph{NVM}) \cite{nvmdocs}. No respectivo repositório, essa definição foi registrada no arquivo \texttt{.nvmrc}, reduzindo incompatibilidades e aumentando a reprodutibilidade das rotinas de compilação, execução e verificação.
+Como a \emph{API} e o Painel Administrativo operam no ecossistema \emph{Node.js}, adotou-se a versão 20 ao longo da implementação. Para uniformizar essa base de execução, utilizou-se o \emph{Node Version Manager} (\emph{NVM}) \cite{nvmdocs}, com a definição da versão registrada no arquivo \texttt{.nvmrc}. Essa escolha favoreceu a consistência das rotinas de compilação, execução e verificação ao longo do trabalho.
 
-A codificação foi realizada no \emph{Visual Studio Code}, utilizado como ambiente principal de desenvolvimento pelo autor, com suporte à edição em \emph{TypeScript}, execução de comandos e acompanhamento integrado da base de código. Esse fluxo favoreceu ciclos curtos de implementação e revisão técnica.
+A codificação foi realizada no \emph{Visual Studio Code}, utilizado como ambiente principal de trabalho pelo autor, com suporte à edição em \emph{TypeScript}, execução de comandos e acompanhamento integrado da base de código. Esse fluxo favoreceu ciclos curtos de implementação e revisão técnica.
 
-A organização em repositórios separados para \emph{API}, Painel Administrativo e infraestrutura também contribuiu para a execução local do projeto. Enquanto os dois primeiros concentraram a evolução funcional, o repositório de infraestrutura permitiu inicializar serviços de apoio de forma integrada, facilitando a preparação do ambiente para validações e demonstrações.
+A organização em repositórios separados para \emph{API}, Painel Administrativo e infraestrutura também contribuiu para a execução local do projeto. Enquanto os dois primeiros concentraram a evolução funcional, o repositório de infraestrutura reuniu a inicialização integrada dos serviços de apoio, favorecendo a reprodução do ambiente e o isolamento das responsabilidades técnicas de cada frente.
 
 \section{Implementação da API}
 
@@ -76,7 +76,7 @@ Esse padrão também favoreceu o trabalho colaborativo entre as frentes de desen
 
 A autenticação foi estruturada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das ações permitidas a \texttt{mom}.
 
-Em síntese, a padronização adotada para codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
+Com isso, a padronização adotada para codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
 
 \subsection{Processamento assíncrono de notificações}
 
@@ -110,7 +110,7 @@ A Figura~\ref{fig:swagger_docs_promama} apresenta a visualização resultante de
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Em síntese, a automação da documentação ampliou a confiabilidade do processo de evolução da \emph{API} e reforçou a colaboração entre as frentes de desenvolvimento, ao manter uma referência única, atualizada e aderente ao código-fonte.
+Em conjunto, a automação da documentação ampliou a confiabilidade do processo de evolução da \emph{API} e reforçou a colaboração entre as frentes de desenvolvimento, ao manter uma referência única, atualizada e aderente ao código-fonte.
 
 \section{Prototipagem e Implementação do Painel Administrativo}
 
@@ -186,7 +186,7 @@ As Figuras~\ref{fig:implementacao_listagem_infos_painel_web} e~\ref{fig:implemen
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Em síntese, a comparação entre as telas anteriores, os protótipos e as telas implementadas demonstra que o redesenho buscou contemplar o ciclo completo de uso desses módulos. Esse conjunto evidencia como a base comum adotada contribuiu para consistência, previsibilidade e evolução incremental da \emph{interface} administrativa.
+Tomadas em conjunto, as comparações de listagem e cadastro mostram que o módulo de informações funcionou como referência para a reorganização dos demais cadastros do painel. Mais do que uniformizar a aparência dessas telas, esse redesenho estabeleceu uma estrutura reutilizável para bairros e postos de saúde, reduzindo retrabalho e favorecendo a manutenção de soluções equivalentes em contextos administrativos semelhantes.
 
 \subsection{Fale conosco e dúvidas frequentes}
 
@@ -236,7 +236,7 @@ A opção \texttt{Responder dúvida para todos} materializa essa decisão. Quand
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Em síntese, o redesenho desse módulo combinou organização da fila de atendimento e reaproveitamento do conhecimento produzido nas respostas. A priorização inicial das mensagens pendentes e a possibilidade de converter esse conteúdo em dúvidas frequentes reforçam o papel do painel não apenas como canal de suporte, mas também como meio de sistematização das informações mais recorrentes do programa.
+Por fim, o redesenho desse módulo combinou organização da fila de atendimento e reaproveitamento do conhecimento produzido nas respostas. A priorização inicial das mensagens pendentes e a possibilidade de converter esse conteúdo em dúvidas frequentes reforçam o papel do painel não apenas como canal de suporte, mas também como meio de sistematização das informações mais recorrentes do programa.
 
 \subsection{Notificações}
 
