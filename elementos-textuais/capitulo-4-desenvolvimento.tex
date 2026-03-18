@@ -1,6 +1,6 @@
 \chapter{Desenvolvimento}
 
-Neste capítulo, são detalhados os aspectos relacionados ao desenvolvimento do novo Pró-Mamá. Os tópicos estão organizados em ordem cronológica de forma a fornecer uma visão clara e gradual do processo de entrega dos sistemas.
+Neste capítulo, serão apresentados os detalhes do desenvolvimento do projeto. O objetivo é fornecer uma visão clara e detalhada de como o projeto foi conduzido, destacando as principais decisões tomadas, desafios enfrentados ao longo do processo e os principais resultados obtidos.
 
 \subsection{Cenário preexistente}
 
@@ -10,32 +10,23 @@ Essa abordagem, embora eficaz no contato direto com a comunidade, restringia-se 
 
 A solução inicial concebida por Lucas buscou estender o alcance do programa mediante o uso de um sistema informatizado integrado a um aplicativo móvel multiplataforma. A conjuntura desse sistema permitiria à equipe inserir conteúdos e responder dúvidas, que seriam transmitidos aos dispositivos dos usuários. O modelo pretendia superar as limitações físicas, atingindo todo o município por meio da comunicação digital, sem abandonar a lógica de encaminhamentos e suporte presencial quando necessário.
 
-No modelo implementado à época, o sistema era composto por três elementos principais: Painel Administrativo, API e Banco de Dados. Utilizando o \emph{framework} Laravel (PHP) e arquitetura MVC, o Painel fornecia a \emph{interface} \emph{web} para administração dos conteúdos. A API, construída sobre os princípios REST, se comunicava com o banco MySQL e retornava os dados em formato JSON, consumidos pelo aplicativo móvel.
+No modelo implementado à época, o sistema era composto por três elementos principais: Painel Administrativo, \emph{API} e Banco de Dados. Utilizando o \emph{framework} Laravel (PHP) e arquitetura MVC, o Painel fornecia a \emph{interface} \emph{web} para administração dos conteúdos. A \emph{API}, construída sobre os princípios REST, se comunicava com o banco MySQL e retornava os dados em formato JSON, consumidos pelo aplicativo móvel.
 
 Para a implantação a Secretaria de Saúde de Osório disponibilizou um servidor virtual com sistema operacional Ubuntu. A configuração do ambiente envolveu a instalação manual dos componentes necessários. A aplicação era então clonada do repositório GitHub e ajustada para execução no servidor. Foi estabelecida comunicação via protocolo HTTP, com a liberação da porta 80 para o tráfego de dados.
 
-Umas das principais limitações do sistema original residia na ausência de criptografia na comunicação, uma vez que o uso do protocolo HTTP sem certificado digital expunha os dados a vulnerabilidades. A instalação manual dos componentes dificultava a replicação da infraestrutura em outros municípios. Além disso, o acoplamento entre \emph{front-end} e \emph{back-end} aumentava a complexidade de manutenção do sistema. A documentação das rotas da API era feita manualmente, o que tornava o processo suscetível a erros e dificultava sua atualização.
+Uma das principais limitações do sistema original residia na ausência de criptografia na comunicação, uma vez que o uso do protocolo HTTP sem certificado digital expunha os dados a vulnerabilidades. A instalação manual dos componentes dificultava a replicação da infraestrutura em outros municípios. Além disso, o acoplamento entre \emph{front-end} e \emph{back-end} aumentava a complexidade de manutenção do sistema. A documentação das rotas da \emph{API} era feita manualmente, o que tornava o processo suscetível a erros e dificultava sua atualização.
 
-\subsection{Estrutura base dos sistemas}
+\section{Estrutura base do projeto}
 
-% Um ou dois parágrafos que falem sobre o que é essa seção: essa seção deve detalhar que após as decisões arquiteturais tomadas no capítulo de metodologia, citar "Arquitetura de Software", para o inicio do desenvolvimento foi necessário definir a estrutura base do sistema, incluindo a modelagem do banco de dados, configuração do ambiente e sistema de arquivos.
+Esta seção descreve a estrutura base do projeto, com ênfase na modelagem do banco de dados e na configuração do ambiente de desenvolvimento. O objetivo é apresentar as decisões técnicas que deram suporte à implementação e à manutenção da solução.
 
-Concluídas as decisões arquiteturais apresentadas na seção de Arquitetura de \emph{Software} do capítulo de Metodologia, iniciou-se a etapa de definição da estrutura base do sistema. Essa fase envolveu a modelagem do banco de dados, a configuração do ambiente de desenvolvimento e a organização do sistema de arquivos.
+\subsection{Modelagem do banco de dados}
 
-A estruturação inicial é fundamental para garantir que os componentes da plataforma operem de forma integrada e consistente. Cada elemento foi planejado considerando os requisitos funcionais e não funcionais previamente estabelecidos, assegurando aderência às boas práticas de desenvolvimento.
+A modelagem do banco de dados foi definida a partir da análise de requisitos do sistema, com o objetivo de representar, de forma consistente, os dados necessários ao cadastro, ao acompanhamento materno-infantil, à produção de conteúdo e à interação com as usuárias.
 
-\subsubsection{Modelagem do banco de dados}
+De acordo com \citeonline{elmasri2016fundamentals}, o projeto de banco de dados inicia-se pela identificação de requisitos e restrições do domínio e, posteriormente, pela organização dessas informações em esquemas que expressem entidades, relacionamentos e regras de integridade. Com base nesse entendimento, a modelagem adotada no projeto priorizou coerência semântica e consistência estrutural desde a etapa lógica.
 
-% Introduzir citando o capítulo de metodologia "Análise e (re)especificação de requisitos" onde a partir dos requisitos foram levantadas as entidades e seus relacionamentos. 
-% Citar algum autor que fale sobre modelo lógico de dados
-% Criar imagem do modelo lógico e inserir aqui. imagens/modelo_logic2.png
-% Finalizar que com o modelo lógico definido, foi possível geral o modelo físico do banco de dados no PostgreSQL, criando as tabelas e relacionamentos
-
-A partir da análise e (re)especificação de requisitos descrita no capítulo de Metodologia, foram identificadas as entidades e os relacionamentos necessários para a persistência dos dados do sistema. Esse processo permitiu traduzir as regras de negócio em uma estrutura lógica capaz de suportar as funcionalidades previstas.
-
-Para a representação dessas entidades, adotou-se o modelo lógico de dados, que segundo \citeonline{sommerville2011engenharia}, descreve a organização dos dados em termos de tabelas, atributos e relacionamentos, independentemente da tecnologia de implementação. Essa abordagem facilita a compreensão do domínio e orienta a construção do modelo físico.
-
-A Figura~\ref{fig:modelo_logico} apresenta o diagrama do modelo lógico elaborado para o Pró-Mamá, contemplando as principais entidades e suas associações.
+A Figura~\ref{fig:modelo_logico} apresenta o diagrama do modelo lógico elaborado para o Pró-Mamá, contemplando as principais entidades e suas associações. Esse diagrama foi utilizado como referência para verificar a coerência dos relacionamentos antes da implementação física.
 
 \begin{figure}[H]
     \centering
@@ -45,51 +36,109 @@ A Figura~\ref{fig:modelo_logico} apresenta o diagrama do modelo lógico elaborad
     \legend{Fonte: Elaborado pelo autor (2025).}
 \end{figure}
 
-Com o modelo lógico definido, procedeu-se à geração do modelo físico no PostgreSQL. Foram criadas as tabelas, os índices e os relacionamentos conforme especificado, utilizando os recursos nativos do sistema gerenciador de banco de dados \cite{postgresdocs}.
+Com base nesse diagrama, o modelo físico foi implementado em PostgreSQL por meio de migrações SQL, com definição de chaves primárias, chaves estrangeiras e tipos enumerados para domínios fechados. Essa estrutura fortalece a integridade referencial e reduz ambiguidades no armazenamento das informações.
 
-\subsection{Configuração do ambiente}
+Além das tabelas centrais do domínio, foram incluídas estruturas de apoio para registro de leituras, histórico de acesso e controle da evolução do esquema. Também foram adotados campos temporais de criação, atualização e, quando aplicável, exclusão lógica, favorecendo rastreabilidade e manutenção.
 
-% Descrever a configuração do ambiente de desenvolvimento local
-% Como o painel e api usam node, foi configurado o nvm para gerenciar as versões do node
-% Foi feita a instalação do docker e docker compose para facilitar o desenvolvimento e implantação
-% Os recursos da API foram instalados via Docker com um arquivo compose configurado no repositório
-% O painel usa ReactJs e foi configurado o ambiente com create-react-app Typescript do Vite
+Em síntese, a modelagem articulou uma visão lógica orientada ao domínio com uma implementação física aderente às regras de negócio, estabelecendo uma base estável para as etapas seguintes de implementação.
 
-A configuração do ambiente de desenvolvimento local buscou padronizar as ferramentas utilizadas pela equipe e simplificar a replicação do sistema. Considerando que tanto a \emph{API} quanto o Painel Administrativo utilizam \emph{Node.js}, optou-se pela instalação do \emph{NVM} (\emph{Node Version Manager}) para gerenciar as versões da plataforma de execução.
+\subsection{Configuração do ambiente de desenvolvimento}
 
-Para facilitar o desenvolvimento e a implantação dos serviços, foi adotado o \emph{Docker} em conjunto com o \emph{Docker Compose}. Essa escolha permitiu encapsular os recursos da \emph{API}, como banco de dados PostgreSQL e cache Redis, em contêineres configurados por meio de um arquivo \emph{compose} presente no repositório \cite{dockerdocs}.
+A configuração do ambiente foi conduzida com foco na operacionalização do ciclo de trabalho, de modo a viabilizar implementação contínua, validações locais e demonstrações funcionais.
 
-O Painel Administrativo foi desenvolvido com \emph{React.js} e \emph{TypeScript}, utilizando o \emph{Vite} como ferramenta de construção e servidor de desenvolvimento \cite{vite}. Essa configuração proporcionou tempos de compilação reduzidos e suporte nativo à tipagem estática, contribuindo para maior produtividade e qualidade do código.
+Como a \emph{API} e o Painel Administrativo operam no ecossistema \emph{Node.js}, adotou-se a versão 20 durante o desenvolvimento. Para padronizar essa execução entre diferentes máquinas, utilizou-se o \emph{Node Version Manager} (\emph{NVM}) \cite{nvmdocs}. No repositório da \emph{API}, essa definição foi registrada no arquivo \texttt{.nvmrc}, reduzindo incompatibilidades e aumentando a reprodutibilidade das rotinas de compilação, execução e verificação.
 
+A codificação foi realizada no \emph{Visual Studio Code}, utilizado como ambiente principal de desenvolvimento pelo autor, com suporte à edição em \emph{TypeScript}, execução de comandos e acompanhamento integrado da base de código. Esse fluxo favoreceu ciclos curtos de implementação e revisão técnica.
 
-\subsubsection{Sistema de arquivos}
+A organização em repositórios separados para \emph{API}, Painel Administrativo e infraestrutura também contribuiu para a execução local do projeto. Enquanto os dois primeiros concentraram a evolução funcional, o repositório de infraestrutura permitiu inicializar serviços de apoio de forma integrada, facilitando a preparação do ambiente para validações e demonstrações.
 
-% Foi optado por manter a estrutura de arquivos do sistema antigo, usando o próprio servidor para armazenar os arquivos de mídia (imagens) enviados pelos administradores via painel.
-% A estrutura de pastas foi mantida, apenas foi feito o espelhamento no Docker da pasta com a API, pois ela quem serve os arquivos via URL
+\section{Implementação da API}
 
-Optou-se por manter a estrutura de armazenamento de arquivos adotada no sistema anterior. Os arquivos de mídia, como imagens enviadas pelos administradores via Painel, permanecem armazenados no próprio servidor de aplicação.
+Esta seção apresenta as principais decisões da implementação \emph{API}, com foco na padronização das rotas, no processamento assíncrono de notificações e na documentação automatizada dos contratos. O conjunto dessas escolhas contribuiu para manter consistência técnica, segurança de acesso e evolução contínua da aplicação.
 
-A organização das pastas foi preservada, sendo realizado apenas o espelhamento do diretório de arquivos no contêiner \emph{Docker} da \emph{API}. Essa abordagem garante que os arquivos sejam servidos por meio de URLs geradas pelo \emph{back-end}, mantendo compatibilidade com o aplicativo móvel e simplificando a migração dos dados existentes.
+\subsection{Padrão de codificação de rota}
 
-\subsection{Migração}
+A codificação das rotas foi organizada por um padrão único baseado em \emph{classes} que implementam a \emph{interface} \texttt{Route}. Em cada módulo, o método \texttt{getConfig()} descreve de forma declarativa os elementos de cada \emph{endpoint}: método HTTP, caminho, \emph{handler} e \emph{middlewares}. Essa abordagem manteve a definição funcional desacoplada do processo de registro no servidor.
 
-% Processo de migração dos dados do banco de dados e arquivos do sistema antigo para o novo sistema
+A Figura~\ref{fig:instruction_routes_getconfig} exemplifica esse padrão no módulo de instruções, evidenciando como as operações são descritas no próprio \texttt{getConfig()}, com regras de validação e autorização definidas por rota.
 
-\subsection{Desenvolvimento da API}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/rotas.png}
+    \caption{Exemplo do padrão declarativo de rotas}
+    \label{fig:instruction_routes_getconfig}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
 
-% Principais funcionalidades: autenticação, autorização, documentação automática com Swagger, upload de arquivos, job de envio de notificações push
-\subsection{Protótipo telas}
+O registro efetivo dessas configurações foi centralizado em um componente de roteamento, responsável por percorrer automaticamente as classes de rota carregadas pelo contêiner de dependências e aplicar seus respectivos \emph{middlewares}. Com isso, novas funcionalidades puderam ser incorporadas sem alterações estruturais no mecanismo de registro.
 
-% Desenho das telas do sistema com Figma e comparação com o sistema antigo.
+Esse padrão também favoreceu o trabalho colaborativo entre as frentes de desenvolvimento. Enquanto as telas eram implementadas em paralelo no painel administrativo e no aplicativo móvel, a \emph{API} evoluía com contratos estáveis e reutilizáveis, reduzindo retrabalho e divergências de implementação entre clientes distintos.
 
-\subsection{Desenvolvimento do front-end}
+A autenticação foi estruturada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das operações permitidas a \texttt{mom}.
 
-% Padrão de desenvolvimento com componentes reutilizáveis, serviços para comunicação com a API, roteamento, formulários, validações, autenticação, autorização.
+Em síntese, a padronização adotada para codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
 
-\subsection{Testes}
+\subsection{Processamento assíncrono de notificações}
 
-% Estratégias de testes unitários e integração na API e testes manuais no front-end. Validação de testes na PR via GitHub Actions.
+O processamento assíncrono foi adotado para desacoplar operações de notificação do ciclo de requisição \emph{HTTP}. Essa decisão foi orientada pelo crescimento esperado da plataforma, uma vez que o aumento do número de crianças cadastradas tende a elevar o volume de mensagens geradas. Com isso, as respostas dos \emph{endpoints} permanecem rápidas, enquanto o envio é tratado em segundo plano.
 
-\subsection{Implantação}
+Para o canal de \emph{push notification}, foi implementado um fluxo baseado em filas com \emph{BullMQ} e \emph{Redis} \cite{bullmqdocs,redisdocs}. A arquitetura de \emph{jobs} foi organizada em três etapas: preparação das mensagens elegíveis, envio ao provedor e conferência posterior de recebimento. Esse encadeamento permitiu distribuir a carga de processamento e reduzir o impacto de picos de envio sobre a camada de aplicação.
 
-% Criação de repositório de infraestrutura como código com Docker e Docker Compose, configuração de servidor NGINX com HTTPS, deploy contínuo com GitHub Actions. Deploy em servidor ubuntu, Cloudflare, registro de domínio.
+Na etapa de preparação, as notificações são personalizadas e agrupadas em lotes. Em seguida, o \emph{job} de envio registra o status de despacho de cada mensagem e encaminha os \emph{tickets} válidos para uma etapa de confirmação. Por fim, o \emph{job} de recebimento consulta os \emph{receipts} do provedor e persiste o status final, com política de retentativa para falhas transitórias \cite{expopushdocs}. Esse desenho viabiliza rastreabilidade completa entre envio e confirmação de entrega.
+
+Além do fluxo programado, o mesmo mecanismo foi reutilizado em eventos de negócio pontuais, como resposta a dúvidas de usuárias. Assim, notificações acionadas por interação também seguem o \emph{pipeline} assíncrono e preservam o mesmo padrão de observabilidade operacional.
+
+No canal de \emph{e-mail}, manteve-se envio assíncrono direto sem enfileiramento dedicado. Essa escolha foi adequada ao caráter pontual desses eventos, como avisos administrativos e códigos de verificação, evitando complexidade adicional para um volume de processamento significativamente menor.
+
+A persistência dos estados de envio e recebimento foi concebida com lógica semelhante ao padrão \emph{Transactional Outbox} \cite{richardson2018microservices}, ao priorizar registro explícito dos resultados para auditoria e diagnóstico. Na prática, essa abordagem permitiu distinguir cenários como: mensagem enviada e recebida, mensagem enviada sem confirmação de recebimento e falha no provedor com detalhamento do erro. Como resultado, obteve-se um fluxo mais resiliente, observável e aderente à evolução da demanda.
+
+\subsection{Documentação automatizada}
+
+A descrição das rotas foi incorporada ao próprio fluxo de implementação, por meio da geração automática da especificação \emph{OpenAPI} e da publicação de uma tela interativa para consulta e validação \cite{swaggeropenapi}. Essa abordagem reduziu inconsistências entre o comportamento implementado e o conteúdo documentado.
+
+A publicação ocorre em \texttt{/docs}, com uso da \emph{Swagger UI}, a partir de uma estrutura construída em tempo de execução. Nessa estrutura, os elementos de cada rota são derivados do padrão declarativo adotado em \texttt{getConfig()}, reaproveitando método, caminho, categoria e \emph{middlewares} definidos durante a codificação.
+
+A composição automática também incorpora metadados de validação para \emph{body}, \emph{query} e \emph{params}, além da conversão de parâmetros de caminho para o formato da especificação. Em rotas protegidas, o esquema de segurança \emph{Bearer} é aplicado conforme a presença de autenticação na configuração da própria rota. Com isso, os contratos publicados permanecem alinhados à implementação.
+
+A Figura~\ref{fig:swagger_docs_promama} apresenta a visualização resultante desse processo, com organização por grupos de rotas e suporte à inspeção das rotas disponíveis.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagens/swagger.png}
+    \caption{Documentação automática das rotas na \emph{Swagger UI}}
+    \label{fig:swagger_docs_promama}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Em síntese, a automação da documentação ampliou a confiabilidade da evolução das rotas e reforçou a colaboração entre as frentes de desenvolvimento, ao manter uma referência única, atualizada e aderente ao código-fonte.
+
+\section{Implementação do Painel Administrativo}
+
+\subsection{Prototipagem}
+
+\subsection{Fluxos principais}
+
+\subsubsection{Cadastro de bairros e postos de saúde}
+
+\subsubsection{Cadastro de informações}
+
+\subsubsection{Respostas as dúvidas frequentes}
+
+\subsubsection{Notificações}
+
+\section{Testes e validação}
+
+\subsection{Testes automatizados do back-end}
+
+\subsection{Testes manuais do front-end}
+
+\section{Implantação}
+
+\subsection{Orquestração dos contêineres}
+
+\subsection{Migração dos dados retroativos}
+
+\subsection{Configuração do Github Actions}
+
+\section{Resultados e lições aprendidas}
+
