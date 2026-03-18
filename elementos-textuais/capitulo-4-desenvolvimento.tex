@@ -1,18 +1,18 @@
 \chapter{Desenvolvimento}
 
-Neste capítulo, serão apresentados os detalhes do desenvolvimento do projeto. O objetivo é fornecer uma visão clara e detalhada de como o projeto foi conduzido, destacando as principais decisões tomadas, desafios enfrentados ao longo do processo e os principais resultados obtidos.
+Neste capítulo, são apresentados os detalhes do desenvolvimento do projeto, com foco nas decisões adotadas, nos desafios enfrentados e nos resultados obtidos.
 
-\subsection{Cenário preexistente}
+\section{Cenário preexistente}
 
 O Programa Municipal de Aleitamento Materno de Osório contava com uma equipe multiprofissional, além de profissionais de referência atuando em cada Estratégia de Saúde da Família (ESF). Conforme documentado por \cite{silva2018painelpromama}, a atuação era predominantemente presencial, envolvendo visitas domiciliares, grupos de orientação e atividades de sala de espera. 
 
 Essa abordagem, embora eficaz no contato direto com a comunidade, restringia-se espacialmente a localidades e horários específicos, o que limitava a abrangência da divulgação das informações ao conjunto de famílias atendidas.
 
-A solução inicial concebida por Lucas buscou estender o alcance do programa mediante o uso de um sistema informatizado integrado a um aplicativo móvel multiplataforma. A conjuntura desse sistema permitiria à equipe inserir conteúdos e responder dúvidas, que seriam transmitidos aos dispositivos dos usuários. O modelo pretendia superar as limitações físicas, atingindo todo o município por meio da comunicação digital, sem abandonar a lógica de encaminhamentos e suporte presencial quando necessário.
+A solução inicial concebida por Lucas buscou estender o alcance do programa mediante o uso de um sistema informatizado integrado a um aplicativo móvel multiplataforma. A concepção desse sistema permitiria à equipe inserir conteúdos e responder dúvidas. Esses conteúdos e respostas seriam transmitidos aos dispositivos dos usuários. O modelo pretendia superar as limitações físicas, atingindo todo o município por meio da comunicação digital, sem abandonar a lógica de encaminhamentos e suporte presencial quando necessário.
 
 No modelo implementado à época, o sistema era composto por três elementos principais: Painel Administrativo, \emph{API} e Banco de Dados. Utilizando o \emph{framework} Laravel (PHP) e arquitetura MVC, o Painel fornecia a \emph{interface} \emph{web} para administração dos conteúdos. A \emph{API}, construída sobre os princípios REST, se comunicava com o banco MySQL e retornava os dados em formato JSON, consumidos pelo aplicativo móvel.
 
-Para a implantação a Secretaria de Saúde de Osório disponibilizou um servidor virtual com sistema operacional Ubuntu. A configuração do ambiente envolveu a instalação manual dos componentes necessários. A aplicação era então clonada do repositório GitHub e ajustada para execução no servidor. Foi estabelecida comunicação via protocolo HTTP, com a liberação da porta 80 para o tráfego de dados.
+Para a implantação, a Secretaria de Saúde de Osório disponibilizou um servidor virtual com sistema operacional Ubuntu. A configuração do ambiente envolveu a instalação manual dos componentes necessários. A aplicação era então clonada do repositório GitHub e ajustada para execução no servidor. Foi estabelecida comunicação via protocolo HTTP, com a liberação da porta 80 para o tráfego de dados.
 
 Uma das principais limitações do sistema original residia na ausência de criptografia na comunicação, uma vez que o uso do protocolo HTTP sem certificado digital expunha os dados a vulnerabilidades. A instalação manual dos componentes dificultava a replicação da infraestrutura em outros municípios. Além disso, o acoplamento entre \emph{front-end} e \emph{back-end} aumentava a complexidade de manutenção do sistema. A documentação das rotas da \emph{API} era feita manualmente, o que tornava o processo suscetível a erros e dificultava sua atualização.
 
@@ -54,7 +54,7 @@ A organização em repositórios separados para \emph{API}, Painel Administrativ
 
 \section{Implementação da API}
 
-Esta seção apresenta as principais decisões da implementação \emph{API}, com foco na padronização das rotas, no processamento assíncrono de notificações e na documentação automatizada dos contratos. O conjunto dessas escolhas contribuiu para manter consistência técnica, segurança de acesso e evolução contínua da aplicação.
+Esta seção apresenta as principais decisões da implementação da \emph{API}, com foco na padronização das rotas, no processamento assíncrono de notificações e na documentação automatizada dos contratos. O conjunto dessas escolhas contribuiu para manter consistência técnica, segurança de acesso e evolução contínua da aplicação.
 
 \subsection{Padrão de codificação de rota}
 
@@ -65,22 +65,22 @@ A Figura~\ref{fig:instruction_routes_getconfig} exemplifica esse padrão no mód
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{imagens/rotas.png}
-    \caption{Exemplo do padrão declarativo de rotas}
+    \caption{Exemplo do padrão declarativo de rotas no método \texttt{getConfig()}}
     \label{fig:instruction_routes_getconfig}
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-O registro efetivo dessas configurações foi centralizado em um componente de roteamento, responsável por percorrer automaticamente as classes de rota carregadas pelo contêiner de dependências e aplicar seus respectivos \emph{middlewares}. Com isso, novas funcionalidades puderam ser incorporadas sem alterações estruturais no mecanismo de registro.
+O registro efetivo dessas configurações foi centralizado em um componente de roteamento, responsável por percorrer automaticamente as classes de rota carregadas pelo contêiner de dependências e aplicar seus respectivos \emph{middlewares}. Dessa forma, novas funcionalidades puderam ser incorporadas sem alterações estruturais no mecanismo de registro.
 
 Esse padrão também favoreceu o trabalho colaborativo entre as frentes de desenvolvimento. Enquanto as telas eram implementadas em paralelo no painel administrativo e no aplicativo móvel, a \emph{API} evoluía com contratos estáveis e reutilizáveis, reduzindo retrabalho e divergências de implementação entre clientes distintos.
 
-A autenticação foi estruturada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das operações permitidas a \texttt{mom}.
+A autenticação foi estruturada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das ações permitidas a \texttt{mom}.
 
 Em síntese, a padronização adotada para codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
 
 \subsection{Processamento assíncrono de notificações}
 
-O processamento assíncrono foi adotado para desacoplar operações de notificação do ciclo de requisição \emph{HTTP}. Essa decisão foi orientada pelo crescimento esperado da plataforma, uma vez que o aumento do número de crianças cadastradas tende a elevar o volume de mensagens geradas. Com isso, as respostas dos \emph{endpoints} permanecem rápidas, enquanto o envio é tratado em segundo plano.
+O processamento assíncrono foi adotado para desacoplar operações de notificação do ciclo de requisição \emph{HTTP}. Essa decisão foi orientada pelo crescimento esperado da plataforma, uma vez que o aumento do número de crianças cadastradas tende a elevar o volume de mensagens geradas. Nesse contexto, as respostas dos \emph{endpoints} permanecem rápidas, enquanto o envio é tratado em segundo plano.
 
 Para o canal de \emph{push notification}, foi implementado um fluxo baseado em filas com \emph{BullMQ} e \emph{Redis} \cite{bullmqdocs,redisdocs}. A arquitetura de \emph{jobs} foi organizada em três etapas: preparação das mensagens elegíveis, envio ao provedor e conferência posterior de recebimento. Esse encadeamento permitiu distribuir a carga de processamento e reduzir o impacto de picos de envio sobre a camada de aplicação.
 
@@ -98,9 +98,9 @@ A descrição das rotas foi incorporada ao próprio fluxo de implementação, po
 
 A publicação ocorre em \texttt{/docs}, com uso da \emph{Swagger UI}, a partir de uma estrutura construída em tempo de execução. Nessa estrutura, os elementos de cada rota são derivados do padrão declarativo adotado em \texttt{getConfig()}, reaproveitando método, caminho, categoria e \emph{middlewares} definidos durante a codificação.
 
-A composição automática também incorpora metadados de validação para \emph{body}, \emph{query} e \emph{params}, além da conversão de parâmetros de caminho para o formato da especificação. Em rotas protegidas, o esquema de segurança \emph{Bearer} é aplicado conforme a presença de autenticação na configuração da própria rota. Com isso, os contratos publicados permanecem alinhados à implementação.
+A composição automática também incorpora metadados de validação para \emph{body}, \emph{query} e \emph{params}, além da conversão de parâmetros de caminho para o formato da especificação. Em rotas protegidas, o esquema de segurança \emph{Bearer} é aplicado conforme a presença de autenticação na configuração da própria rota. Como resultado, os contratos publicados permanecem alinhados à implementação.
 
-A Figura~\ref{fig:swagger_docs_promama} apresenta a visualização resultante desse processo, com organização por grupos de rotas e suporte à inspeção das rotas disponíveis.
+A Figura~\ref{fig:swagger_docs_promama} apresenta a visualização resultante desse processo, com organização por grupos e suporte à inspeção dos recursos disponíveis.
 
 \begin{figure}[H]
     \centering
@@ -110,7 +110,7 @@ A Figura~\ref{fig:swagger_docs_promama} apresenta a visualização resultante de
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Em síntese, a automação da documentação ampliou a confiabilidade da evolução das rotas e reforçou a colaboração entre as frentes de desenvolvimento, ao manter uma referência única, atualizada e aderente ao código-fonte.
+Em síntese, a automação da documentação ampliou a confiabilidade do processo de evolução da \emph{API} e reforçou a colaboração entre as frentes de desenvolvimento, ao manter uma referência única, atualizada e aderente ao código-fonte.
 
 \section{Implementação do Painel Administrativo}
 
@@ -122,7 +122,7 @@ Em síntese, a automação da documentação ampliou a confiabilidade da evoluç
 
 \subsubsection{Cadastro de informações}
 
-\subsubsection{Respostas as dúvidas frequentes}
+\subsubsection{Respostas às dúvidas frequentes}
 
 \subsubsection{Notificações}
 
@@ -138,7 +138,7 @@ Em síntese, a automação da documentação ampliou a confiabilidade da evoluç
 
 \subsection{Migração dos dados retroativos}
 
-\subsection{Configuração do Github Actions}
+\subsection{Configuração do GitHub Actions}
 
 \section{Resultados e lições aprendidas}
 
