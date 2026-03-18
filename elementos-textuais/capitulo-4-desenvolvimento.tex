@@ -188,7 +188,55 @@ As Figuras~\ref{fig:implementacao_listagem_infos_painel_web} e~\ref{fig:implemen
 
 Em síntese, a comparação entre as telas anteriores, os protótipos e as telas implementadas demonstra que o redesenho buscou contemplar o ciclo completo de uso desses módulos. Esse conjunto evidencia como a base comum adotada contribuiu para consistência, previsibilidade e evolução incremental da \emph{interface} administrativa.
 
-\subsection{Respostas às dúvidas frequentes}
+\subsection{Fale conosco e dúvidas frequentes}
+
+No módulo de \emph{Fale Conosco}, o redesenho não se limitou à atualização visual da listagem de mensagens. O principal objetivo foi qualificar o fluxo de atendimento, de modo que a equipe visualizasse imediatamente quais dúvidas ainda aguardavam resposta e, a partir desse ponto, pudesse decidir se a mensagem deveria permanecer como atendimento individual ou ser incorporada à base pública de dúvidas frequentes.
+
+A versão anterior dessa tela é apresentada na Figura~\ref{fig:tela_antiga_doubts}. Nela, já existia a separação entre mensagens não respondidas e respondidas, com a troca de visão realizada por meio de um comando no canto superior direito. Ainda assim, a organização geral da tela seguia a lógica do painel legado, com menor destaque para a hierarquia dos dados e para a leitura rápida das pendências.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_old_doubts.png}
+    \caption{Tela anterior do módulo \emph{Fale Conosco}}
+    \label{fig:tela_antiga_doubts}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+No protótipo elaborado no \emph{Figma}, apresentado na Figura~\ref{fig:prototipo_novo_doubts}, essa lógica foi preservada, porém reorganizada com maior clareza visual. A tela passa a iniciar pela listagem de mensagens não respondidas, priorizando aquilo que demanda ação imediata da equipe, enquanto o botão de alternância permite exibir, sob demanda, o conjunto de mensagens já atendidas.
+
+Essa decisão reforça o caráter funcional da tela como instrumento de triagem e acompanhamento. Em vez de tratar todas as mensagens de forma homogênea, a \emph{interface} destaca primeiro o que ainda precisa de retorno, reduzindo a chance de uma dúvida permanecer sem resposta por falta de visibilidade.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_new_doubts.png}
+    \caption{Protótipo da nova tela do módulo \emph{Fale Conosco} no \emph{Figma}}
+    \label{fig:prototipo_novo_doubts}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+A implementação final dessa proposta é apresentada na Figura~\ref{fig:implementacao_doubts}. Nela, observa-se a manutenção da prioridade para mensagens não respondidas, a presença do botão para alternância entre estados e a consolidação de colunas voltadas à identificação da usuária, do conteúdo da dúvida, da resposta associada e da data de envio. Com isso, o painel passa a oferecer uma visão mais objetiva do histórico de atendimento e das demandas ainda abertas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_impl_doubts.png}
+    \caption{Tela implementada do módulo \emph{Fale Conosco}}
+    \label{fig:implementacao_doubts}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Além da listagem, a funcionalidade se completa na tela de resposta apresentada na Figura~\ref{fig:implementacao_doubts_answer}. Nessa etapa, a equipe pode consultar a dúvida original, redigir a resposta e decidir se aquele conteúdo deve permanecer restrito à interação individual ou se possui relevância suficiente para ser compartilhado com todas as usuárias.
+
+A opção \texttt{Responder dúvida para todos} materializa essa decisão. Quando marcada, a dúvida enviada por uma mãe deixa de ser apenas um registro do \emph{Fale Conosco} e passa a compor também o conjunto de dúvidas frequentes do sistema. Essa integração é importante porque transforma uma demanda inicialmente individual em conhecimento reutilizável, ampliando o alcance da resposta e reduzindo a recorrência de perguntas semelhantes no futuro.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_impl_doubts_anwser.png}
+    \caption{Tela implementada de resposta a uma mensagem no módulo \emph{Fale Conosco}}
+    \label{fig:implementacao_doubts_answer}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Em síntese, o redesenho desse módulo combinou organização da fila de atendimento e reaproveitamento do conhecimento produzido nas respostas. A priorização visual das mensagens pendentes e a possibilidade de converter respostas em dúvidas frequentes reforçam o papel do painel não apenas como canal de suporte, mas também como instrumento de sistematização das informações mais recorrentes do programa.
 
 \subsection{Notificações}
 
