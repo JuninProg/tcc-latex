@@ -280,7 +280,27 @@ Com isso, o ganho central desse módulo não foi apenas a atualização da lista
 
 \section{Testes e validação}
 
-\subsection{Testes automatizados do back-end}
+Nesta etapa do trabalho, a validação automatizada concentrou-se no \emph{back-end}, por reunir evidências reprodutíveis sobre regras de negócio, integração entre camadas e comportamento das rotas expostas pela \emph{API}. O objetivo desses testes foi reduzir regressões durante a implementação e oferecer uma base verificável para a evolução do sistema.
+
+Para isso, foram adotadas duas estratégias complementares: testes unitários e teste integrado. A execução foi organizada de forma automatizada por meio do comando \texttt{npm run test:coverage}, que dispara as suítes implementadas e consolida, ao final, o relatório de cobertura do código. Com esse fluxo, tornou-se possível repetir a validação com o mesmo procedimento ao longo da evolução do projeto.
+
+Os testes unitários foram distribuídos entre regras da camada de aplicação e componentes de infraestrutura. Na camada de aplicação, os cenários se concentraram em operações centrais e no tratamento de exceções, com substituição das dependências por objetos simulados para isolar a regra analisada. Já na infraestrutura, a validação se voltou principalmente aos repositórios, verificando o comportamento esperado da persistência e o contrato de acesso aos dados.
+
+O teste integrado, por sua vez, foi implementado para exercitar a aplicação em condições mais próximas do ambiente real. Para isso, a execução inicia os serviços auxiliares definidos em \texttt{docker-compose.debug.yml}, cria uma base temporária com nome aleatório, aplica a migração inicial do esquema, inicializa a aplicação e envia requisições \emph{HTTP} à rota avaliada. Após cada caso, a base é limpa, e, ao final da suíte, o banco temporário é removido, assegurando isolamento entre execuções.
+
+No estado atual do projeto, essa abordagem integrada foi aplicada ao fluxo de cadastro inicial de usuária, validando a rota \texttt{/api/onboard}. O teste confirma o código de resposta, a estrutura do objeto retornado e propriedades relevantes do cadastro persistido, como papel da usuária, campos nulos esperados e transformação segura da senha. Embora esse escopo ainda seja reduzido, ele já acrescenta uma camada de validação fim a fim ao conjunto automatizado do \emph{back-end}.
+
+Os resultados obtidos na execução mais recente foram satisfatórios. A suíte unitária concluiu 142 casos com sucesso, enquanto o teste integrado executado concluiu 1 caso sem falhas, totalizando 143 verificações aprovadas. No relatório de cobertura, foram alcançados 79{,}61\% de \emph{statements}, 86{,}87\% de \emph{branches}, 86{,}66\% de \emph{functions} e 79{,}61\% de \emph{lines}, conforme apresentado na Figura~\ref{fig:coverage_back}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/coverage_back.png}
+    \caption{Relatório de cobertura dos testes automatizados do \emph{back-end}}
+    \label{fig:coverage_back}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Além dos percentuais globais, o relatório indica cobertura elevada em parte importante das regras centrais da \emph{API}, sobretudo na camada de aplicação. Ao mesmo tempo, o conjunto atual também evidencia uma oportunidade de evolução: ampliar os cenários integrados e estender a validação fim a fim para outras rotas, de modo a complementar a boa cobertura já alcançada pelos testes unitários.
 
 \section{Implantação}
 
