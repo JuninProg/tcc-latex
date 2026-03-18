@@ -1,6 +1,6 @@
 \chapter{Desenvolvimento}
 
-Neste capítulo, são apresentados os detalhes do desenvolvimento do projeto, com foco nas decisões adotadas, nos desafios enfrentados e nos resultados obtidos.
+Neste capítulo, são apresentados os detalhes do desenvolvimento do projeto, com foco nos encaminhamentos técnicos adotados, nos desafios enfrentados e nos resultados obtidos.
 
 \section{Cenário preexistente}
 
@@ -18,7 +18,7 @@ Uma das principais limitações do sistema original residia na ausência de crip
 
 \section{Estrutura base do projeto}
 
-Esta seção descreve a estrutura base do projeto, com ênfase na modelagem do banco de dados e na configuração do ambiente de desenvolvimento. O objetivo é apresentar as decisões técnicas que deram suporte à implementação e à manutenção da solução.
+Esta seção descreve a estrutura base do projeto, com ênfase na modelagem do banco de dados e na configuração do ambiente de desenvolvimento. O objetivo é apresentar as definições técnicas que deram suporte à implementação e à manutenção da solução.
 
 \subsection{Modelagem do banco de dados}
 
@@ -46,7 +46,7 @@ Em síntese, a modelagem articulou uma visão lógica orientada ao domínio com 
 
 A configuração do ambiente foi conduzida com foco na operacionalização do ciclo de trabalho, de modo a viabilizar implementação contínua, validações locais e demonstrações funcionais.
 
-Como a \emph{API} e o Painel Administrativo operam no ecossistema \emph{Node.js}, adotou-se a versão 20 durante o desenvolvimento. Para padronizar essa execução entre diferentes máquinas, utilizou-se o \emph{Node Version Manager} (\emph{NVM}) \cite{nvmdocs}. No repositório da \emph{API}, essa definição foi registrada no arquivo \texttt{.nvmrc}, reduzindo incompatibilidades e aumentando a reprodutibilidade das rotinas de compilação, execução e verificação.
+Como a \emph{API} e o Painel Administrativo operam no ecossistema \emph{Node.js}, adotou-se a versão 20 durante o desenvolvimento. Para padronizar essa execução entre diferentes máquinas, utilizou-se o \emph{Node Version Manager} (\emph{NVM}) \cite{nvmdocs}. No respectivo repositório, essa definição foi registrada no arquivo \texttt{.nvmrc}, reduzindo incompatibilidades e aumentando a reprodutibilidade das rotinas de compilação, execução e verificação.
 
 A codificação foi realizada no \emph{Visual Studio Code}, utilizado como ambiente principal de desenvolvimento pelo autor, com suporte à edição em \emph{TypeScript}, execução de comandos e acompanhamento integrado da base de código. Esse fluxo favoreceu ciclos curtos de implementação e revisão técnica.
 
@@ -54,7 +54,7 @@ A organização em repositórios separados para \emph{API}, Painel Administrativ
 
 \section{Implementação da API}
 
-Esta seção apresenta as principais decisões da implementação da \emph{API}, com foco na padronização das rotas, no processamento assíncrono de notificações e na documentação automatizada dos contratos. O conjunto dessas escolhas contribuiu para manter consistência técnica, segurança de acesso e evolução contínua da aplicação.
+Esta seção apresenta os principais fundamentos técnicos da implementação da \emph{API}, com foco na padronização das rotas, no processamento assíncrono de notificações e na documentação automatizada dos contratos. Esse conjunto contribuiu para manter consistência técnica, segurança de acesso e evolução contínua da aplicação.
 
 \subsection{Padrão de codificação de rota}
 
@@ -112,19 +112,49 @@ A Figura~\ref{fig:swagger_docs_promama} apresenta a visualização resultante de
 
 Em síntese, a automação da documentação ampliou a confiabilidade do processo de evolução da \emph{API} e reforçou a colaboração entre as frentes de desenvolvimento, ao manter uma referência única, atualizada e aderente ao código-fonte.
 
-\section{Implementação do Painel Administrativo}
+\section{Prototipagem e Implementação do Painel Administrativo}
 
-\subsection{Prototipagem}
+A prototipagem do Painel Administrativo foi estruturada como etapa prévia à implementação, com uso do \emph{Figma} como ferramenta de desenho e validação das telas \cite{figmadocs}. O objetivo central dessa etapa foi reduzir ambiguidades de construção e manter continuidade funcional em relação ao sistema anterior.
 
-\subsection{Fluxos principais}
+Para isso, foi adotada uma estratégia comparativa tela a tela, posicionando-se lado a lado a versão antiga e a versão redesenhada de cada módulo. Esse procedimento permitiu verificar, de forma incremental, a preservação de comportamentos essenciais e, simultaneamente, orientar ajustes de organização visual, hierarquia de informação e padronização de componentes.
 
-\subsubsection{Cadastro de bairros e postos de saúde}
+Como resultado, foi consolidado um conjunto de protótipos que serviu de referência direta para a implementação do painel. Nas próximas subseções, serão apresentadas comparações entre telas correspondentes e uma descrição dos fluxos funcionais principais, com ênfase nos critérios adotados em cada módulo.
 
-\subsubsection{Cadastro de informações}
+\subsection{Cadastro de informações, bairros e postos de saúde}
 
-\subsubsection{Respostas às dúvidas frequentes}
+Esta subseção reúne os módulos de informações, bairros e postos de saúde porque, embora tratem conteúdos distintos, foram concebidos a partir de uma mesma lógica de experiência no painel administrativo. O objetivo foi estabelecer coerência de navegação e de interação, de modo que a equipe usuária reconhecesse rapidamente os pontos de ação em qualquer um desses contextos.
 
-\subsubsection{Notificações}
+Em termos de desenho de \emph{interface}, adotou-se um padrão comum: identificação clara do módulo, ação primária de criação em posição de destaque, área central para consulta dos registros e controles de navegação entre páginas. Essa uniformidade contribuiu para reduzir esforço cognitivo, diminuir erros de operação e acelerar tarefas rotineiras de atualização de dados.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.92\textwidth}{\centering
+    \textbf{PLACEHOLDER FIGURA 1}\\
+    Comparação, no \emph{Figma}, entre a tela anterior e o protótipo da tela de informações, representando o padrão visual também aplicado aos módulos de bairros e postos.}}
+    \caption{Comparação entre versão anterior e protótipo do padrão de telas de cadastro}
+    \label{fig:comparacao_prototipo_infos_bairros_postos}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Nos fluxos de criação e edição, a mesma estratégia de padronização foi mantida: campos organizados em sequência previsível, feedback de confirmação ao final das operações e ações de retorno/salvamento em posições estáveis. As diferenças foram concentradas no conteúdo de negócio. Em bairros, predomina um cadastro objetivo de localidades; em postos, acrescentam-se informações de contato; e, em informações, há maior densidade editorial, com campos voltados à publicação de conteúdo para as usuárias do aplicativo.
+
+Sob a perspectiva de negócio, essa abordagem permitiu equilibrar dois objetivos: reutilizar uma estrutura visual única para reduzir retrabalho e preservar particularidades funcionais de cada módulo. Com isso, o painel mantém consistência operacional sem comprometer a adequação de cada tela às necessidades específicas da gestão.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.92\textwidth}{\centering
+    \textbf{PLACEHOLDER FIGURA 2}\\
+    Tela de informações implementada no painel web (estado final), utilizada como exemplo do padrão visual efetivamente aplicado nos módulos agrupados nesta subseção.}}
+    \caption{Tela implementada do módulo de informações no painel administrativo}
+    \label{fig:implementacao_infos_painel_web}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Em síntese, o agrupamento de informações, bairros e postos em uma única análise se justifica pelo padrão compartilhado de desenho e operação. O reaproveitamento dessa base comum favoreceu consistência, previsibilidade de uso e evolução incremental da \emph{interface} administrativa.
+
+\subsection{Respostas às dúvidas frequentes}
+
+\subsection{Notificações}
 
 \section{Testes e validação}
 
