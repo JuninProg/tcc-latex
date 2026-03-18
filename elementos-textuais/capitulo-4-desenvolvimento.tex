@@ -60,13 +60,13 @@ Esta seção apresenta os principais fundamentos técnicos da implementação da
 
 A codificação das rotas foi organizada por um padrão único baseado em \emph{classes} que implementam a \emph{interface} \texttt{Route}. Em cada módulo, o método \texttt{getConfig()} descreve de forma declarativa os elementos de cada \emph{endpoint}: método HTTP, caminho, \emph{handler} e \emph{middlewares}. Essa abordagem manteve a definição funcional desacoplada do processo de registro no servidor.
 
-A Figura~\ref{fig:instruction_routes_getconfig} exemplifica esse padrão no módulo de instruções, evidenciando como as operações são descritas no próprio \texttt{getConfig()}, com regras de validação e autorização definidas por rota.
+A Figura~\ref{fig:info_routes_getconfig} exemplifica esse padrão no módulo de informações, evidenciando como as operações são descritas no próprio \texttt{getConfig()}, com regras de validação e autorização definidas por rota.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{imagens/rotas.png}
     \caption{Exemplo do padrão declarativo de rotas no método \texttt{getConfig()}}
-    \label{fig:instruction_routes_getconfig}
+    \label{fig:info_routes_getconfig}
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
