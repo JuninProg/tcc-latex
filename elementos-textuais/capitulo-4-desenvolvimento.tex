@@ -122,35 +122,71 @@ Como resultado, foi consolidado um conjunto de protótipos que serviu de referê
 
 \subsection{Cadastro de informações, bairros e postos de saúde}
 
-Esta subseção reúne os módulos de informações, bairros e postos de saúde porque, embora tratem conteúdos distintos, foram concebidos a partir de uma mesma lógica de experiência no painel administrativo. O objetivo foi estabelecer coerência de navegação e de interação, de modo que a equipe usuária reconhecesse rapidamente os pontos de ação em qualquer um desses contextos.
+Os módulos de informações, bairros e postos de saúde foram estruturados a partir de uma mesma lógica de navegação e uso no painel administrativo. Para demonstrar essa diretriz comum, utilizou-se o módulo de informações como referência visual, por contemplar tanto a tela de listagem quanto a tela de cadastro.
 
-Em termos de desenho de \emph{interface}, adotou-se um padrão comum: identificação clara do módulo, ação primária de criação em posição de destaque, área central para consulta dos registros e controles de navegação entre páginas. Essa uniformidade contribuiu para reduzir esforço cognitivo, diminuir erros de operação e acelerar tarefas rotineiras de atualização de dados.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.92\textwidth}{\centering
-    \textbf{PLACEHOLDER FIGURA 1}\\
-    Comparação, no \emph{Figma}, entre a tela anterior e o protótipo da tela de informações, representando o padrão visual também aplicado aos módulos de bairros e postos.}}
-    \caption{Comparação entre versão anterior e protótipo do padrão de telas de cadastro}
-    \label{fig:comparacao_prototipo_infos_bairros_postos}
-    \legend{Fonte: Elaborado pelo autor (2026).}
-\end{figure}
-
-Nos fluxos de criação e edição, a mesma estratégia de padronização foi mantida: campos organizados em sequência previsível, feedback de confirmação ao final das operações e ações de retorno/salvamento em posições estáveis. As diferenças foram concentradas no conteúdo de negócio. Em bairros, predomina um cadastro objetivo de localidades; em postos, acrescentam-se informações de contato; e, em informações, há maior densidade editorial, com campos voltados à publicação de conteúdo para as usuárias do aplicativo.
-
-Sob a perspectiva de negócio, essa abordagem permitiu equilibrar dois objetivos: reutilizar uma estrutura visual única para reduzir retrabalho e preservar particularidades funcionais de cada módulo. Com isso, o painel mantém consistência operacional sem comprometer a adequação de cada tela às necessidades específicas da gestão.
+No estado anterior do sistema, a listagem das informações seguia a organização apresentada na Figura~\ref{fig:tela_antiga_info}. Nessa versão, já estavam presentes ações centrais de consulta, edição e exclusão, mas a distribuição visual dos elementos ainda refletia a configuração do painel legado.
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.92\textwidth}{\centering
-    \textbf{PLACEHOLDER FIGURA 2}\\
-    Tela de informações implementada no painel web (estado final), utilizada como exemplo do padrão visual efetivamente aplicado nos módulos agrupados nesta subseção.}}
-    \caption{Tela implementada do módulo de informações no painel administrativo}
-    \label{fig:implementacao_infos_painel_web}
+    \includegraphics[width=1\textwidth]{imagens/prototipo_old_info.png}
+    \caption{Tela anterior de listagem do módulo de informações}
+    \label{fig:tela_antiga_info}
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Em síntese, o agrupamento de informações, bairros e postos em uma única análise se justifica pelo padrão compartilhado de desenho e operação. O reaproveitamento dessa base comum favoreceu consistência, previsibilidade de uso e evolução incremental da \emph{interface} administrativa.
+No processo de prototipagem, buscou-se consolidar, para a listagem, uma composição visual recorrente, composta por identificação clara do módulo, ação primária de criação em posição de destaque, campo de pesquisa, área central para consulta dos registros e paginação para navegação entre resultados. A Figura~\ref{fig:prototipo_novo_info} apresenta o protótipo dessa nova tela, elaborado no \emph{Figma} como referência também para os módulos de bairros e postos de saúde.
+
+Em comparação com a versão anterior, observa-se uma hierarquia visual mais clara, com melhor separação entre busca, controle de paginação e ações por registro. Essa mudança tornou a leitura da tabela mais previsível e reforçou a organização de navegação adotada no painel redesenhado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_new_info.png}
+    \caption{Protótipo da nova tela de listagem do módulo de informações no \emph{Figma}}
+    \label{fig:prototipo_novo_info}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+O mesmo raciocínio foi aplicado à tela de cadastro. A Figura~\ref{fig:tela_antiga_criacao_info} apresenta a versão anterior do formulário de criação de informações, cuja organização concentrava todos os campos em uma composição mais compacta, com menor destaque para agrupamentos funcionais e para o comando principal de salvamento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_old_create_info.png}
+    \caption{Tela anterior de cadastro do módulo de informações}
+    \label{fig:tela_antiga_criacao_info}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+A Figura~\ref{fig:prototipo_novo_criacao_info} apresenta o protótipo da nova tela de cadastro no \emph{Figma}. Nessa proposta, os campos foram redistribuídos em sequência mais previsível, com melhor distinção entre título, autoria, corpo do texto, envio de imagem, links externos e vínculo com dúvidas frequentes, além de maior destaque para a ação de salvar.
+
+Essa organização favorece o preenchimento progressivo do formulário e reduz a sobrecarga visual da tela. Embora a comparação tenha sido feita a partir do módulo de informações, a mesma base estrutural foi replicada nos cadastros de bairros e postos de saúde, com adaptações restritas ao conteúdo de negócio de cada módulo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_new_create_info.png}
+    \caption{Protótipo da nova tela de cadastro do módulo de informações no \emph{Figma}}
+    \label{fig:prototipo_novo_criacao_info}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+As Figuras~\ref{fig:implementacao_listagem_infos_painel_web} e~\ref{fig:implementacao_criacao_infos_painel_web} representarão a etapa de implementação dessa proposta no painel web. Com elas, será possível verificar como as decisões definidas na prototipagem foram convertidas em uma solução funcional, tanto na listagem quanto no fluxo de criação.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_impl_list_info.png}
+    \caption{Tela implementada de listagem do módulo de informações}
+    \label{fig:implementacao_listagem_infos_painel_web}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_impl_create_info.png}
+    \caption{Tela implementada de cadastro do módulo de informações}
+    \label{fig:implementacao_criacao_infos_painel_web}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Em síntese, a comparação entre as telas anteriores e os protótipos de listagem e cadastro demonstra que o redesenho buscou contemplar o ciclo completo de uso desses módulos. A posterior validação por meio das telas implementadas permitirá evidenciar como essa base comum contribuiu para consistência, previsibilidade e evolução incremental da \emph{interface} administrativa.
 
 \subsection{Respostas às dúvidas frequentes}
 
