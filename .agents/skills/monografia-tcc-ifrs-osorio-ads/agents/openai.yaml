@@ -1,0 +1,7 @@
+interface:
+  display_name: "Monografia TCC IFRS ADS"
+  short_description: "Escrita de TCC ADS/IFRS com ABNT"
+  default_prompt: "Use $monografia-tcc-ifrs-osorio-ads para escrever, revisar ou estruturar meu TCC do ADS do IFRS Osorio neste template abnTeX2."
+
+policy:
+  allow_implicit_invocation: true
