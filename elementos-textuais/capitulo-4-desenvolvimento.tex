@@ -18,7 +18,7 @@ Uma das principais limitações do sistema original residia na ausência de crip
 
 \section{Estrutura base do projeto}
 
-Esta seção descreve a estrutura base do projeto, com ênfase na modelagem do banco de dados e na configuração do ambiente de desenvolvimento. O objetivo é apresentar as definições técnicas que deram suporte à implementação e à manutenção da solução.
+Esta seção descreve a base técnica do projeto, com ênfase na modelagem do banco de dados e na configuração do ambiente de desenvolvimento. O objetivo é apresentar as definições técnicas que deram suporte à implementação e à manutenção da solução.
 
 \subsection{Modelagem do banco de dados}
 
@@ -50,7 +50,7 @@ Como a \emph{API} e o Painel Administrativo operam no ecossistema \emph{Node.js}
 
 A codificação foi realizada no \emph{Visual Studio Code}, utilizado como ambiente principal de trabalho pelo autor, com suporte à edição em \emph{TypeScript}, execução de comandos e acompanhamento integrado da base de código. Esse fluxo favoreceu ciclos curtos de implementação e revisão técnica.
 
-A organização em repositórios separados para \emph{API}, Painel Administrativo e infraestrutura também contribuiu para a execução local do projeto. Enquanto os dois primeiros concentraram a evolução funcional, o repositório de infraestrutura reuniu a inicialização integrada dos serviços de apoio, favorecendo a reprodução do ambiente e o isolamento das responsabilidades técnicas de cada frente.
+A organização em repositórios separados para \emph{API}, Painel Administrativo e infraestrutura também contribuiu para a execução local do projeto. Enquanto os dois primeiros concentraram a evolução das funcionalidades, o repositório de infraestrutura reuniu a inicialização integrada dos serviços de apoio, favorecendo a reprodução do ambiente e o isolamento das responsabilidades técnicas de cada frente.
 
 \section{Implementação da API}
 
@@ -74,7 +74,7 @@ O registro efetivo dessas configurações foi centralizado em um componente de r
 
 Esse padrão também favoreceu o trabalho colaborativo entre as frentes de desenvolvimento. Enquanto as telas eram implementadas em paralelo no painel administrativo e no aplicativo móvel, a \emph{API} evoluía com contratos estáveis e reutilizáveis, reduzindo retrabalho e divergências de implementação entre clientes distintos.
 
-A autenticação foi estruturada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das ações permitidas a \texttt{mom}.
+A autenticação foi implementada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das ações permitidas a \texttt{mom}.
 
 Com isso, a padronização adotada para codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
 
@@ -114,7 +114,7 @@ Em conjunto, a automação da documentação ampliou a confiabilidade do process
 
 \section{Prototipagem e Implementação do Painel Administrativo}
 
-A prototipagem do Painel Administrativo foi estruturada como etapa prévia à implementação, com uso do \emph{Figma} como ferramenta de desenho e validação das telas \cite{figmadocs}. O objetivo central dessa etapa foi reduzir ambiguidades de construção e manter continuidade funcional em relação ao sistema anterior.
+A prototipagem do Painel Administrativo foi conduzida como etapa prévia à implementação, com uso do \emph{Figma} como ferramenta de desenho e validação das telas \cite{figmadocs}. O objetivo central dessa etapa foi reduzir ambiguidades de construção e manter continuidade de uso em relação ao sistema anterior.
 
 Para isso, foi adotada uma estratégia comparativa tela a tela, posicionando-se lado a lado a versão antiga e a versão redesenhada de cada módulo. Esse procedimento permitiu verificar, de forma incremental, a preservação de comportamentos essenciais e, simultaneamente, orientar ajustes de organização visual, hierarquia de informação e padronização de componentes.
 
@@ -122,7 +122,7 @@ Como resultado, foi consolidado um conjunto de protótipos que serviu de referê
 
 \subsection{Cadastro de informações, bairros e postos de saúde}
 
-Os módulos de informações, bairros e postos de saúde foram estruturados a partir de uma mesma lógica de navegação e uso no painel administrativo. Para demonstrar essa diretriz comum, utilizou-se o módulo de informações como referência visual, por contemplar tanto a tela de listagem quanto a tela de cadastro.
+Os módulos de informações, bairros e postos de saúde foram concebidos a partir de uma mesma lógica de navegação e uso no painel administrativo. Para demonstrar essa diretriz comum, utilizou-se o módulo de informações como referência visual, por contemplar tanto a tela de listagem quanto a tela de cadastro.
 
 No estado anterior do sistema, a listagem das informações seguia a organização apresentada na Figura~\ref{fig:tela_antiga_info}. Nessa versão, já estavam presentes ações centrais de consulta, edição e exclusão, mas a distribuição visual dos elementos ainda refletia a configuração do painel legado.
 
@@ -158,7 +158,7 @@ O mesmo raciocínio foi aplicado à tela de cadastro. A Figura~\ref{fig:tela_ant
 
 A Figura~\ref{fig:prototipo_novo_criacao_info} apresenta o protótipo da nova tela de cadastro no \emph{Figma}. Nessa proposta, os campos foram redistribuídos em sequência mais previsível, com melhor distinção entre título, faixa etária, corpo do texto, envio de imagem, links externos e vínculo com dúvidas frequentes, além de maior destaque para a ação de salvar.
 
-Essa organização favorece o preenchimento progressivo do formulário e reduz a sobrecarga visual da tela. Embora a comparação tenha sido feita a partir do módulo de informações, a mesma base estrutural foi replicada nos cadastros de bairros e postos de saúde, com adaptações restritas ao conteúdo de negócio de cada módulo.
+Essa organização favorece o preenchimento progressivo do formulário e reduz a sobrecarga visual da tela. Embora a comparação tenha sido feita a partir do módulo de informações, a mesma base de organização foi replicada nos cadastros de bairros e postos de saúde, com adaptações restritas ao conteúdo de negócio de cada módulo.
 
 \begin{figure}[H]
     \centering
@@ -168,7 +168,7 @@ Essa organização favorece o preenchimento progressivo do formulário e reduz a
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-As Figuras~\ref{fig:implementacao_listagem_infos_painel_web} e~\ref{fig:implementacao_criacao_infos_painel_web} representam a etapa de implementação dessa proposta no painel web. Com elas, é possível verificar como as decisões definidas na prototipagem foram convertidas em uma solução funcional, tanto na listagem quanto no fluxo de criação.
+As Figuras~\ref{fig:implementacao_listagem_infos_painel_web} e~\ref{fig:implementacao_criacao_infos_painel_web} representam a etapa de implementação dessa proposta no painel web. Com elas, é possível verificar como as decisões definidas na prototipagem foram convertidas em uma solução efetiva, tanto na listagem quanto no fluxo de criação.
 
 \begin{figure}[H]
     \centering
@@ -186,7 +186,7 @@ As Figuras~\ref{fig:implementacao_listagem_infos_painel_web} e~\ref{fig:implemen
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Tomadas em conjunto, as comparações de listagem e cadastro mostram que o módulo de informações funcionou como referência para a reorganização dos demais cadastros do painel. Mais do que uniformizar a aparência dessas telas, esse redesenho estabeleceu uma estrutura reutilizável para bairros e postos de saúde, reduzindo retrabalho e favorecendo a manutenção de soluções equivalentes em contextos administrativos semelhantes.
+Tomadas em conjunto, as comparações de listagem e cadastro mostram que o módulo de informações funcionou como referência para a reorganização dos demais cadastros do painel. Mais do que uniformizar a aparência dessas telas, esse redesenho estabeleceu um arranjo reutilizável para bairros e postos de saúde, reduzindo retrabalho e favorecendo a manutenção de soluções equivalentes em contextos administrativos semelhantes.
 
 \subsection{Fale conosco e dúvidas frequentes}
 
@@ -204,7 +204,7 @@ A versão anterior é apresentada na Figura~\ref{fig:tela_antiga_doubts}. Nela, 
 
 No protótipo elaborado no \emph{Figma}, apresentado na Figura~\ref{fig:prototipo_novo_doubts}, essa lógica foi preservada, porém reorganizada com maior clareza na distribuição dos elementos. A tela passa a iniciar pela listagem de mensagens não respondidas, priorizando aquilo que demanda ação imediata da equipe, enquanto o botão de alternância permite exibir, sob demanda, o conjunto de mensagens já atendidas.
 
-Essa decisão reforça o caráter funcional da tela como instrumento de triagem e acompanhamento. Em vez de tratar todas as mensagens de forma homogênea, a \emph{interface} coloca em primeiro plano o que ainda precisa de retorno, reduzindo a chance de uma dúvida permanecer sem resposta por falta de evidência mais clara para a equipe.
+Essa decisão reforça o papel da tela como instrumento de triagem e acompanhamento. Em vez de tratar todas as mensagens de forma homogênea, a \emph{interface} coloca em primeiro plano o que ainda precisa de retorno, reduzindo a chance de uma dúvida permanecer sem resposta por falta de evidência mais clara para a equipe.
 
 \begin{figure}[H]
     \centering
@@ -240,11 +240,47 @@ Por fim, o redesenho desse módulo combinou organização da fila de atendimento
 
 \subsection{Notificações}
 
+No módulo de notificações, a principal mudança não esteve no desenho da listagem, uma vez que essa tela segue a mesma base adotada nos demais cadastros do painel. O aspecto mais relevante dessa entrega foi a alteração da lógica de negócio: no sistema legado, as mensagens recorrentes dependiam de regras embutidas no código e não ofereciam um meio simples de ajuste pela equipe administradora.
+
+A tela anterior, apresentada na Figura~\ref{fig:tela_antiga_notifications}, já permitia consultar os registros existentes, mas ainda refletia esse contexto herdado. Embora a estrutura geral contasse com tabela, ações e paginação, a gestão das mensagens permanecia limitada pela forma como os disparos haviam sido concebidos anteriormente, com pouca flexibilidade para adaptar conteúdo e recorrência.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_old_notifications.png}
+    \caption{Tela anterior do módulo de notificações}
+    \label{fig:tela_antiga_notifications}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+No protótipo desenvolvido no \emph{Figma}, mostrado na Figura~\ref{fig:prototipo_novo_notifications}, a tela foi alinhada ao \emph{design system} do painel, com campo de pesquisa, ação de criação em evidência, tabela central e paginação. Nesse caso, porém, o valor da prototipagem não estava em propor uma ruptura visual, mas em incorporar a administração das notificações ao mesmo fluxo de gestão já adotado nos demais módulos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_new_notifications.png}
+    \caption{Protótipo da nova tela do módulo de notificações no \emph{Figma}}
+    \label{fig:prototipo_novo_notifications}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+A implementação final, apresentada na Figura~\ref{fig:implementacao_list_notifications}, evidencia essa transição. A listagem deixa de representar apenas mensagens genéricas e passa a expor registros efetivamente administráveis, com título, texto e faixa etária associada. Isso torna visível no painel uma decisão importante do trabalho: cada notificação recorrente passou a ser cadastrada como entidade própria na base de dados, em vez de permanecer dependente de comportamentos fixos no sistema legado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/prototipo_impl_list_notifications.png}
+    \caption{Tela implementada do módulo de notificações}
+    \label{fig:implementacao_list_notifications}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Essa modelagem permitiu cadastrar mensagens recorrentes conforme os marcos etários acompanhados pelo programa. Na prática, cada registro pode armazenar o conteúdo do \emph{push notification} e, opcionalmente, uma quantidade de dias que representa a faixa etária de destino. Assim, durante a execução diária do processamento assíncrono, o sistema relaciona a idade da criança à notificação correspondente e prepara o envio da mensagem adequada para aquele momento.
+
+Também se tornou possível cadastrar notificações sem faixa etária definida, destinadas a comunicações de envio amplo. Nesse cenário, a mensagem deixa de depender de uma idade específica e passa a ser tratada pelo mesmo mecanismo de processamento. No \emph{back-end}, a consulta diária cruza as notificações cadastradas com os dados das crianças e utiliza o histórico de envio para evitar novos disparos bem-sucedidos para o mesmo destinatário.
+
+Com isso, o ganho central desse módulo não foi apenas a atualização da listagem, mas a externalização de uma regra antes rígida para uma estrutura persistida e administrável. Ao transformar notificações recorrentes em dados configuráveis pelo painel, o projeto ampliou a capacidade de manutenção do sistema e tornou mais viável ajustar mensagens, faixas etárias e comunicações gerais sem depender de novas alterações no código-fonte.
+
 \section{Testes e validação}
 
 \subsection{Testes automatizados do back-end}
-
-\subsection{Testes manuais do front-end}
 
 \section{Implantação}
 
