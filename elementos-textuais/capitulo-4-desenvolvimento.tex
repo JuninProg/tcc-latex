@@ -304,7 +304,7 @@ Além dos percentuais globais, o relatório indica cobertura elevada em parte im
 
 \section{Implantação}
 
-Esta seção apresenta as principais decisões adotadas para publicação do sistema, com foco na orquestração dos serviços, na incorporação dos dados herdados e na automação da entrega. O objetivo é mostrar como a infraestrutura foi organizada para sustentar a execução integrada da \emph{API} e do Painel Administrativo.
+Esta seção apresenta as principais decisões adotadas para publicação do sistema, com foco na orquestração dos serviços, na exposição segura da aplicação, na incorporação dos dados herdados e na automação da entrega. O objetivo é mostrar como a infraestrutura foi organizada para sustentar a execução integrada da \emph{API} e do Painel Administrativo.
 
 \subsection{Orquestração dos contêineres}
 
@@ -326,6 +326,14 @@ A Figura~\ref{fig:infra_docker_desktop} apresenta esse conjunto em execução no
 
 Além da execução dos serviços principais, a composição também contemplou aspectos de apoio à operação. O volume \texttt{./files:/app/promama-api/public} foi utilizado para preservar arquivos públicos manipulados pela \emph{API}, enquanto o \emph{gateway} recebeu volumes específicos para certificados e configuração de acesso seguro. Com isso, a orquestração passou a abranger não apenas a inicialização dos processos, mas também elementos necessários à persistência de arquivos e à exposição controlada da aplicação.
 
+\subsection{Configuração do certificado digital}
+
+Para a publicação do sistema em produção, o domínio \texttt{saude.osorio.rs.gov.br} foi configurado para apontar ao servidor por meio de um registro DNS com proxy ativado na Cloudflare. Nesse arranjo, requisições \emph{HTTP} e \emph{HTTPS} passam primeiro pela rede da plataforma, o que permite intermediar o acesso público ao sistema e manter o endereço de origem fora da exposição direta \cite{cloudflareproxystatus}.
+
+No \emph{gateway} da infraestrutura, a terminação \emph{TLS} foi configurada no \emph{Nginx} com escuta na porta 443 e redirecionamento automático do tráfego da porta 80 para HTTPS. A configuração utiliza os arquivos \texttt{cert2.pem} e \texttt{key2.pem}, montados no contêiner a partir do diretório \texttt{certs} do repositório \texttt{promama-infra}. Como a configuração adotada utiliza certificado de origem da Cloudflare, o servidor mantém comunicação cifrada entre a borda da plataforma e o ambiente hospedado, em conformidade com a orientação da própria provedora para cenários com registros proxied e certificado instalado no servidor de origem \cite{cloudflareoriginca,cloudflarefullstrict}.
+
+Essa decisão foi importante para superar uma limitação do sistema anterior, cuja publicação ocorria apenas em HTTP. Com a adoção desse arranjo, o acesso ao painel e à \emph{API} passou a ocorrer por HTTPS no domínio institucional, enquanto o tráfego interno permaneceu centralizado no \emph{gateway}, que encaminha as requisições para os contêineres do painel, da \emph{API} e do Adminer conforme a rota solicitada.
+
 \subsection{Migração dos dados retroativos}
 
 O processo de migração foi incorporado ao fluxo de inicialização da \emph{API}. No contêiner dessa aplicação, o comando de entrada executa a sequência de compilação, migração e inicialização do servidor, garantindo que o banco de dados esteja preparado antes do início do atendimento das requisições. Essa decisão reduziu a dependência de passos manuais após a subida da infraestrutura.
@@ -344,4 +352,4 @@ Essa configuração também evidencia uma separação de responsabilidades entre
 
 No caso da \emph{API}, a automação não se restringiu à entrega. O repositório também possui um \emph{workflow} de testes executado em \emph{pull requests} para a ramificação \texttt{main}, no qual a infraestrutura de depuração é iniciada, a disponibilidade de PostgreSQL e Redis é verificada e, em seguida, a suíte automatizada é executada. Embora esse fluxo pertença ao contexto de integração contínua, sua presença reforça a confiabilidade do processo de implantação, pois introduz uma etapa de validação antes da atualização do ambiente publicado.
 
-Em conjunto, a implantação do Pró-Mamá passou a combinar orquestração centralizada, migração controlada dos dados herdados e automação básica de entrega contínua. Esse arranjo tornou a publicação mais previsível e criou uma base de infraestrutura coerente com a evolução conjunta da \emph{API} e do Painel Administrativo.
+Em conjunto, a implantação do Pró-Mamá passou a combinar orquestração centralizada, exposição segura por HTTPS, migração controlada dos dados herdados e automação básica de entrega contínua. Esse arranjo tornou a publicação mais previsível e criou uma base de infraestrutura coerente com a evolução conjunta da \emph{API} e do Painel Administrativo.
