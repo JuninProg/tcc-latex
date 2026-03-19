@@ -340,7 +340,15 @@ O processo de migração foi incorporado ao fluxo de inicialização da \emph{AP
 
 Na implementação da rotina de migração, o arquivo \texttt{migrate.ts} cria a base de dados quando necessário, percorre os arquivos SQL da pasta \texttt{migrations} e registra cada migração concluída na tabela \texttt{migrations}. Com isso, o processo passa a respeitar a ordem numérica dos arquivos e evita a reexecução de scripts já aplicados, favorecendo continuidade entre diferentes implantações e atualizações do sistema.
 
-Para a recuperação dos dados legados, foi utilizado o arquivo \texttt{01-promama\_dump\_2025\_02\_26.sql}, que concentra a carga retroativa extraída do sistema anterior. Diferentemente da migração estrutural inicial, esse arquivo atua como carga histórica, reinserindo registros já existentes, como bairros, postos e usuários previamente cadastrados. Na sequência, outros scripts complementam a base com dados institucionais e com estruturas introduzidas no novo ciclo de desenvolvimento, como termos atualizados e o módulo de notificações.
+Para a recuperação dos dados legados, foi utilizado o arquivo
+\path{01-promama_dump_2025_02_26.sql}, que concentra a carga
+retroativa extraída do sistema anterior. Diferentemente da migração
+estrutural inicial, esse arquivo atua como carga histórica,
+reinserindo registros já existentes, como bairros, postos e usuários
+previamente cadastrados. Na sequência, outros scripts complementam a
+base com dados institucionais e com estruturas introduzidas no novo
+ciclo de desenvolvimento, como termos atualizados e o módulo de
+notificações.
 
 Esse mesmo cuidado foi adotado para os arquivos associados ao sistema anterior. A documentação do repositório de infraestrutura orienta que os recursos necessários sejam colocados previamente na pasta \texttt{promama-infra/files}, a qual é montada no diretório público da \emph{API}. Dessa forma, a migração retroativa não se limitou ao banco de dados, mas considerou também a preservação dos arquivos necessários para manter consistência entre os registros importados e os recursos acessados pela aplicação.
 
