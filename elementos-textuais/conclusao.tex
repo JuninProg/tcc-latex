@@ -1,2 +1,64 @@
 \chapter{Conclusão}
 % ---
+
+Ao final deste trabalho, conclui-se que foi possível reestruturar e
+evoluir o ecossistema do Pró-Mamá, abrangendo a \emph{API}, o Painel
+Administrativo e a infraestrutura de implantação. Essa reestruturação
+não se limitou à atualização tecnológica dos componentes, mas buscou
+corrigir limitações concretas do sistema anterior e estabelecer uma
+base mais adequada para manutenção, continuidade e expansão da solução.
+
+Entre os principais resultados alcançados, destaca-se a adoção de
+HTTPS com suporte da Cloudflare, medida que corrigiu uma fragilidade
+importante de segurança presente na versão anterior. Também se evidencia
+a reformulação do módulo de notificações, que deixou de depender de
+regras rígidas embutidas no código e passou a operar por meio de
+registros administráveis no painel. Com isso, notificações recorrentes
+e comunicações mais amplas tornaram-se configuráveis pela equipe.
+
+Outro resultado relevante foi a consolidação da infraestrutura como
+código, centralizada em um repositório específico para orquestração,
+publicação e atualização do ambiente. Essa decisão fortaleceu a
+reprodutibilidade da solução e tornou sua implantação mais previsível.
+Além disso, criou condições mais favoráveis para que a arquitetura
+possa ser reaproveitada por outros municípios interessados em adotar
+iniciativa semelhante.
+
+Do ponto de vista técnico, o trabalho também contribuiu para a
+organização interna do projeto, com melhorias na padronização das rotas
+da \emph{API}, no processamento assíncrono de notificações, na
+documentação automatizada e na estrutura do painel administrativo. Em
+conjunto, essas decisões favoreceram maior clareza de manutenção,
+melhor separação de responsabilidades entre os componentes e maior
+previsibilidade na evolução do sistema. Os testes automatizados do
+\emph{back-end} reforçam esse cenário ao oferecer uma base verificável
+para parte importante das regras de negócio implementadas.
+
+Apesar dos avanços obtidos, o trabalho também evidenciou limitações que
+permanecem relevantes. Uma delas está na ausência de integração com
+bases oficiais do poder público, o que poderia reduzir o esforço manual
+da equipe do NASF no cadastro de informações públicas e permitir maior
+foco nas interações com as mães atendidas pelo programa. Outra
+limitação está na baixa divulgação e no baixo engajamento institucional
+em torno da plataforma, tanto no âmbito da prefeitura quanto no próprio
+IFRS, o que reduz o alcance prático de uma solução que hoje se encontra
+funcional em produção.
+
+Além disso, o projeto ainda apresenta um desafio importante de
+continuidade: sua complexidade natural dificulta a entrada de novos
+colaboradores. Nesse contexto, trabalhos futuros podem explorar
+estratégias de apoio ao \emph{onboarding} técnico e de negócio,
+inclusive com uso de abordagens baseadas em inteligência artificial,
+como documentação orientada por especificação e agentes customizados
+para suporte ao entendimento do sistema. Também se mostram promissoras
+a ampliação dos testes integrados, o fortalecimento das ações de
+divulgação institucional e a expansão das integrações externas do
+ecossistema.
+
+Assim, conclui-se que o trabalho atingiu seu propósito de reestruturar
+e evoluir o ecossistema do Pró-Mamá, entregando uma base mais segura,
+administrável e sustentável para a continuidade do projeto. Mais do que
+uma atualização tecnológica, a proposta procurou preservar o valor
+social do sistema e ampliar sua capacidade de apoiar, de forma digital,
+a comunicação entre os serviços de saúde e as mães atendidas pelo
+programa.
