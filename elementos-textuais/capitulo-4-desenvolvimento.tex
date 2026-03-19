@@ -304,15 +304,15 @@ Além dos percentuais globais, o relatório indica cobertura elevada em parte im
 
 \section{Implantação}
 
-Esta seção apresenta as principais decisões adotadas para publicação do sistema, com foco na orquestração dos serviços, na exposição segura da aplicação, na incorporação dos dados herdados e na automação da entrega. O objetivo é mostrar como a infraestrutura foi organizada para sustentar a execução integrada da \emph{API} e do Painel Administrativo.
+Esta seção apresenta as principais decisões adotadas para publicação do sistema, com foco na organização da infraestrutura, no acesso seguro à aplicação, na incorporação dos dados herdados e na automação da atualização do ambiente. O objetivo é mostrar como essa base foi preparada para sustentar a execução integrada da \emph{API} e do Painel Administrativo.
 
 \subsection{Orquestração dos contêineres}
 
-A implantação do conjunto de serviços foi centralizada no repositório \texttt{promama-infra}, responsável por concentrar a definição da infraestrutura, das variáveis de ambiente e da composição dos contêineres. Com essa decisão, a publicação do sistema deixou de depender de procedimentos isolados em cada aplicação e passou a ser conduzida a partir de um único ponto de orquestração.
+A implantação do sistema foi centralizada no repositório \texttt{promama-infra}, responsável por reunir a composição dos contêineres, as variáveis de ambiente e as configurações de entrada do ambiente publicado. Com essa decisão, a atualização do projeto deixou de depender de procedimentos separados em cada aplicação e passou a ser conduzida a partir de um único ponto de controle.
 
-No arquivo \texttt{docker-compose.yml}, essa organização foi materializada por meio dos serviços \texttt{promama\_api}, \texttt{promama\_admin}, \texttt{gateway}, \texttt{postgres}, \texttt{redis} e \texttt{adminer}, todos conectados à rede \texttt{promama\_net}. A composição também foi preparada para construir a \emph{API} e o Painel Administrativo a partir de seus respectivos repositórios, com caminhos configuráveis por variáveis de ambiente. Isso favoreceu tanto a reprodução local da arquitetura quanto sua execução em ambiente de servidor.
+No arquivo \texttt{docker-compose.yml}, essa organização foi materializada por uma composição que reúne \emph{API}, painel administrativo, \emph{gateway} e serviços de apoio. Esse arranjo permitiu subir a arquitetura de forma integrada tanto no ambiente local quanto no servidor, preservando a mesma lógica de execução entre desenvolvimento e produção.
 
-No caso da \emph{API}, a imagem foi configurada para compilar a aplicação, executar as migrações pendentes e iniciar o serviço em modo de produção. No Painel Administrativo, o contêiner realiza a geração do artefato estático e o publica por meio de um servidor web simples. Já o \emph{gateway} atua como ponto de entrada da solução, encaminhando requisições para a \emph{API} no caminho \texttt{/api} e para o painel na rota principal, além de concentrar o tratamento de HTTPS e o redirecionamento do tráfego em porta 80 para 443.
+Nesse arranjo, a \emph{API} é construída e iniciada com as etapas necessárias ao funcionamento do serviço, o painel é publicado como aplicação \emph{web} e o \emph{gateway} concentra o encaminhamento das requisições externas. Dessa forma, o acesso público ao sistema passou a ocorrer por uma entrada única, enquanto a comunicação entre os serviços permanece organizada no ambiente interno da infraestrutura.
 
 A Figura~\ref{fig:infra_docker_desktop} apresenta esse conjunto em execução no Docker Desktop, evidenciando a ativação coordenada dos serviços necessários ao funcionamento do ambiente implantado.
 
@@ -324,40 +324,38 @@ A Figura~\ref{fig:infra_docker_desktop} apresenta esse conjunto em execução no
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Além da execução dos serviços principais, a composição também contemplou aspectos de apoio à operação. O volume \texttt{./files:/app/promama-api/public} foi utilizado para preservar arquivos públicos manipulados pela \emph{API}, enquanto o \emph{gateway} recebeu volumes específicos para certificados e configuração de acesso seguro. Com isso, a orquestração passou a abranger não apenas a inicialização dos processos, mas também elementos necessários à persistência de arquivos e à exposição controlada da aplicação.
+Além da inicialização dos serviços centrais, a composição também contemplou a preservação de arquivos públicos e dos elementos necessários ao acesso seguro. Com isso, a orquestração deixou de se limitar à execução dos contêineres e passou a abranger também recursos indispensáveis ao funcionamento contínuo da aplicação.
 
 \subsection{Configuração do certificado digital}
 
 Para a publicação do sistema em produção, o domínio \texttt{saude.osorio.rs.gov.br} foi configurado para apontar ao servidor por meio de um registro DNS com proxy ativado na Cloudflare. Nesse arranjo, requisições \emph{HTTP} e \emph{HTTPS} passam primeiro pela rede da plataforma, o que permite intermediar o acesso público ao sistema e manter o endereço de origem fora da exposição direta \cite{cloudflareproxystatus}.
 
-No \emph{gateway} da infraestrutura, a terminação \emph{TLS} foi configurada no \emph{Nginx} com escuta na porta 443 e redirecionamento automático do tráfego da porta 80 para HTTPS. A configuração utiliza os arquivos \texttt{cert2.pem} e \texttt{key2.pem}, montados no contêiner a partir do diretório \texttt{certs} do repositório \texttt{promama-infra}. Como a configuração adotada utiliza certificado de origem da Cloudflare, o servidor mantém comunicação cifrada entre a borda da plataforma e o ambiente hospedado, em conformidade com a orientação da própria provedora para cenários com registros proxied e certificado instalado no servidor de origem \cite{cloudflareoriginca,cloudflarefullstrict}.
+No \emph{gateway} da infraestrutura, o \emph{Nginx} foi configurado para servir HTTPS e redirecionar automaticamente os acessos recebidos em HTTP. Os arquivos de certificado e chave são montados no contêiner a partir do repositório de infraestrutura, o que permitiu manter comunicação cifrada entre a Cloudflare e o servidor de origem com uso de certificado de origem, conforme a orientação da provedora para esse tipo de configuração \cite{cloudflareoriginca}.
 
-Essa decisão foi importante para superar uma limitação do sistema anterior, cuja publicação ocorria apenas em HTTP. Com a adoção desse arranjo, o acesso ao painel e à \emph{API} passou a ocorrer por HTTPS no domínio institucional, enquanto o tráfego interno permaneceu centralizado no \emph{gateway}, que encaminha as requisições para os contêineres do painel, da \emph{API} e do Adminer conforme a rota solicitada.
+Essa decisão foi importante para superar uma limitação do sistema anterior, cuja publicação ocorria apenas em HTTP. Com a adoção desse arranjo, o acesso ao painel e à \emph{API} passou a ocorrer por HTTPS no domínio institucional, enquanto o tráfego interno permaneceu centralizado no \emph{gateway}, que encaminha as requisições aos serviços correspondentes.
 
 \subsection{Migração dos dados retroativos}
 
-O processo de migração foi incorporado ao fluxo de inicialização da \emph{API}. No contêiner dessa aplicação, o comando de entrada executa a sequência de compilação, migração e inicialização do servidor, garantindo que o banco de dados esteja preparado antes do início do atendimento das requisições. Essa decisão reduziu a dependência de passos manuais após a subida da infraestrutura.
+O processo de migração foi incorporado ao fluxo de inicialização da \emph{API}. Antes do início do atendimento das requisições, a aplicação prepara o banco de dados e aplica as migrações pendentes, reduzindo a dependência de etapas manuais após a subida da infraestrutura.
 
-Na implementação da rotina de migração, o arquivo \texttt{migrate.ts} cria a base de dados quando necessário, percorre os arquivos SQL da pasta \texttt{migrations} e registra cada migração concluída na tabela \texttt{migrations}. Com isso, o processo passa a respeitar a ordem numérica dos arquivos e evita a reexecução de scripts já aplicados, favorecendo continuidade entre diferentes implantações e atualizações do sistema.
+Essa rotina percorre os scripts SQL em ordem e registra o que já foi executado, evitando reaplicações indevidas e favorecendo continuidade entre diferentes atualizações do sistema. Para recuperar o histórico do ambiente anterior, foi incorporada uma carga retroativa com registros legados, posteriormente complementada por scripts associados a recursos introduzidos no novo ciclo de desenvolvimento, como termos atualizados e notificações.
 
-Para a recuperação dos dados legados, foi utilizado o arquivo
-\path{01-promama_dump_2025_02_26.sql}, que concentra a carga
-retroativa extraída do sistema anterior. Diferentemente da migração
-estrutural inicial, esse arquivo atua como carga histórica,
-reinserindo registros já existentes, como bairros, postos e usuários
-previamente cadastrados. Na sequência, outros scripts complementam a
-base com dados institucionais e com estruturas introduzidas no novo
-ciclo de desenvolvimento, como termos atualizados e o módulo de
-notificações.
-
-Esse mesmo cuidado foi adotado para os arquivos associados ao sistema anterior. A documentação do repositório de infraestrutura orienta que os recursos necessários sejam colocados previamente na pasta \texttt{promama-infra/files}, a qual é montada no diretório público da \emph{API}. Dessa forma, a migração retroativa não se limitou ao banco de dados, mas considerou também a preservação dos arquivos necessários para manter consistência entre os registros importados e os recursos acessados pela aplicação.
+Esse mesmo cuidado foi adotado para os arquivos públicos associados ao sistema anterior. A infraestrutura mantém esse conteúdo em diretório montado pela \emph{API}, o que permitiu preservar consistência entre os registros importados e os recursos acessados pela aplicação após a migração.
 
 \subsection{Configuração do GitHub Actions}
 
-A automação do processo de entrega foi distribuída entre os repositórios \texttt{promama-api} e \texttt{promama-admin}, ambos com \emph{workflows} de implantação configurados no GitHub Actions. Nessas rotinas, cada envio para a ramificação \texttt{main} aciona uma conexão SSH com o servidor e executa o comando \texttt{docker compose up -d --build} dentro do diretório \texttt{promama-infra}. Na prática, isso faz com que a atualização de qualquer uma das aplicações reutilize o mesmo ponto central de orquestração definido para a infraestrutura.
+A automação do processo de atualização foi distribuída entre os
+repositórios da \emph{API} e do painel, ambos com \emph{workflows} de
+implantação configurados no GitHub Actions. Nessas rotinas, cada envio
+para a ramificação principal aciona uma conexão SSH com o servidor.
 
-Essa configuração também evidencia uma separação de responsabilidades entre os repositórios. Enquanto \emph{API} e painel mantêm seus próprios fluxos de desenvolvimento e versionamento, o repositório de infraestrutura permanece como referência única para a publicação coordenada dos serviços. Essa escolha favoreceu rastreabilidade operacional e evitou a duplicação de scripts de implantação em múltiplos lugares.
+No repositório de infraestrutura presente no servidor, é então
+executado o procedimento de reconstrução e subida do ambiente. Essa
+escolha evitou duplicação de rotinas de publicação e manteve a
+infraestrutura como referência única para a atualização coordenada dos
+serviços.
 
-No caso da \emph{API}, a automação não se restringiu à entrega. O repositório também possui um \emph{workflow} de testes executado em \emph{pull requests} para a ramificação \texttt{main}, no qual a infraestrutura de depuração é iniciada, a disponibilidade de PostgreSQL e Redis é verificada e, em seguida, a suíte automatizada é executada. Embora esse fluxo pertença ao contexto de integração contínua, sua presença reforça a confiabilidade do processo de implantação, pois introduz uma etapa de validação antes da atualização do ambiente publicado.
+Com isso, mudanças na \emph{API} ou no painel podem reutilizar o mesmo
+procedimento operacional de implantação.
 
 Em conjunto, a implantação do Pró-Mamá passou a combinar orquestração centralizada, exposição segura por HTTPS, migração controlada dos dados herdados e automação básica de entrega contínua. Esse arranjo tornou a publicação mais previsível e criou uma base de infraestrutura coerente com a evolução conjunta da \emph{API} e do Painel Administrativo.
