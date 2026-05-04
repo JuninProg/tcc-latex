@@ -3,66 +3,62 @@
 
 Ao final deste trabalho, conclui-se que foi possível reestruturar e
 evoluir o ecossistema do Pró-Mamá, abrangendo a \emph{API}, o Painel
-Administrativo e a infraestrutura de implantação. Essa reformulação
-não se limitou à atualização tecnológica dos componentes, mas buscou
-corrigir limitações concretas do sistema anterior e estabelecer uma
-base mais adequada para manutenção, continuidade e expansão da solução.
+Administrativo e a infraestrutura de implantação. A reformulação não se
+limitou à atualização tecnológica e buscou corrigir limitações do
+sistema anterior, estabelecendo base mais adequada para manutenção,
+continuidade e expansão da solução.
 
-Entre os principais resultados alcançados, destaca-se a adoção de
-HTTPS com suporte da Cloudflare, medida que corrigiu uma fragilidade
-importante de segurança presente na versão anterior. Também se evidencia
-a reformulação do módulo de notificações, que deixou de depender de
-regras rígidas embutidas no código e passou a operar por meio de
-registros administráveis no painel. A partir dessa mudança, notificações recorrentes
-e comunicações mais amplas tornaram-se configuráveis pela equipe.
+Entre os resultados alcançados, destaca-se a adoção de HTTPS com suporte
+da Cloudflare, medida que corrigiu uma fragilidade importante de
+segurança presente na versão anterior. Também se evidenciou a
+reformulação do módulo de notificações, que deixou de depender de regras
+embutidas no código e passou a operar por registros administráveis no
+painel, tornando a configuração mais flexível pela equipe.
 
 Outro resultado relevante foi a consolidação da infraestrutura como
-código, centralizada em um repositório específico para orquestração,
+código, centralizada em repositório específico para orquestração,
 publicação e atualização do ambiente. Essa decisão fortaleceu a
-reprodutibilidade da solução e tornou sua implantação mais previsível.
-Também criou condições mais favoráveis para que a arquitetura
-possa ser reaproveitada e escalada para outros municípios interessados
-em adotar iniciativa semelhante.
+reprodutibilidade da solução e tornou a implantação mais previsível,
+criando condições para reaproveitar e escalar a arquitetura a outros
+municípios interessados.
 
-Do ponto de vista técnico, o trabalho também contribuiu para a
-organização interna do projeto, com melhorias na padronização das rotas
-da \emph{API}, no processamento assíncrono de notificações, na
-documentação automatizada e na estrutura do painel administrativo. Em
-conjunto, essas decisões favoreceram maior clareza de manutenção,
-melhor separação de responsabilidades entre os componentes e maior
+Do ponto de vista técnico, o trabalho contribuiu para a organização
+interna do projeto, com padronização das rotas da \emph{API},
+processamento assíncrono de notificações, documentação automatizada e
+reorganização do painel administrativo. Em conjunto, essas decisões
+favoreceram manutenção mais clara, separação de responsabilidades e
 previsibilidade na evolução do sistema. Os testes automatizados do
-\emph{back-end} reforçam esse cenário ao oferecer uma base verificável
-para parte relevante das regras de negócio implementadas.
+\emph{back-end} reforçam esse cenário ao oferecer base verificável para
+parte relevante das regras de negócio implementadas.
 
-Apesar dos avanços obtidos, o trabalho também evidenciou limitações que
-permanecem relevantes. Uma delas está na ausência de integração com
-bases oficiais do poder público, o que poderia reduzir o esforço manual
-da equipe do NASF no cadastro de informações públicas e permitir maior
-foco nas interações com as mães atendidas pelo programa. Outra
-limitação está na baixa divulgação e no baixo engajamento institucional
-em torno da plataforma, tanto no âmbito da prefeitura quanto no próprio
-IFRS, o que reduz o alcance prático de uma solução que hoje já se
-encontra funcional em produção, com aplicativo, painel e infraestrutura
-operando de forma integrada.
+Apesar dos avanços obtidos, permanecem limitações relevantes. A ausência
+de integração com bases oficiais do poder público mantém elevado o
+esforço manual da equipe do NASF no cadastro de informações públicas e
+reduz o foco nas interações com as mães atendidas pelo programa.
 
-Assim, conclui-se que o trabalho atingiu seu propósito de reestruturar
-e evoluir o ecossistema do Pró-Mamá, entregando uma base mais segura,
-administrável e sustentável para a continuidade do projeto. Mais do que
-uma atualização tecnológica, a proposta procurou preservar o valor
-social do sistema e ampliar sua capacidade de apoiar, de forma digital,
-a comunicação entre os serviços de saúde e as mães atendidas pelo
+Outra limitação está na baixa divulgação e no baixo engajamento
+institucional em torno da plataforma, tanto na prefeitura quanto no
+IFRS, o que reduz o alcance prático de uma solução que já se encontra
+funcional em produção, com aplicativo, painel e infraestrutura operando
+de forma integrada.
+
+Assim, conclui-se que o trabalho atingiu seu propósito ao entregar base
+mais segura, administrável e sustentável para a continuidade do projeto.
+Mais do que atualização tecnológica, a proposta preservou o valor social
+do sistema e ampliou sua capacidade de apoiar, de forma digital, a
+comunicação entre os serviços de saúde e as mães atendidas pelo
 programa.
 
 \section{Trabalhos Futuros}
 
-Permanece, ainda, um desafio importante de continuidade: a dimensão do
-projeto dificulta a entrada de novos colaboradores e torna mais lento o
-processo de entendimento do domínio e da base de código. Nesse sentido,
-um eixo promissor de evolução está no uso de abordagens baseadas em
-inteligência artificial para apoiar o \emph{onboarding} técnico e de
-negócio, como documentação orientada por especificação
-(\emph{Specification-Driven Development}) e agentes customizados em
-ferramentas de apoio ao desenvolvimento, a exemplo do Copilot Chat.
+Permanece um desafio de continuidade: a dimensão do projeto dificulta a
+entrada de novos colaboradores e torna mais lento o entendimento do
+domínio e da base de código. Um eixo promissor de evolução está no uso
+de abordagens baseadas em inteligência artificial para apoiar o
+\emph{onboarding} técnico e de negócio, como documentação orientada por
+especificação (\emph{Specification-Driven Development}) e agentes
+customizados em ferramentas de apoio ao desenvolvimento, a exemplo do
+\emph{Copilot Chat}.
 
 Outra frente relevante está na integração com bases oficiais do poder
 público, de modo a reduzir cadastros manuais e concentrar a equipe do
@@ -70,9 +66,8 @@ NASF na interação com as mães. Esse avanço pode ampliar a eficiência do
 uso da plataforma e deslocar o esforço institucional para atividades de
 acompanhamento e orientação.
 
-Mostram-se importantes, ainda, o fortalecimento das ações de divulgação
-institucional, tanto na prefeitura quanto no IFRS, para ampliar uso,
-engajamento e colaboração estudantil em torno da plataforma. Por fim,
-permanece como oportunidade a ampliação dos cenários de validação,
-especialmente com mais testes integrados e outras formas de verificação
+Também se mostra importante fortalecer ações de divulgação institucional
+na prefeitura e no IFRS para ampliar uso, engajamento e colaboração
+estudantil. Por fim, permanece como oportunidade ampliar os cenários de
+validação, com mais testes integrados e outras formas de verificação
 contínua do ecossistema.

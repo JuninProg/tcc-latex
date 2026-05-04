@@ -344,18 +344,59 @@ O mesmo cuidado foi adotado para os arquivos públicos associados ao sistema ant
 
 \subsection{Configuração do GitHub Actions}
 
-A automação do processo de atualização foi distribuída entre os
-repositórios da \emph{API} e do painel, ambos com \emph{workflows} de
-implantação configurados no GitHub Actions. Nessas rotinas, cada envio
-para a ramificação principal aciona uma conexão SSH com o servidor.
+A validação automatizada foi organizada no repositório da \emph{API} por
+meio de um fluxo de testes no GitHub Actions. Esse fluxo é acionado
+quando uma solicitação de integração (\emph{pull request}, PR) é aberta
+para a ramificação principal, isto é, quando uma mudança é proposta para
+entrada no código.
 
-No repositório de infraestrutura presente no servidor, é então
-executado o procedimento de reconstrução e subida do ambiente. Essa
-escolha evitou duplicação de rotinas de publicação e manteve a
-infraestrutura como referência única para a atualização coordenada dos
-serviços.
+O arquivo \texttt{.github/workflows/test.yml} define um \emph{job} em
+\texttt{ubuntu-latest}, com \emph{checkout} do código, configuração do
+Node.js 20 e instalação das dependências via \texttt{npm ci}. Essa
+sequência assegura um ambiente limpo e reproduzível antes da execução
+dos testes.
 
-Assim, mudanças na \emph{API} ou no painel podem reutilizar o mesmo
-procedimento operacional de implantação.
+Na etapa seguinte, o \emph{job} inicializa os serviços auxiliares no arquivo
+\texttt{docker-compose.\allowbreak debug.yml}, aguarda PostgreSQL e Redis estarem
+prontos, executa \texttt{npm test} e encerra os contêineres ao final,
+reduzindo resíduos entre execuções.
 
-Em conjunto, a implantação do Pró-Mamá passou a combinar orquestração centralizada, exposição segura por HTTPS, migração controlada dos dados herdados e automação básica de entrega contínua. Esse arranjo tornou a publicação mais previsível e criou uma base de infraestrutura coerente com a evolução conjunta da \emph{API} e do Painel Administrativo.
+As Figuras~\ref{fig:gha_pr} e~\ref{fig:gha_job} registram a execução do
+fluxo na PR e o detalhamento do \emph{job} de testes, evidenciando o
+encadeamento das etapas e a rastreabilidade dos resultados no próprio
+repositório.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/pr_pipeline.png}
+    \caption{Execução do workflow de testes em uma PR}
+    \label{fig:gha_pr}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/pr_pipeline_details.png}
+    \caption{Detalhamento do job de testes no GitHub Actions}
+    \label{fig:gha_job}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Além do fluxo de testes, o processo de atualização foi automatizado nos
+repositórios da \emph{API} e do painel, com rotinas de implantação no
+GitHub Actions. Em cada envio para a ramificação principal, essas
+rotinas acionam uma conexão SSH com o servidor.
+
+No repositório de infraestrutura presente no servidor, executa-se a
+reconstrução e a subida do ambiente. Essa centralização evita a
+duplicação de rotinas de publicação e preserva a infraestrutura como
+referência única para a atualização coordenada dos serviços. Assim,
+mudanças na \emph{API} ou no painel reutilizam o mesmo procedimento
+operacional de implantação.
+
+Em conjunto, a implantação do Pró-Mamá passou a combinar orquestração
+centralizada, exposição segura por HTTPS, migração controlada dos dados
+herdados, validação automatizada antes da integração e automação de
+entrega contínua. Esse arranjo tornou a publicação mais previsível e
+criou uma base de infraestrutura coerente com a evolução conjunta da
+\emph{API} e do Painel Administrativo.
