@@ -14,7 +14,7 @@ No modelo implementado à época, o sistema era composto por três elementos pri
 
 Para a implantação, a Secretaria de Saúde de Osório disponibilizou um servidor virtual com sistema operacional Ubuntu. A configuração do ambiente envolveu a instalação manual dos componentes necessários. A aplicação era então clonada do repositório GitHub e ajustada para execução no servidor. Foi estabelecida comunicação via protocolo HTTP, com a liberação da porta 80 para o tráfego de dados.
 
-Uma das principais limitações do sistema original residia na ausência de criptografia na comunicação, uma vez que o uso do protocolo HTTP sem certificado digital expunha os dados a vulnerabilidades. A instalação manual dos componentes dificultava a replicação da infraestrutura em outros municípios. Além disso, o acoplamento entre \emph{front-end} e \emph{back-end} aumentava a complexidade de manutenção do sistema. A documentação das rotas da \emph{API} era feita manualmente, o que tornava o processo suscetível a erros e dificultava sua atualização.
+Uma das principais limitações do sistema original residia na ausência de criptografia na comunicação, uma vez que o uso do protocolo HTTP sem certificado digital expunha os dados a vulnerabilidades. A instalação manual dos componentes dificultava a replicação da infraestrutura em outros municípios. O acoplamento entre \emph{front-end} e \emph{back-end} também aumentava a complexidade de manutenção do sistema. A documentação das rotas da \emph{API} era feita manualmente, o que tornava o processo suscetível a erros e dificultava sua atualização.
 
 \section{Estrutura base do projeto}
 
@@ -40,7 +40,7 @@ Com base nesse diagrama, o modelo físico foi implementado em PostgreSQL por mei
 
 Além das tabelas centrais do domínio, foram incluídas estruturas de apoio para registro de leituras, histórico de acesso e controle da evolução do esquema. Também foram adotados campos temporais de criação, atualização e, quando aplicável, exclusão lógica, favorecendo rastreabilidade e manutenção.
 
-Desse modo, a modelagem articulou uma visão lógica orientada ao domínio com uma implementação física aderente às regras de negócio, estabelecendo uma base estável para as etapas seguintes de implementação.
+Essa modelagem articulou uma visão lógica orientada ao domínio com uma implementação física aderente às regras de negócio, estabelecendo uma base estável para as etapas seguintes de implementação.
 
 \subsection{Configuração do ambiente de desenvolvimento}
 
@@ -70,17 +70,17 @@ A Figura~\ref{fig:info_routes_getconfig} exemplifica esse padrão no módulo de 
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-O registro efetivo dessas configurações foi centralizado em um componente de roteamento, responsável por percorrer automaticamente as classes de rota carregadas pelo contêiner de dependências e aplicar seus respectivos \emph{middlewares}. Dessa forma, novas funcionalidades puderam ser incorporadas sem alterações estruturais no mecanismo de registro.
+O registro efetivo dessas configurações foi centralizado em um componente de roteamento, responsável por percorrer automaticamente as classes de rota carregadas pelo contêiner de dependências e aplicar seus respectivos \emph{middlewares}. Assim, novas funcionalidades puderam ser incorporadas sem alterações estruturais no mecanismo de registro.
 
 Esse padrão também favoreceu o trabalho colaborativo entre as frentes de desenvolvimento. Enquanto as telas eram implementadas em paralelo no painel administrativo e no aplicativo móvel, a \emph{API} evoluía com contratos estáveis e reutilizáveis, reduzindo retrabalho e divergências de implementação entre clientes distintos.
 
 A autenticação foi implementada com \emph{JSON Web Token} (\emph{JWT}) \cite{rfc7519jwt}. No fluxo de \texttt{/signin}, as credenciais são validadas e convertidas em um \emph{payload} com identificação e papel do usuário; em seguida, é emitido um \emph{token} utilizado nas requisições protegidas. Na camada de autorização, o \texttt{AuthMiddleware} decodifica o \emph{token} \emph{Bearer} e aplica controle de acesso por perfil, distinguindo operações restritas a \texttt{admin} das ações permitidas a \texttt{mom}.
 
-Com isso, a padronização adotada para codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
+Com essa padronização, a codificação de rotas combinou clareza declarativa, segurança de acesso e capacidade de evolução incremental, sustentando um ciclo de desenvolvimento mais fluido.
 
 \subsection{Processamento assíncrono de notificações}
 
-O processamento assíncrono foi adotado para desacoplar operações de notificação do ciclo de requisição \emph{HTTP}. Essa decisão foi orientada pelo crescimento esperado da plataforma, uma vez que o aumento do número de crianças cadastradas tende a elevar o volume de mensagens geradas. Nesse contexto, as respostas dos \emph{endpoints} permanecem rápidas, enquanto o envio é tratado em segundo plano.
+O processamento assíncrono foi adotado para desacoplar operações de notificação do ciclo de requisição \emph{HTTP}. Essa decisão foi orientada pelo crescimento esperado da plataforma, uma vez que o aumento do número de crianças cadastradas tende a elevar o volume de mensagens geradas. Com essa separação, as respostas dos \emph{endpoints} permanecem rápidas, enquanto o envio é tratado em segundo plano.
 
 Para o canal de \emph{push notification}, foi implementado um fluxo baseado em filas com \emph{BullMQ} e \emph{Redis} \cite{bullmqdocs,redisdocs}. A arquitetura de \emph{jobs} foi organizada em três etapas: preparação das mensagens elegíveis, envio ao provedor e conferência posterior de recebimento. Esse encadeamento permitiu distribuir a carga de processamento e reduzir o impacto de picos de envio sobre a camada de aplicação.
 
@@ -116,7 +116,7 @@ Em conjunto, a automação da documentação ampliou a confiabilidade do process
 
 A prototipagem do Painel Administrativo foi conduzida como etapa prévia à implementação, com uso do \emph{Figma} como ferramenta de desenho e validação das telas \cite{figmadocs}. O objetivo central dessa etapa foi reduzir ambiguidades de construção e manter continuidade de uso em relação ao sistema anterior.
 
-Para isso, foi adotada uma estratégia comparativa tela a tela, posicionando-se lado a lado a versão antiga e a versão redesenhada de cada módulo. Esse procedimento permitiu verificar, de forma incremental, a preservação de comportamentos essenciais e, simultaneamente, orientar ajustes de organização visual, hierarquia de informação e padronização de componentes.
+Adotou-se uma estratégia comparativa tela a tela, posicionando-se lado a lado a versão antiga e a versão redesenhada de cada módulo. Esse procedimento permitiu verificar, de forma incremental, a preservação de comportamentos essenciais e, simultaneamente, orientar ajustes de organização visual, hierarquia de informação e padronização de componentes.
 
 Como resultado, foi consolidado um conjunto de protótipos que serviu de referência direta para a implementação do painel. Nas próximas subseções, serão apresentadas comparações entre telas correspondentes e uma descrição dos fluxos funcionais principais, com ênfase nos critérios adotados em cada módulo.
 
@@ -214,7 +214,7 @@ Essa decisão reforça o papel da tela como instrumento de triagem e acompanhame
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-A implementação final dessa proposta é apresentada na Figura~\ref{fig:implementacao_doubts}. Nela, observa-se a manutenção da prioridade para mensagens não respondidas, a presença do botão para alternância entre estados e a consolidação de colunas voltadas à identificação da usuária, ao conteúdo da dúvida, à resposta associada e à data de envio. Com isso, o painel passa a oferecer uma leitura mais objetiva do histórico de atendimento e das demandas ainda abertas.
+A implementação final dessa proposta é apresentada na Figura~\ref{fig:implementacao_doubts}. Nela, observa-se a manutenção da prioridade para mensagens não respondidas, a presença do botão para alternância entre estados e a consolidação de colunas voltadas à identificação da usuária, ao conteúdo da dúvida, à resposta associada e à data de envio. O painel passa, então, a oferecer uma leitura mais objetiva do histórico de atendimento e das demandas ainda abertas.
 
 \begin{figure}[H]
     \centering
@@ -274,19 +274,19 @@ A implementação final, apresentada na Figura~\ref{fig:implementacao_list_notif
 
 Essa modelagem permitiu cadastrar mensagens recorrentes conforme os marcos etários acompanhados pelo programa. Na prática, cada registro pode armazenar o conteúdo do \emph{push notification} e, opcionalmente, uma quantidade de dias que representa a faixa etária de destino. Assim, durante a execução diária do processamento assíncrono, o sistema relaciona a idade da criança à notificação correspondente e prepara o envio da mensagem adequada para aquele momento.
 
-Também se tornou possível cadastrar notificações sem faixa etária definida, destinadas a comunicações de envio amplo. Nesse cenário, a mensagem deixa de depender de uma idade específica e passa a ser tratada pelo mesmo mecanismo de processamento. No \emph{back-end}, a consulta diária cruza as notificações cadastradas com os dados das crianças e utiliza o histórico de envio para evitar novos disparos bem-sucedidos para o mesmo destinatário.
+Também se tornou possível cadastrar notificações sem faixa etária definida, destinadas a comunicações de envio amplo. Nesses casos, a mensagem deixa de depender de uma idade específica e passa a ser tratada pelo mesmo mecanismo de processamento. No \emph{back-end}, a consulta diária cruza as notificações cadastradas com os dados das crianças e utiliza o histórico de envio para evitar novos disparos bem-sucedidos para o mesmo destinatário.
 
-Com isso, o ganho central desse módulo não foi apenas a atualização da listagem, mas a externalização de uma regra antes rígida para uma estrutura persistida e administrável. Ao transformar notificações recorrentes em dados configuráveis pelo painel, o projeto ampliou a capacidade de manutenção do sistema e tornou mais viável ajustar mensagens, faixas etárias e comunicações gerais sem depender de novas alterações no código-fonte.
+O ganho central desse módulo não foi apenas a atualização da listagem, mas a externalização de uma regra antes rígida para uma estrutura persistida e administrável. Ao transformar notificações recorrentes em dados configuráveis pelo painel, o projeto ampliou a capacidade de manutenção do sistema e tornou mais viável ajustar mensagens, faixas etárias e comunicações gerais sem depender de novas alterações no código-fonte.
 
 \section{Testes e validação}
 
 Nesta etapa do trabalho, a validação automatizada concentrou-se no \emph{back-end}, por reunir evidências reprodutíveis sobre regras de negócio, integração entre camadas e comportamento das rotas expostas pela \emph{API}. O objetivo desses testes foi reduzir regressões durante a implementação e oferecer uma base verificável para a evolução do sistema.
 
-Para isso, foram adotadas duas estratégias complementares: testes unitários e teste integrado. A execução foi organizada de forma automatizada por meio do comando \texttt{npm run test:coverage}, que dispara as suítes implementadas e consolida, ao final, o relatório de cobertura do código. Com esse fluxo, tornou-se possível repetir a validação com o mesmo procedimento ao longo da evolução do projeto.
+Foram adotadas duas estratégias complementares: testes unitários e teste integrado. A execução foi organizada de forma automatizada por meio do comando \texttt{npm run test:coverage}, que dispara as suítes implementadas e consolida, ao final, o relatório de cobertura do código. Com esse fluxo, tornou-se possível repetir a validação com o mesmo procedimento ao longo da evolução do projeto.
 
 Os testes unitários foram distribuídos entre regras da camada de aplicação e componentes de infraestrutura. Na camada de aplicação, os cenários se concentraram em operações centrais e no tratamento de exceções, com substituição das dependências por objetos simulados para isolar a regra analisada. Já na infraestrutura, a validação se voltou principalmente aos repositórios, verificando o comportamento esperado da persistência e o contrato de acesso aos dados.
 
-O teste integrado, por sua vez, foi implementado para exercitar a aplicação em condições mais próximas do ambiente real. Para isso, a execução inicia os serviços auxiliares definidos em \texttt{docker-compose.debug.yml}, cria uma base temporária com nome aleatório, aplica a migração inicial do esquema, inicializa a aplicação e envia requisições \emph{HTTP} à rota avaliada. Após cada caso, a base é limpa, e, ao final da suíte, o banco temporário é removido, assegurando isolamento entre execuções.
+O teste integrado, por sua vez, foi implementado para exercitar a aplicação em condições mais próximas do ambiente real. Nessa rotina, a execução inicia os serviços auxiliares definidos em \texttt{docker-compose.debug.yml}, cria uma base temporária com nome aleatório, aplica a migração inicial do esquema, inicializa a aplicação e envia requisições \emph{HTTP} à rota avaliada. Após cada caso, a base é limpa, e, ao final da suíte, o banco temporário é removido, assegurando isolamento entre execuções.
 
 No estado atual do projeto, essa abordagem integrada foi aplicada ao fluxo de cadastro inicial de usuária, validando a rota \texttt{/api/onboard}. O teste confirma o código de resposta, a estrutura do objeto retornado e propriedades relevantes do cadastro persistido, como papel da usuária, campos nulos esperados e transformação segura da senha. Embora esse escopo ainda seja reduzido, ele já acrescenta uma camada de validação fim a fim ao conjunto automatizado do \emph{back-end}.
 
@@ -312,7 +312,7 @@ A implantação do sistema foi centralizada no repositório \texttt{promama-infr
 
 No arquivo \texttt{docker-compose.yml}, essa organização foi materializada por uma composição que reúne \emph{API}, painel administrativo, \emph{gateway} e serviços de apoio. Esse arranjo permitiu subir a arquitetura de forma integrada tanto no ambiente local quanto no servidor, preservando a mesma lógica de execução entre desenvolvimento e produção.
 
-Nesse arranjo, a \emph{API} é construída e iniciada com as etapas necessárias ao funcionamento do serviço, o painel é publicado como aplicação \emph{web} e o \emph{gateway} concentra o encaminhamento das requisições externas. Dessa forma, o acesso público ao sistema passou a ocorrer por uma entrada única, enquanto a comunicação entre os serviços permanece organizada no ambiente interno da infraestrutura.
+Nessa composição, a \emph{API} é construída e iniciada com as etapas necessárias ao funcionamento do serviço, o painel é publicado como aplicação \emph{web} e o \emph{gateway} concentra o encaminhamento das requisições externas. O acesso público ao sistema passou a ocorrer por uma entrada única, enquanto a comunicação entre os serviços permanece organizada no ambiente interno da infraestrutura.
 
 A Figura~\ref{fig:infra_docker_desktop} apresenta esse conjunto em execução no Docker Desktop, evidenciando a ativação coordenada dos serviços necessários ao funcionamento do ambiente implantado.
 
@@ -324,11 +324,11 @@ A Figura~\ref{fig:infra_docker_desktop} apresenta esse conjunto em execução no
     \legend{Fonte: Elaborado pelo autor (2026).}
 \end{figure}
 
-Além da inicialização dos serviços centrais, a composição também contemplou a preservação de arquivos públicos e dos elementos necessários ao acesso seguro. Com isso, a orquestração deixou de se limitar à execução dos contêineres e passou a abranger também recursos indispensáveis ao funcionamento contínuo da aplicação.
+Além da inicialização dos serviços centrais, a composição contemplou a preservação de arquivos públicos e dos elementos necessários ao acesso seguro. Assim, a orquestração deixou de se limitar à execução dos contêineres e passou a abranger recursos indispensáveis ao funcionamento contínuo da aplicação.
 
 \subsection{Configuração do certificado digital}
 
-Para a publicação do sistema em produção, o domínio \texttt{saude.osorio.rs.gov.br} foi configurado para apontar ao servidor por meio de um registro DNS com proxy ativado na Cloudflare. Nesse arranjo, requisições \emph{HTTP} e \emph{HTTPS} passam primeiro pela rede da plataforma, o que permite intermediar o acesso público ao sistema e manter o endereço de origem fora da exposição direta \cite{cloudflareproxystatus}.
+Para a publicação do sistema em produção, o domínio \texttt{saude.osorio.rs.gov.br} foi configurado para apontar ao servidor por meio de um registro DNS com proxy ativado na Cloudflare. Nessa configuração, requisições \emph{HTTP} e \emph{HTTPS} passam primeiro pela rede da plataforma, o que permite intermediar o acesso público ao sistema e manter o endereço de origem fora da exposição direta \cite{cloudflareproxystatus}.
 
 No \emph{gateway} da infraestrutura, o \emph{Nginx} foi configurado para servir HTTPS e redirecionar automaticamente os acessos recebidos em HTTP. Os arquivos de certificado e chave são montados no contêiner a partir do repositório de infraestrutura, o que permitiu manter comunicação cifrada entre a Cloudflare e o servidor de origem com uso de certificado de origem, conforme a orientação da provedora para esse tipo de configuração \cite{cloudflareoriginca}.
 
@@ -340,7 +340,7 @@ O processo de migração foi incorporado ao fluxo de inicialização da \emph{AP
 
 Essa rotina percorre os scripts SQL em ordem e registra o que já foi executado, evitando reaplicações indevidas e favorecendo continuidade entre diferentes atualizações do sistema. Para recuperar o histórico do ambiente anterior, foi incorporada uma carga retroativa com registros legados, posteriormente complementada por scripts associados a recursos introduzidos no novo ciclo de desenvolvimento, como termos atualizados e notificações.
 
-Esse mesmo cuidado foi adotado para os arquivos públicos associados ao sistema anterior. A infraestrutura mantém esse conteúdo em diretório montado pela \emph{API}, o que permitiu preservar consistência entre os registros importados e os recursos acessados pela aplicação após a migração.
+O mesmo cuidado foi adotado para os arquivos públicos associados ao sistema anterior. A infraestrutura mantém esse conteúdo em diretório montado pela \emph{API}, o que permitiu preservar consistência entre os registros importados e os recursos acessados pela aplicação após a migração.
 
 \subsection{Configuração do GitHub Actions}
 
@@ -355,7 +355,7 @@ escolha evitou duplicação de rotinas de publicação e manteve a
 infraestrutura como referência única para a atualização coordenada dos
 serviços.
 
-Com isso, mudanças na \emph{API} ou no painel podem reutilizar o mesmo
+Assim, mudanças na \emph{API} ou no painel podem reutilizar o mesmo
 procedimento operacional de implantação.
 
 Em conjunto, a implantação do Pró-Mamá passou a combinar orquestração centralizada, exposição segura por HTTPS, migração controlada dos dados herdados e automação básica de entrega contínua. Esse arranjo tornou a publicação mais previsível e criou uma base de infraestrutura coerente com a evolução conjunta da \emph{API} e do Painel Administrativo.

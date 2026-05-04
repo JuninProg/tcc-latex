@@ -2,7 +2,7 @@
 
 \section{Tipo de pesquisa}
 
-O presente estudo caracteriza-se como pesquisa aplicada, de natureza tecnológica e abordagem mista \cite{siena2007metodologia}. Foram combinadas técnicas qualitativas e quantitativas, como levantamento documental e estudo de caso único, com foco na plataforma Pró-Mamá e seus serviços \emph{web} (\emph{API} e painel administrativo). O aplicativo móvel, embora relacionado, não constitui objeto central por ser resultado de outro trabalho acadêmico.
+O presente estudo caracteriza-se como pesquisa aplicada, de natureza tecnológica e abordagem mista \cite{siena2024metodologia}. Foram combinadas técnicas qualitativas e quantitativas, como levantamento documental e estudo de caso único, com foco na plataforma Pró-Mamá e seus serviços \emph{web} (\emph{API} e painel administrativo). O aplicativo móvel, embora relacionado, não constitui objeto central por ser resultado de outro trabalho acadêmico.
 
 O delineamento temporal do estudo foi estruturado em três fases: diagnóstico, reconstrução e validação. Na primeira fase, foram coletados documentos internos e registros históricos, incluindo versões de código, relatórios de implantação, problemas e requisitos originais. Também foi realizado levantamento de aplicativos de saúde digital, considerando funcionalidades, integrações e políticas de dados, a fim de estabelecer parâmetros de comparação para a conjuntura do Pró-Mamá.
 
@@ -28,11 +28,11 @@ No caso do Pró-Mamá, a reconstrução da plataforma foi planejada em pequenos 
 
 \section{Análise e (re)especificação de requisitos}
 
-A engenharia de requisitos é a atividade de compreender e definir os serviços requisitados do sistema e identificar restrições relativas à sua operação e desenvolvimento, sendo considerada um estágio crítico da engenharia de \emph{software}, pois "erros nessa fase inevitavelmente geram problemas no projeto e na implementação do sistema" \cite[p.~24]{sommerville2011engenharia}. Nesse cenário, a análise de requisitos transforma necessidades dos usuários e restrições de negócio em especificações claras e compreensíveis.
+A engenharia de requisitos é a atividade de compreender e definir os serviços requisitados do sistema e identificar restrições relativas à sua operação e desenvolvimento, sendo considerada um estágio crítico da engenharia de \emph{software}, pois "erros nessa fase inevitavelmente geram problemas no projeto e na implementação do sistema" \cite[p.~24]{sommerville2011engenharia}. Nessa etapa, a análise transforma necessidades dos usuários e restrições de negócio em especificações claras e compreensíveis.
 
 O processo de engenharia de requisitos "tem como objetivo produzir um documento de requisitos acordados que especifica um sistema que satisfaz os requisitos dos \emph{stakeholders}" \cite[p.~24]{sommerville2011engenharia}. Para atingir tal objetivo, a fase de elicitação e análise envolve a derivação dos requisitos "por meio da observação dos sistemas existentes, além de discussões com os potenciais usuários e compradores, análise de tarefas, entre outras etapas" \cite[p.~25]{sommerville2011engenharia}.
 
-Nessa análise alguns aspectos devem ser investigados e considerados, assim duas categorias principais de requisitos são definidas: funcionais e não funcionais. Para \citeonline[p.~141]{pressman2016engenharia}, "um requisito não funcional pode ser descrito como um atributo de qualidade, de desempenho, de segurança ou como uma restrição geral em um sistema". São características que embora não relacionadas diretamente às funcionalidades, influenciam de forma significativa a utilidade e a confiabilidade do \emph{software}.
+Alguns aspectos devem ser investigados e considerados nessa análise, permitindo a definição de duas categorias principais de requisitos: funcionais e não funcionais. Para \citeonline[p.~141]{pressman2016engenharia}, "um requisito não funcional pode ser descrito como um atributo de qualidade, de desempenho, de segurança ou como uma restrição geral em um sistema". São características que, embora não relacionadas diretamente às funcionalidades, influenciam de forma significativa a utilidade e a confiabilidade do \emph{software}.
 
 Já o requisito funcional está relacionado às funções e serviços que o sistema deve disponibilizar para atender aos objetivos identificados na fase de levantamento e elaboração. De acordo com \citeonline{pressman2016engenharia}, sua definição parte da compreensão das necessidades do negócio, da descrição de funcionalidades e recursos esperados, bem como das restrições envolvidas.
 
@@ -445,7 +445,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \hline
 \textbf{Nome} & Envio de E-mail na Interação do Fale Conosco \\
 \hline
-\textbf{Descrição} & O sistema deve enviar um e-mail para o administrativo do Painel quando uma nova dúvida de usuário chegar. Além disso, quando o administrador responder a dúvida, um e-mail deve ser enviado para o usuário que fez a pergunta. \\
+\textbf{Descrição} & O sistema deve enviar uma notificação ao administrativo do Painel quando uma nova dúvida de usuário chegar. Quando o administrador responder, uma mensagem deve ser encaminhada para o usuário que fez a pergunta. \\
 \hline
 \textbf{Tipo} & Desejável \\
 \hline
@@ -625,13 +625,13 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 
 De acordo com \citeonline{archlimpaunclebob}, um \emph{software} entrega basicamente dois tipos de valor. O primeiro é o seu comportamento, entendido como a capacidade de executar tarefas que gerem ou economizem recursos para os proprietários do produto. O segundo está implícito na própria palavra \emph{software}: o termo “\emph{soft}” remete à suavidade, isto é, à facilidade de modificar o sistema para atender novas necessidades.
 
-Um sistema deve ser concebido para permitir alterações com simplicidade e baixo custo, de modo que o esforço necessário para modificá-lo esteja relacionado apenas à extensão da mudança, e não à sua forma ou estrutura já existentes. Nesse contexto, a arquitetura de \emph{software} desempenha papel central, organizando os componentes de forma a manter o núcleo da lógica de negócio protegido de elementos externos e instáveis.
+Um sistema deve ser concebido para permitir alterações com simplicidade e baixo custo, de modo que o esforço necessário para modificá-lo esteja relacionado apenas à extensão da mudança, e não à sua forma ou estrutura já existentes. Sob essa perspectiva, a arquitetura de \emph{software} desempenha papel central, organizando os componentes de forma a manter o núcleo da lógica de negócio protegido de elementos externos e instáveis.
 
 No histórico do Pró-Mamá, verificou-se que dificuldades de manutenção estavam ligadas à estrutura anterior, que integrava regras de domínio, dados e \emph{interface} de forma dependente. Soluções como \emph{Model View Controller (MVC)} em \emph{PHP} e \emph{Apache} centralizavam \emph{API} e \emph{front-end}, dificultando intervenções, qualquer mudança exigia revisões extensas e testes rigorosos para evitar impactos indesejados.
 
 Processos de atualização, como troca do banco de dados ou separação de camadas, demonstraram a necessidade de uma arquitetura capaz de desacoplar funcionalidades essenciais dos detalhes de implementação. Essa abordagem proporciona maior segurança e facilita a adaptação a novas demandas, sem comprometer a integridade das informações.
 
-Nesse cenário, a adoção dos princípios da arquitetura limpa de \citeonline{archlimpaunclebob} foi estratégico para assegurar flexibilidade e sustentabilidade. A distinção entre o núcleo das regras e componentes voláteis permite atualizar ou substituir tecnologias e fornecedores sem interferir no funcionamento central da solução.
+Com base nesse diagnóstico, a adoção dos princípios da arquitetura limpa de \citeonline{archlimpaunclebob} foi estratégica para assegurar flexibilidade e sustentabilidade. A distinção entre o núcleo das regras e componentes voláteis permite atualizar ou substituir tecnologias e fornecedores sem interferir no funcionamento central da solução.
 
 O planejamento do Pró-Mamá, fundamentado nesses conceitos, resultou em uma organização modular, que favorece manutenção evolutiva, escalabilidade e conformidade com as exigências atuais de privacidade e segurança. A configuração adotada será detalhada na próxima seção, abordando os componentes principais e suas respectivas inter-relações.
 
@@ -653,7 +653,7 @@ O \emph{Redis} é empregado como serviço para processamento de tarefas em segun
 
 Os registros de operação, conhecidos como \emph{logs}, são produzidos por todos os serviços e armazenados localmente no servidor. Esses \emph{logs} podem ser acessados diretamente pelos desenvolvedores, auxiliando no diagnóstico de problemas. Com o crescimento da demanda, é possível integrar ferramentas especializadas para análise, visualização e centralização dos eventos registrados, aprimorando a capacidade de observabilidade e monitoramento.
 
-Dessa forma, a arquitetura adotada privilegia modularidade e transparência, mantendo o núcleo funcional protegido enquanto facilita o controle e a evolução do Pró-Mamá.
+Assim, a arquitetura adotada privilegia modularidade e transparência, mantendo o núcleo funcional protegido enquanto facilita o controle e a evolução do Pró-Mamá.
 
 \begin{figure}[H]
 \centering
