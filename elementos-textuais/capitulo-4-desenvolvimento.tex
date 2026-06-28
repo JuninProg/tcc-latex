@@ -400,3 +400,58 @@ herdados, validação automatizada antes da integração e automação de
 entrega contínua. Esse arranjo tornou a publicação mais previsível e
 criou uma base de infraestrutura coerente com a evolução conjunta da
 \emph{API} e do Painel Administrativo.
+
+\section{Validação em uso real e continuidade operacional}
+
+Além da validação automatizada, o projeto passou a contar com evidências de
+uso em ambiente real. A nova versão do aplicativo móvel foi disponibilizada
+para \emph{iOS} e \emph{Android} em agosto de 2024, em trabalho desenvolvido
+em paralelo por outro estudante do projeto. Como o Painel Administrativo ainda
+não estava finalizado, a divulgação permaneceu restrita e o volume inicial de
+interações foi naturalmente reduzido.
+
+Mesmo nesse cenário, os registros coletados entre agosto e novembro de 2024
+apontaram os primeiros usos da versão atualizada por usuárias finais\footnote{Dados
+coletados em 2024 pelo estudante responsável pelo desenvolvimento da nova versão
+do aplicativo móvel do Pró-Mamá.}. Foram observadas 8 novas usuárias
+cadastradas, 13 visualizações de dúvidas frequentes, 24 visualizações de
+instruções, 6 marcos de desenvolvimento registrados e 46 logins no aplicativo.
+Os dados não configuram teste formal de usabilidade, mas indicam retomada do uso
+em contexto real e funcionamento dos fluxos centrais.
+
+Com a reconstrução da \emph{API}, do Painel Administrativo e da
+infraestrutura, o ecossistema passou a operar de forma integrada no ambiente da
+Prefeitura Municipal de Osório. A presença do painel em produção pode ser
+observada na Figura~\ref{fig:painel_producao_promama}, que registra o acesso da
+equipe ao sistema em domínio institucional.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/painel_prod_login.png}
+    \caption{Painel Administrativo do Pró-Mamá em ambiente de produção}
+    \label{fig:painel_producao_promama}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+A continuidade do projeto também foi tratada por meio de documentação de apoio
+para novos colaboradores. Foi elaborado um guia de desenvolvimento local no
+repositório \texttt{promama-infra}, com a sequência de instalação das
+ferramentas, configuração de acesso ao GitHub, clonagem dos repositórios e
+execução integrada da \emph{API}, do Painel Administrativo e do aplicativo
+móvel. O material reduz a barreira de entrada para estudantes e desenvolvedores
+que venham a contribuir com a manutenção evolutiva do Pró-Mamá.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagens/doc_onboarding.png}
+    \caption{Documentação de apoio para configuração local do ecossistema Pró-Mamá}
+    \label{fig:documentacao_onboarding_promama}
+    \legend{Fonte: Elaborado pelo autor (2026).}
+\end{figure}
+
+Em conjunto, esses resultados mostram que o trabalho não se limitou à
+reconstrução técnica dos componentes. Houve também organização das condições de
+operação, documentação e manutenção do ecossistema. Ainda assim, ampliar o
+impacto social da plataforma depende de maior articulação institucional entre o
+IFRS e a Prefeitura de Osório, sobretudo para fortalecer a divulgação, o uso
+pelas mães e a atualização contínua dos conteúdos pelo Painel Administrativo.

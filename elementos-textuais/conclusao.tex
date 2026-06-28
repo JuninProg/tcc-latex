@@ -1,53 +1,36 @@
 \chapter{Conclusão}
 % ---
 
-Ao final deste trabalho, conclui-se que foi possível reestruturar e
-evoluir o ecossistema do Pró-Mamá, abrangendo a \emph{API}, o Painel
-Administrativo e a infraestrutura de implantação. A reformulação não se
-limitou à atualização tecnológica e buscou corrigir limitações do
-sistema anterior, estabelecendo base mais adequada para manutenção,
-continuidade e expansão da solução.
+Ao final deste trabalho, conclui-se que foi possível reestruturar o ecossistema
+do Pró-Mamá de modo a corrigir fragilidades da versão anterior e criar uma base
+mais estável para manutenção, continuidade e expansão da solução. A proposta não
+se limitou à atualização tecnológica, mas reorganizou a plataforma para que ela
+voltasse a operar com consistência no contexto institucional.
 
-Entre os resultados alcançados, destaca-se a adoção de HTTPS com suporte
-da Cloudflare, medida que corrigiu uma fragilidade importante de
-segurança presente na versão anterior. Também se evidenciou a
-reformulação do módulo de notificações, que deixou de depender de regras
-embutidas no código e passou a operar por registros administráveis no
-painel, tornando a configuração mais flexível pela equipe.
+Entre os resultados alcançados, destaca-se a entrega integrada do aplicativo, do
+Painel Administrativo e do servidor no ambiente da Prefeitura Municipal de
+Osório, com acesso por domínio institucional e comunicação protegida por HTTPS.
+Somam-se a isso os registros iniciais de uso da nova versão do aplicativo, que
+indicam retomada da atividade em cenário real antes mesmo de uma divulgação mais
+ampla.
 
-Outro resultado relevante foi a consolidação da infraestrutura como
-código, centralizada em repositório específico para orquestração,
-publicação e atualização do ambiente. Essa decisão fortaleceu a
-reprodutibilidade da solução e tornou a implantação mais previsível,
-criando condições para reaproveitar e escalar a arquitetura a outros
-municípios interessados.
+Também se consolidaram a reformulação do módulo de notificações, a
+estruturação da infraestrutura como código e a documentação de apoio ao
+desenvolvimento local. Em conjunto, esses elementos aumentaram a
+reprodutibilidade da implantação, melhoraram a organização interna do projeto e
+favoreceram a manutenção evolutiva.
 
-Do ponto de vista técnico, o trabalho contribuiu para a organização
-interna do projeto, com padronização das rotas da \emph{API},
-processamento assíncrono de notificações, documentação automatizada e
-reorganização do painel administrativo. Em conjunto, essas decisões
-favoreceram manutenção mais clara, separação de responsabilidades e
-previsibilidade na evolução do sistema. Os testes automatizados do
-\emph{back-end} reforçam esse cenário ao oferecer base verificável para
-parte relevante das regras de negócio implementadas.
+Apesar dos avanços, permanecem limitações relevantes. A ausência de integração
+com bases oficiais do poder público ainda exige esforço manual da equipe do
+NASF, e a ampliação do uso da plataforma depende de maior articulação
+institucional entre IFRS e Prefeitura. Assim, o impacto social do sistema tende
+a crescer conforme essas frentes sejam fortalecidas.
 
-Apesar dos avanços obtidos, permanecem limitações relevantes. A ausência
-de integração com bases oficiais do poder público mantém elevado o
-esforço manual da equipe do NASF no cadastro de informações públicas e
-reduz o foco nas interações com as mães atendidas pelo programa.
-
-Outra limitação está na baixa divulgação e no baixo engajamento
-institucional em torno da plataforma, tanto na prefeitura quanto no
-IFRS, o que reduz o alcance prático de uma solução que já se encontra
-funcional em produção, com aplicativo, painel e infraestrutura operando
-de forma integrada.
-
-Assim, conclui-se que o trabalho atingiu seu propósito ao entregar base
-mais segura, administrável e sustentável para a continuidade do projeto.
-Mais do que atualização tecnológica, a proposta preservou o valor social
-do sistema e ampliou sua capacidade de apoiar, de forma digital, a
-comunicação entre os serviços de saúde e as mães atendidas pelo
-programa.
+Assim, conclui-se que o trabalho atingiu seu propósito ao entregar uma base
+mais segura, administrável e sustentável para a continuidade do projeto. Mais
+do que atualizar componentes, a proposta preservou o valor social do sistema e
+ampliou sua capacidade de apoiar, de forma digital, a comunicação entre os
+serviços de saúde e as mães atendidas pelo programa.
 
 \section{Trabalhos Futuros}
 
