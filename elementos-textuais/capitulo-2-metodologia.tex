@@ -65,7 +65,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Todo conteúdo educativo deve ser categorizado por faixa etária da criança (ex.: 0-6 meses para amamentação exclusiva), alinhando-se às diretrizes da OMS para promover o desenvolvimento infantil e reduzir desmame precoce. \\
 \hline
 \end{tabular}
-\caption{Regra de Negócio 1}
+\caption[RN01 -- Categorização de conteúdo por faixa etária]{Regra de Negócio 1}
 \label{tab:rn01}
 \end{table}
 
@@ -80,7 +80,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Dados pessoais de usuários (mães e crianças) devem ser processados em estrita conformidade com a LGPD, limitando coletas a essenciais e impondo anonimato em interações públicas para proteger privacidade em contextos de saúde. \\
 \hline
 \end{tabular}
-\caption{Regra de Negócio 2}
+\caption[RN02 -- Proteção de dados pessoais]{Regra de Negócio 2}
 \label{tab:rn02}
 \end{table}
 
@@ -95,7 +95,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Respostas a dúvidas de mães devem ser fornecidas por equipe multiprofissional (fonoaudióloga, nutricionista, psicóloga), refletindo a estrutura do NASF e priorizando suporte comunitário para inibir influências contrárias à amamentação. \\
 \hline
 \end{tabular}
-\caption{Regra de Negócio 3}
+\caption[RN03 -- Respostas a dúvidas de mães]{Regra de Negócio 3}
 \label{tab:rn03}
 \end{table}
 
@@ -110,7 +110,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Dados de usuários devem ser isolados por município para garantir que informações sensíveis não sejam compartilhadas entre diferentes localidades, respeitando a privacidade e as particularidades de cada região. \\
 \hline
 \end{tabular}
-\caption{Regra de Negócio 4}
+\caption[RN04 -- Isolamento de dados por município]{Regra de Negócio 4}
 \label{tab:rn04}
 \end{table}
 
@@ -125,7 +125,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & Métricas de uso (acessos, cadastros, dúvidas respondidas) devem rastrear impacto na promoção do aleitamento materno, alinhando-se aos objetivos do programa para redução de morbimortalidade neonatal. \\
 \hline
 \end{tabular}
-\caption{Regra de Negócio 5}
+\caption[RN05 -- Métricas de uso]{Regra de Negócio 5}
 \label{tab:rn05}
 \end{table}
 
@@ -140,7 +140,7 @@ As regras de negócio do Pró-Mamá foram definidas com base nas necessidades do
 \textbf{Descrição} & As notificações devem ser personalizadas com base na informação que esteja na faixa etária da criança ou um disparo geral para avisos, fomentando o engajamento das mães. \\
 \hline
 \end{tabular}
-\caption{Regra de Negócio 6}
+\caption[RN06 -- Notificações personalizadas]{Regra de Negócio 6}
 \label{tab:rn06}
 \end{table}
 
@@ -164,7 +164,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 1}
+\caption[RFAPI01 -- Persistência de dados]{Requisito Funcional 1}
 \label{tab:rfapi01}
 \end{table}
 
@@ -181,7 +181,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 2}
+\caption[RFAPI02 -- Autenticação de usuários]{Requisito Funcional 2}
 \label{tab:rfapi02}
 \end{table}
 
@@ -198,7 +198,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 3}
+\caption[RFAPI03 -- Autorização de usuários]{Requisito Funcional 3}
 \label{tab:rfapi03}
 \end{table}
 
@@ -215,7 +215,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 4}
+\caption[RFAPI04 -- Armazenamento de arquivos]{Requisito Funcional 4}
 \label{tab:rfapi04}
 \end{table}
 
@@ -232,7 +232,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 5}
+\caption[RFAPI05 -- Agendamento de notificações]{Requisito Funcional 5}
 \label{tab:rfapi05}
 \end{table}
 
@@ -250,7 +250,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 1}
+\caption[RNFAPI01 -- Privacidade dos dados dos usuários]{Requisito Não Funcional 1}
 \label{tab:rnfapi01}
 \end{table}
 
@@ -265,7 +265,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 2}
+\caption[RNFAPI02 -- Uso de HTTPS e certificado digital]{Requisito Não Funcional 2}
 \label{tab:rnfapi02}
 \end{table}
 
@@ -280,7 +280,7 @@ Para a \emph{API} e a infraestrutura \emph{web}, consideraram-se requisitos os e
 \textbf{Tipo} & Essencial \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 3}
+\caption[RNFAPI03 -- Escalabilidade para diferentes servidores]{Requisito Não Funcional 3}
 \label{tab:rnfapi03}
 \end{table}
 
@@ -307,7 +307,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 1}
+\caption[RFPANEL01 -- Cadastrar bairro]{Requisito Funcional 1}
 \label{tab:rfpanel01}
 \end{table}
 
@@ -326,7 +326,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 2}
+\caption[RFPANEL02 -- Cadastrar posto de saúde]{Requisito Funcional 2}
 \label{tab:rfpanel02}
 \end{table}
 
@@ -345,7 +345,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 3}
+\caption[RFPANEL03 -- Cadastrar informação]{Requisito Funcional 3}
 \label{tab:rfpanel03}
 \end{table}
 
@@ -364,7 +364,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 4}
+\caption[RFPANEL04 -- Cadastrar notificação]{Requisito Funcional 4}
 \label{tab:rfpanel04}
 \end{table}
 
@@ -383,7 +383,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 5}
+\caption[RFPANEL05 -- Cadastrar dúvida frequente]{Requisito Funcional 5}
 \label{tab:rfpanel05}
 \end{table}
 
@@ -402,7 +402,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 6}
+\caption[RFPANEL06 -- Cadastrar termos de uso]{Requisito Funcional 6}
 \label{tab:rfpanel06}
 \end{table}
 
@@ -422,7 +422,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 7}
+\caption[RFPANEL07 -- Responder dúvida do usuário]{Requisito Funcional 7}
 \label{tab:rfpanel07}
 \end{table}
 
@@ -441,7 +441,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 8}
+\caption[RFPANEL08 -- Alterar senha]{Requisito Funcional 8}
 \label{tab:rfpanel08}
 \end{table}
 
@@ -460,7 +460,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 9}
+\caption[RFPANEL09 -- Enviar e-mail na interação do Fale Conosco]{Requisito Funcional 9}
 \label{tab:rfpanel09}
 \end{table}
 
@@ -479,7 +479,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 10}
+\caption[RFPANEL10 -- Pré-visualizar informação]{Requisito Funcional 10}
 \label{tab:rfpanel10}
 \end{table}
 
@@ -498,7 +498,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 11}
+\caption[RFPANEL11 -- Remoção de conta]{Requisito Funcional 11}
 \label{tab:rfpanel11}
 \end{table}
 
@@ -517,7 +517,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
-\caption{Requisito Funcional 12}
+\caption[RFPANEL12 -- Exportação de relatórios]{Requisito Funcional 12}
 \label{tab:rfpanel12}
 \end{table}
 
@@ -535,7 +535,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 1}
+\caption[RNFPANEL01 -- Desenvolvimento em plataforma web]{Requisito Não Funcional 1}
 \label{tab:rnfpanel01}
 \end{table}
 
@@ -550,7 +550,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 2}
+\caption[RNFPANEL02 -- Acesso pela Internet]{Requisito Não Funcional 2}
 \label{tab:rnfpanel02}
 \end{table}
 
@@ -565,7 +565,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 3}
+\caption[RNPANEL03 -- Fornecimento de API para consumo das informações]{Requisito Não Funcional 3}
 \label{tab:rnfpanel03}
 \end{table}
 
@@ -580,7 +580,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Removido \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 4}
+\caption[RNPANEL04 -- Uso do banco MySQL]{Requisito Não Funcional 4}
 \label{tab:rnfpanel04}
 \end{table}
 
@@ -595,7 +595,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Inalterado \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 5}
+\caption[RNFPANEL05 -- Alta disponibilidade]{Requisito Não Funcional 5}
 \label{tab:rnfpanel05}
 \end{table}
 
@@ -610,7 +610,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 6}
+\caption[RNFPANEL06 -- Design responsivo]{Requisito Não Funcional 6}
 \label{tab:rnfpanel06}
 \end{table}
 
@@ -625,7 +625,7 @@ Vale ressaltar que nesse bloco, os requisitos foram retirados do texto do estuda
 \textbf{Estado} & Novo \\
 \hline
 \end{tabular}
-\caption{Requisito Não Funcional 7}
+\caption[RNPANEL07 -- Acesso por navegador web]{Requisito Não Funcional 7}
 \label{tab:rnfpanel07}
 \end{table}
 
