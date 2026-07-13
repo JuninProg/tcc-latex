@@ -57,6 +57,7 @@
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{pdfpages}			% Inclusão de arquivos PDF nos anexos
 \usepackage{array}            % Colunas com largura fixa e alinhamentos personalizados
 \usepackage{tabularx}        % Tabelas com colunas X adaptáveis
 \usepackage{longtable}        % Tabelas que quebram em múltiplas páginas
@@ -362,6 +363,13 @@
 \postextual
 % ----------------------------------------------------------
 
+\begin{anexosenv}
+\renewcommand{\thechapter}{\Roman{chapter}}
+
+\include{elementos-pos-textuais/anexos/anexo-a}
+
+\end{anexosenv}
+
 % ----------------------------------------------------------
 % Referências bibliográficas (Obrigatório)
 % ----------------------------------------------------------
@@ -390,21 +398,6 @@
 
 % \end{apendicesenv}
 % ---
-
-
-% ----------------------------------------------------------
-% Anexos (Opcional)
-% ----------------------------------------------------------
-% ---
-% Inicia os anexos
-% ---
-% \begin{anexosenv}
-
-% \include{elementos-pos-textuais/anexos/anexo-a}
-% \include{elementos-pos-textuais/anexos/anexo-b}
-% \include{elementos-pos-textuais/anexos/anexo-c}
-
-% \end{anexosenv}
 
 
 %---------------------------------------------------------------------
